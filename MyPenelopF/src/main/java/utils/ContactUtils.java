@@ -33,7 +33,7 @@ public class ContactUtils {
     
 	public ArrayList<Contact> createDummyContacts() throws IOException{
 		ArrayList<Contact> al = new ArrayList<Contact>();
-    	Contact user1 = new Contact("test@etna-alternance.net", "Jean", "Bgdu91");
+    	Contact user1 = new Contact("test@etna-alternance.net", "Jean", "Billaud");
     	Contact user2 = new Contact("test2@etna-alternance.net", "Aurel", "Castellarnau");
     	Contact user3 = new Contact("test3@etna-alternance.net", "Adolf", "Trump");
     	al.add(user1);

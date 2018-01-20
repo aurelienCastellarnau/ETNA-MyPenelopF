@@ -3,6 +3,8 @@
  */
 package classes;
 
+import java.util.ArrayList;
+
 import classes.Contact;
 import classes.Dashboard;
 import classes.Group;
@@ -30,7 +32,7 @@ public class Contact {
 	private Dashboard dashboard;
 	
 	// contact groups
-	private Group[] groups;
+	private ArrayList<Group> groups;
 	
 	// contact messages
 	private Message[] messages;
@@ -61,7 +63,7 @@ public class Contact {
 		// We need a "retrieve group and dashboard" logic
 	}
 	// surcharged full constructor
-	public Contact(String email, String surname, String name, Dashboard dashboard, Group[] groups, Message[] messages) {
+	public Contact(String email, String surname, String name, Dashboard dashboard, ArrayList<Group> groups, Message[] messages) {
 		this.id = Contact.increment();
 		this.email = email;
 		this.surname = surname;
@@ -87,10 +89,10 @@ public class Contact {
 	
 	// mutators
 
-	public Group[] getGroups() {
+	public ArrayList<Group> getGroups() {
 		return groups;
 	}
-	public void setGroups(Group[] groups) {
+	public void setGroups(ArrayList<Group> groups) {
 		this.groups = groups;
 	}
 	public Message[] getMessages() {

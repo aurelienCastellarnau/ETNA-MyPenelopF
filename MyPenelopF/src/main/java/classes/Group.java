@@ -12,6 +12,8 @@ public class Group {
 	
 	private ArrayList<Project> projects;
 	
+	private ArrayList<Message> messages;
+	
 	// Database auto-increment id simulation, must be enhanced by a "retrieveLastId" method
 	static private int autoincrement = 0;
 	static private int increment() {
@@ -23,17 +25,18 @@ public class Group {
 	
 	//Surcharged minimal constructor
 	public Group(String name) {
-		this.setId(Group.increment());
+		this.id = Group.increment();
 	}
 	
+	//Surchaged complete constructor
 	public Group(String name, ArrayList<Contact> users) {
-		this.setId(Group.increment());
-		this.setName(name);
-		this.setUsers(users); 
+		this.id = Group.increment();
+		this.name = name;
+		this.users = users;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -41,7 +44,7 @@ public class Group {
 	}
 
 	public ArrayList<Contact> getUsers() {
-		return users;
+		return this.users;
 	}
 
 	public void setUsers(ArrayList<Contact> users) {
@@ -49,7 +52,7 @@ public class Group {
 	}
 
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Integer id) {
@@ -57,11 +60,19 @@ public class Group {
 	}
 	
 	public ArrayList<Project> getProjects() {
-		return projects;
+		return this.projects;
 	}
 
 	public void setProjects(ArrayList<Project> projects) {
 		this.projects = projects;
+	}
+	
+	public ArrayList<Message> getMessages() {
+		return this.messages;
+	}
+
+	public void setMessages(ArrayList<Message> messages) {
+		this.messages = messages;
 	}
 	
 	public void addUser(Contact user) {
@@ -83,6 +94,17 @@ public class Group {
 	public void deleteProject(Project project) {
 		if (this.projects.contains(project)) {
 			this.projects.remove(project);
+		}
+	}
+	
+	public void addMessage(Message message) {
+		if (!this.messages.contains(message))
+			this.messages.add(message);
+	}
+	
+	public void deleteMessage(Message message) {
+		if (this.messages.contains(message)) {
+			this.messages.remove(message);
 		}
 	}
 	
