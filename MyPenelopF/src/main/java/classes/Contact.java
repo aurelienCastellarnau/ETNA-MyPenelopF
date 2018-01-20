@@ -37,16 +37,32 @@ public class Contact {
 	
 	private Project[] projects;
 
+	// Database auto-increment id simulation, must be enhanced by a "retrieveLastId" method
+	static private int autoincrement = 0;
+	static private int increment() {
+		return ++Contact.autoincrement;
+	}
+	
 	// default constructor
 	public Contact() {}
 	// surcharged minimal constructor
 	public Contact(String email, String surname, String name) {
+		this.id = Contact.increment();
 		this.email = email;
 		this.name = name;
 		this.surname = surname;
 	}
+	// surcharged 'existing user' constructor
+	public Contact(int id, String email, String surname, String name) {
+		this.id = id;
+		this.email = email;
+		this.name = name;
+		this.surname = surname;
+		// We need a "retrieve group and dashboard" logic
+	}
 	// surcharged full constructor
 	public Contact(String email, String surname, String name, Dashboard dashboard, Group[] groups, Message[] messages) {
+		this.id = Contact.increment();
 		this.email = email;
 		this.surname = surname;
 		this.name = name;
