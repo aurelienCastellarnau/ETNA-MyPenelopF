@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import classes.Contact;
+import controllers.ContactController;
 import utils.PenelopDevLogger;
 import utils.ContactUtils;
 import utils.FileSystemManager;
@@ -19,6 +20,7 @@ public class App
     	final PenelopDevLogger log = PenelopDevLogger.get();
     	final ContactUtils cUtils = ContactUtils.get();
     	final FileSystemManager fsm = FileSystemManager.get();
+    	final ContactController cCtrl = new ContactController();
     	// Local variables declaration
         ArrayList<Contact> retrievedContacts;
         ArrayList<Contact> al = cUtils.createDummyContacts();
@@ -27,6 +29,6 @@ public class App
         // retrieved contacts 
         retrievedContacts = cUtils.getContacts();
         log.contacts(retrievedContacts);
-        new BaseFrame(retrievedContacts);
+        new BaseFrame(cCtrl, retrievedContacts);
     }
 }

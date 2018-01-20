@@ -1,6 +1,7 @@
 package ihm;
 
 import ihm.contact.ContactPanel;
+import ihm.contact.CreateContact;
 
 import java.awt.CardLayout;
 import java.awt.GridLayout;
@@ -10,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import classes.Contact;
+import controllers.ContactController;
 
 public class BaseFrame extends JFrame {
 	/**
@@ -18,6 +20,7 @@ public class BaseFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	FormBuilder _fb = new FormBuilder();
 	ContactPanel contactPanel;
+	CreateContact createContact;
 	CardLayout cl = new CardLayout();
 
 	public BaseFrame() {
@@ -31,7 +34,7 @@ public class BaseFrame extends JFrame {
         frame.setVisible(true);
 	}
 	
-	public BaseFrame(ArrayList<Contact> users) {
+	public BaseFrame(ContactController cCtrl, ArrayList<Contact> users) {
         JFrame frame = new JFrame("Users");
 		GridLayout gl = this.getGridLayout(2, 3, 5);
         frame.setTitle("Users: ");
@@ -40,11 +43,14 @@ public class BaseFrame extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocation(250, 250);
         this.contactPanel = new ContactPanel(new JPanel(), cl, users);
+        this.createContact = new CreateContact(new JPanel());
+        this.createContact.addCreateContactListener(cCtrl);
         JPanel boutonPane = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
         this.setSize(800, 800);
         this.setLayout(gl);
         this.getContentPane().add(boutonPane);
         this.getContentPane().add(this.contactPanel.getPan());
+        this.getContentPane().add(this.createContact.getPan());
         this.setVisible(true);
 	}
 	

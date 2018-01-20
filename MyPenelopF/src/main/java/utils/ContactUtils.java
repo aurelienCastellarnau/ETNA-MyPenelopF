@@ -42,6 +42,10 @@ public class ContactUtils {
     	return al;
 	}
 	
+	public void addContact(Contact c) throws IOException {
+		
+	}
+	
 	public ArrayList<Contact> getContacts() throws IOException{
 		int id = 0;
 		ArrayList<Contact> users = new ArrayList<Contact>();
