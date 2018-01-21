@@ -4,14 +4,23 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
 import classes.Contact;
 
+/**
+ * 
+ * @author jean
+ * Classe permettant les opérations du CRUD sur l'entité Contact
+ * Implemente un pattern Singleton
+ * Implémente un pattern Observer
+ */
 public class ContactUtils {
 	
+	private final Collection<ContactListener> contactListeners = new ArrayList<ContactListener>();
 	// Singleton implementation
 	private ContactUtils() {}
 	/** Holder */
@@ -31,7 +40,7 @@ public class ContactUtils {
     	return SingletonHolder.instance;
     }
     
-	public ArrayList<Contact> createDummyContacts() throws IOException{
+	public ArrayList<Contact> createDummyContacts() {
 		ArrayList<Contact> al = new ArrayList<Contact>();
     	Contact user1 = new Contact("test@etna-alternance.net", "Jean", "Billaud");
     	Contact user2 = new Contact("test2@etna-alternance.net", "Aurel", "Castellarnau");
@@ -43,7 +52,10 @@ public class ContactUtils {
 	}
 	
 	public void addContact(Contact c) throws IOException {
-		
+		ArrayList<Contact> users = this.getContacts();
+		users.add(c);
+		FileSystemManager.get().writeContacts(users);
+		this.triggerContactChange();
 	}
 	
 	public ArrayList<Contact> getContacts() throws IOException{
@@ -68,5 +80,18 @@ public class ContactUtils {
         	}
         }
         return users;
+	}
+	
+	// Observer pattern
+	public void addContactListener(ContactListener listener) {
+		this.contactListeners.add(listener);
+	}
+	public void removeContactListener(ContactListener listener) {
+		this.contactListeners.remove(listener);
+	}
+	public void triggerContactChange() {
+		for (ContactListener listener: this.contactListeners) {
+			listener.ContactChangeTriggered();
+		}
 	}
 }
