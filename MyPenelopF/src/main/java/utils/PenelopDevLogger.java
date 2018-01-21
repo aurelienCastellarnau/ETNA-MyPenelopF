@@ -3,6 +3,7 @@ package utils;
 import java.util.ArrayList;
 
 import classes.Contact;
+import classes.Group;
 
 public class PenelopDevLogger {
 
@@ -28,5 +29,16 @@ public class PenelopDevLogger {
         	System.out.println("Email: " + c.getEmail());
         	System.out.println("Surname: " + c.getSurname());
         	System.out.println("Name: " + c.getName());
+	}
+	
+	public void groups(ArrayList<Group> groups) {
+		for (Group g: groups) {
+			System.out.println("Group n" + g.getId());
+			System.out.println("Name: " + g.getName());
+		}
+	}
+	public void group(Group g) {
+    	System.out.println("Group n°" + g.getId() + " added to users.");
+    	System.out.println("Name: " + g.getName());
 	}
 }

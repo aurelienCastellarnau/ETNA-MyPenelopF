@@ -31,6 +31,7 @@ public class Group {
 	//Surcharged minimal constructor
 	public Group(String name) {
 		this.id = Group.increment();
+		this.name = name;
 	}
 	
 	//Surchaged complete constructor
