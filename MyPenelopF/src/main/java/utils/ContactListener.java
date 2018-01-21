@@ -1,5 +1,7 @@
 package utils;
 
+import classes.Contact;
+
 /**
  * 
  * @author aurelien
@@ -9,4 +11,8 @@ package utils;
  */
 public interface ContactListener {
 	void ContactChangeTriggered();
+	void ShowUpdateTriggered(Contact c);
+	void DeleteContactTriggered(Contact dContact);
+	void CreateContactTriggered(Contact nContact);
+	void UpdateContactTriggered(Contact uContact);
 }

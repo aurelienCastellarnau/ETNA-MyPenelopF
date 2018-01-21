@@ -3,11 +3,8 @@ import java.util.ArrayList;
 
 import classes.Contact;
 import controllers.ContactController;
-import utils.PenelopDevLogger;
 import utils.ContactUtils;
 import utils.FileSystemManager;
-
-import ihm.BaseFrame;
 
 /*
  * MyPenelopeF entry point
