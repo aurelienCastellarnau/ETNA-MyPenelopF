@@ -60,6 +60,21 @@ public class ContactUtils implements ContactObserver {
 		FileSystemManager.get().writeContacts(users);
 		this.triggerContactChange();
 	}
+
+	public void updateContact(Contact c) throws IOException {
+		ArrayList<Contact> users = this.getContacts();
+		for (Contact user: users) {
+			if (user.getId() == c.getId()) {
+				int i = users.indexOf(user);
+				users.set(i, c);
+				System.out.println("ContactUtils.UpdateContact :");
+				log.contacts(users);
+				FileSystemManager.get().writeContacts(users);
+				this.triggerContactChange();
+				return;
+			}
+		}
+	}
 	
 	public void removeContact(Contact c) throws IOException {
 		System.out.println("into remove contact");

@@ -77,6 +77,29 @@ public class BaseFrame extends JFrame {
 	
 	/**
 	 * 
+	 * @param Contact c
+	 * BaseFrame for Contact Update
+	 * Display ContactForm with c
+	 * Allow to update a Contact
+	 */
+	public BaseFrame(ContactController cCtrl, Contact c) {
+		this.cCtrl = cCtrl;
+        JFrame frame = new JFrame("Users");
+		GridLayout gl = new GridLayout(3, 2, 5, 5);
+        frame.setTitle("Update User: ");
+        frame.setResizable(true);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocation(250, 250);
+        this.updateContact = new ContactForm(new JPanel(), c);
+        this.updateContact.addContactListener(this.cCtrl);
+        this.setSize(800, 800);
+        this.setLayout(gl);
+        this.getContentPane().add(this.updateContact.getPan());
+        this.setVisible(true);
+	}
+	/**
+	 * 
 	 * @param contacts
 	 * recreate the content of the ContactPanel view
 	 * remove and add createContact to preserve order.
