@@ -23,4 +23,10 @@ public class PenelopDevLogger {
         	System.out.println("Name: " + c.getName());
         }
 	}
+	public void contact(Contact c) {
+        	System.out.println("User n°" + c.getId() + " added to users.");
+        	System.out.println("Email: " + c.getEmail());
+        	System.out.println("Surname: " + c.getSurname());
+        	System.out.println("Name: " + c.getName());
+	}
 }

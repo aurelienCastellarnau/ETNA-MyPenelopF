@@ -1,51 +1,94 @@
 package ihm;
 
-import ihm.BasePanel;
+import ihm.contact.ContactPanel;
+import ihm.contact.CreateContact;
 
-import java.lang.reflect.Array;
+import java.awt.CardLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.swing.JFrame;
-import javax.swing.JList;
+import javax.swing.JPanel;
 
 import classes.Contact;
+import controllers.ContactController;
 
+/**
+ * 
+ * @author aurelien
+ * This classe allow us to declare base views for each entities
+ * in few time we will split those constructors in several classes
+ */
 public class BaseFrame extends JFrame {
 	/**
 	 * JFrame implementation requirement
 	 */
 	private static final long serialVersionUID = 1L;
+	FormBuilder _fb = new FormBuilder();
+	ContactPanel contactPanel;
+	CreateContact createContact;
+	JPanel buttonPane;
+	CardLayout cl = new CardLayout();
 
 	public BaseFrame() {
         JFrame frame = new JFrame("FrameDemo");
-
         frame.setTitle("Ma première fenêtre Java");
         frame.setSize(400, 100);
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocation(250, 250);
-        frame.setContentPane(new BasePanel());
         frame.setVisible(true);
 	}
 	
-	public BaseFrame(ArrayList<Contact> users) {
-        JFrame frame = new JFrame("FrameDemo");
-        int ref = 0;
-        String[] tmp = new String[users.size()];
-        for (Contact user: users) {
-        	tmp[ref] = "User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName();
-        	ref++;
-        }
+	/**
+	 * 
+	 * @param cCtrl
+	 * @param users
+	 * BaseFrame for Contact Crud
+	 * Display result of getContacts in ContactPanel
+	 * Allow to create and write a new Contact list in CreateContact
+	 * buttonPane stock an instance of FormBuilder.getNavPanel
+	 * wich can be reuse with another CardLayout/JPanel display
+	 */
+	public BaseFrame(ContactController cCtrl, ArrayList<Contact> users) {
+        JFrame frame = new JFrame("Users");
+		GridLayout gl = new GridLayout(3, 2, 5, 5);
         frame.setTitle("Users: ");
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocation(250, 250);
-        frame.setSize(800, 800);
-        JList list = new JList(tmp);
-        frame.add(list);
-        frame.setVisible(true);
+        this.contactPanel = new ContactPanel(new JPanel(), this.cl, users);
+        this.createContact = new CreateContact(new JPanel());
+        this.createContact.addCreateContactListener(cCtrl);
+        this.buttonPane = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
+        this.setSize(800, 800);
+        this.setLayout(gl);
+        this.getContentPane().add(this.buttonPane);
+        this.getContentPane().add(this.contactPanel.getPan());
+        this.getContentPane().add(this.createContact.getPan());
+        this.setVisible(true);
+	}
+	
+	/**
+	 * 
+	 * @param contacts
+	 * recreate the content of the ContactPanel view
+	 * remove and add createContact to preserve order.
+	 * See for a non-destroying solution...
+	 */
+	public void refreshContactPanel(ArrayList<Contact> contacts) {
+		this.getContentPane().remove(this.buttonPane);
+		this.getContentPane().remove(this.contactPanel.getPan());
+		this.getContentPane().remove(this.createContact.getPan());
+		this.cl = new CardLayout();
+		this.contactPanel = new ContactPanel(new JPanel(), this.cl, contacts);
+        this.buttonPane = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
+        this.getContentPane().add(this.buttonPane);
+        this.getContentPane().add(this.contactPanel.getPan());
+		this.getContentPane().add(this.createContact.getPan());
+        this.setVisible(true);
 	}
 }
+

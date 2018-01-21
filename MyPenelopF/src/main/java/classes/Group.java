@@ -2,6 +2,11 @@ package classes;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author jean
+ *
+ */
 public class Group {
 	
 	private Integer id;
