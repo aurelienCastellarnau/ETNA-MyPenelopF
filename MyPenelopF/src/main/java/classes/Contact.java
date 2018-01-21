@@ -3,12 +3,15 @@
  */
 package classes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import classes.Contact;
 import classes.Dashboard;
 import classes.Group;
 import classes.Message;
+import utils.ContactUtils;
+import utils.FileSystemManager;
 
 /**
  * @author aurelien
@@ -44,11 +47,25 @@ public class Contact {
 	static private int increment() {
 		return ++Contact.autoincrement;
 	}
-	
+	private int lastId() {
+		try {
+			ArrayList<Contact> users = ContactUtils.get().getContacts();
+			int id = 0;
+			for (Contact c: users) {
+				if (c.getId() > id)
+					id = c.getId();
+			}
+			return id;
+		} catch (IOException e) {
+			System.out.println("Exception throwed from Contact.lastId(): " + e.getMessage());
+		}
+		return 0;
+	}
 	// default constructor
 	public Contact() {}
 	// surcharged minimal constructor
 	public Contact(String email, String surname, String name) {
+		Contact.autoincrement = this.lastId();
 		this.id = Contact.increment();
 		this.email = email;
 		this.name = name;
