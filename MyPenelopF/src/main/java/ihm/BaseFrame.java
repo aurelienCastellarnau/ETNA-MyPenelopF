@@ -1,7 +1,7 @@
 package ihm;
 
+import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
-import ihm.contact.CreateContact;
 
 import java.awt.CardLayout;
 import java.awt.GridLayout;
@@ -24,9 +24,11 @@ public class BaseFrame extends JFrame {
 	 * JFrame implementation requirement
 	 */
 	private static final long serialVersionUID = 1L;
+	ContactController cCtrl;
 	FormBuilder _fb = new FormBuilder();
 	ContactPanel contactPanel;
-	CreateContact createContact;
+	ContactForm createContact;
+	ContactForm updateContact;
 	JPanel buttonPane;
 	CardLayout cl = new CardLayout();
 
@@ -52,6 +54,7 @@ public class BaseFrame extends JFrame {
 	 * wich can be reuse with another CardLayout/JPanel display
 	 */
 	public BaseFrame(ContactController cCtrl, ArrayList<Contact> users) {
+		this.cCtrl = cCtrl;
         JFrame frame = new JFrame("Users");
 		GridLayout gl = new GridLayout(3, 2, 5, 5);
         frame.setTitle("Users: ");
@@ -60,8 +63,8 @@ public class BaseFrame extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocation(250, 250);
         this.contactPanel = new ContactPanel(new JPanel(), this.cl, users);
-        this.createContact = new CreateContact(new JPanel());
         this.createContact.addCreateContactListener(cCtrl);
+        this.createContact = new ContactForm(new JPanel());
         this.buttonPane = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
         this.setSize(800, 800);
         this.setLayout(gl);
