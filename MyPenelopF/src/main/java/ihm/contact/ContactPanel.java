@@ -8,6 +8,15 @@ import javax.swing.JPanel;
 
 import classes.Contact;
 
+/**
+ * 
+ * @author aurelien
+ * ContactPanel define the JPanel to display an
+ * ArrayList of Contact
+ * It take an external JPanel and CardLayout
+ * to allow us to reuse those container
+ * from controller to add further logic
+ */
 public class ContactPanel extends JPanel {
 	
 	/**
@@ -20,7 +29,7 @@ public class ContactPanel extends JPanel {
 	public ContactPanel(JPanel pan, CardLayout cl, ArrayList<Contact> users) {
 		this.pan = pan;
 		this.cl = cl;
-		this.pan.setLayout(cl);
+		this.pan.setLayout(this.cl);
 	    for (Contact user: users) 
 	    {
 	    	JLabel tmp = new JLabel("User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName());
@@ -30,6 +39,7 @@ public class ContactPanel extends JPanel {
 	    }
 	}
 	
+	// Individual components accessors
 	public JPanel getPan() {
 		return this.pan;
 	}

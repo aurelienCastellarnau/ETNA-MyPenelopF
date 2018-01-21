@@ -1,7 +1,5 @@
 package ihm.contact;
 
-
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,7 +30,7 @@ public class CreateContact extends JPanel{
 	private final Collection<CreateContactListener> createContactListeners = new ArrayList<CreateContactListener>();
 	
 	public CreateContact(JPanel pan) {
-		GridLayout gl = this.getGridLayout(1, 5, 5);
+		GridLayout gl = new GridLayout(1, 5, 5, 5);
 		this.pan = pan;
 		this.pan.setLayout(gl);
 		this.pan.add(this.title);
@@ -82,14 +80,5 @@ public class CreateContact extends JPanel{
 		for (CreateContactListener listener: this.createContactListeners) {
 			listener.CreateContactTriggered(contact);
 		}
-	}
-	//
-	private GridLayout getGridLayout(int cols, int rows, int gap) {
-		GridLayout gl = new GridLayout();
-		gl.setColumns(cols);
-		gl.setRows(rows);
-		gl.setHgap(gap);
-		gl.setVgap(gap);
-		return gl;
 	}
 }

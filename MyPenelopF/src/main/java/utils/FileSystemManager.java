@@ -8,6 +8,11 @@ import com.google.gson.Gson;
 
 import classes.Contact;
 
+/**
+ * 
+ * @author jean
+ * 
+ */
 public class FileSystemManager {
 
 	String project_path = System.getProperty("user.dir");
