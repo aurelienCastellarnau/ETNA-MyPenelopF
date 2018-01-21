@@ -21,6 +21,7 @@ import utils.PenelopDevLogger;
 public class ContactController implements ContactListener {
 	// Singletons calls on utilitarie classes
 	public BaseFrame base;
+	public BaseFrame uForm;
 	final static PenelopDevLogger log = PenelopDevLogger.get();
 	final static ContactUtils cUtils = ContactUtils.get();
 	
@@ -57,6 +58,22 @@ public class ContactController implements ContactListener {
 		}
 	}
 
+	public void ShowUpdateTriggered(Contact c) {
+    	System.out.println("SHOW UPDATE CONTACT WITH:");
+		log.contact(c);
+		this.uForm = new BaseFrame(this, c);
+	}
+	
+	public void UpdateContactTriggered(Contact uContact) {
+    	System.out.println("CREATE CONTACT");
+		log.contact(uContact);
+		try {
+			cUtils.updateContact(uContact);
+		} catch (IOException e) {
+			System.out.println("Exceptions throwed removing contact: " + e.getMessage());
+		}
+	}
+	
 	public void ContactChangeTriggered() {
 		this.refreshContact();
 	}
@@ -70,15 +87,5 @@ public class ContactController implements ContactListener {
         } catch (IOException e) {
         	System.out.println("ContactController.initContact/cUtils.getContacts throwed: " + e.getMessage());
         }
-	}
-
-	public void ShowUpdateTriggered(Contact c) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void UpdateContactTriggered(Contact uContact) {
-		// TODO Auto-generated method stub
-		
 	}
 }

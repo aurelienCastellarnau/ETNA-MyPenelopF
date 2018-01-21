@@ -50,7 +50,14 @@ public class ContactPanel extends JPanel implements ContactObserver {
 		     		self.triggerDeleteContact(user);
 		     	}
 	        });
+	        JButton up = new JButton("Update");
+	        up.addActionListener(new ActionListener() {
+		     	public void actionPerformed(ActionEvent event) {
+		     		self.triggerShowUpdate(user);
+		     	}
+	        });
 	     	card.add(tmp);
+	     	card.add(up);
 	        card.add(del);
 	        this.pan.add(card, user.getId().toString());
 	    }
