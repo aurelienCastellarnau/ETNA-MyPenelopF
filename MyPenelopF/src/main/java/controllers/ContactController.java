@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import classes.Contact;
 import ihm.BaseFrame;
-import ihm.contact.CreateContactListener;
 import utils.ContactListener;
 import utils.ContactUtils;
 import utils.PenelopDevLogger;
@@ -19,7 +18,7 @@ import utils.PenelopDevLogger;
  * implement observer pattern (interface CreateContactListener work with ihm.contact.CreateContact)
  * Calls on singletons.
  */
-public class ContactController implements CreateContactListener, ContactListener {
+public class ContactController implements ContactListener {
 	// Singletons calls on utilitarie classes
 	public BaseFrame base;
 	final static PenelopDevLogger log = PenelopDevLogger.get();
@@ -47,6 +46,16 @@ public class ContactController implements CreateContactListener, ContactListener
 			System.out.println("Exceptions throwed adding contact: " + e.getMessage());
 		}
 	}
+	
+	public void DeleteContactTriggered(Contact dContact) {
+    	System.out.println("DELETE CONTACT");
+		log.contact(dContact);
+		try {
+			cUtils.removeContact(dContact);
+		} catch (IOException e) {
+			System.out.println("Exceptions throwed removing contact: " + e.getMessage());
+		}
+	}
 
 	public void ContactChangeTriggered() {
 		this.refreshContact();
@@ -61,5 +70,15 @@ public class ContactController implements CreateContactListener, ContactListener
         } catch (IOException e) {
         	System.out.println("ContactController.initContact/cUtils.getContacts throwed: " + e.getMessage());
         }
+	}
+
+	public void ShowUpdateTriggered(Contact c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void UpdateContactTriggered(Contact uContact) {
+		// TODO Auto-generated method stub
+		
 	}
 }

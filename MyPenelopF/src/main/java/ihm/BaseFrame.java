@@ -63,8 +63,9 @@ public class BaseFrame extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocation(250, 250);
         this.contactPanel = new ContactPanel(new JPanel(), this.cl, users);
-        this.createContact.addCreateContactListener(cCtrl);
+        this.contactPanel.addContactListener(this.cCtrl);
         this.createContact = new ContactForm(new JPanel());
+        this.createContact.addContactListener(this.cCtrl);
         this.buttonPane = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
         this.setSize(800, 800);
         this.setLayout(gl);
@@ -87,6 +88,7 @@ public class BaseFrame extends JFrame {
 		this.getContentPane().remove(this.createContact.getPan());
 		this.cl = new CardLayout();
 		this.contactPanel = new ContactPanel(new JPanel(), this.cl, contacts);
+        this.contactPanel.addContactListener(this.cCtrl);
         this.buttonPane = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
         this.getContentPane().add(this.buttonPane);
         this.getContentPane().add(this.contactPanel.getPan());

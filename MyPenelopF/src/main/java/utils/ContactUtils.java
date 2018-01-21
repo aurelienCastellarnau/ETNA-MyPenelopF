@@ -20,9 +20,10 @@ import classes.Contact;
  * l'observer permet de déclencher un refresh du model
  * lors d'une modification 
  */
-public class ContactUtils {
+public class ContactUtils implements ContactObserver {
 	
 	private final Collection<ContactListener> contactListeners = new ArrayList<ContactListener>();
+	private PenelopDevLogger log = PenelopDevLogger.get();
 	// Singleton implementation
 	private ContactUtils() {}
 	/** Holder */
@@ -58,6 +59,20 @@ public class ContactUtils {
 		users.add(c);
 		FileSystemManager.get().writeContacts(users);
 		this.triggerContactChange();
+	}
+	
+	public void removeContact(Contact c) throws IOException {
+		System.out.println("into remove contact");
+		ArrayList<Contact> users = this.getContacts();
+		System.out.println("remove contact");
+		for (Contact user: users) {
+			if (user.getId() == c.getId()) {
+				users.remove(user);
+				FileSystemManager.get().writeContacts(users);
+				this.triggerContactChange();
+				return;
+			}
+		}
 	}
 	
 	public ArrayList<Contact> getContacts() throws IOException{
@@ -96,4 +111,8 @@ public class ContactUtils {
 			listener.ContactChangeTriggered();
 		}
 	}
+	public void triggerCreateContact(Contact c) {}
+	public void triggerUpdateContact(Contact c) {}
+	public void triggerDeleteContact(Contact c) {}
+	public void triggerShowUpdate(Contact c) {}
 }
