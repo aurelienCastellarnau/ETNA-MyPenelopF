@@ -30,7 +30,7 @@ public class CreateContact extends JPanel{
 	private final Collection<CreateContactListener> createContactListeners = new ArrayList<CreateContactListener>();
 	
 	public CreateContact(JPanel pan) {
-		GridLayout gl = new GridLayout(1, 5, 5, 5);
+		GridLayout gl = new GridLayout(5, 1, 5, 5);
 		this.pan = pan;
 		this.pan.setLayout(gl);
 		this.pan.add(this.title);

@@ -53,7 +53,7 @@ public class BaseFrame extends JFrame {
 	 */
 	public BaseFrame(ContactController cCtrl, ArrayList<Contact> users) {
         JFrame frame = new JFrame("Users");
-		GridLayout gl = new GridLayout(2, 3, 5, 5);
+		GridLayout gl = new GridLayout(3, 2, 5, 5);
         frame.setTitle("Users: ");
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);

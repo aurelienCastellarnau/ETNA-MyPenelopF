@@ -17,6 +17,8 @@ import classes.Contact;
  * Classe permettant les opérations du CRUD sur l'entité Contact
  * Implemente un pattern Singleton
  * Implémente un pattern Observer
+ * l'observer permet de déclencher un refresh du model
+ * lors d'une modification 
  */
 public class ContactUtils {
 	
