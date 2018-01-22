@@ -14,8 +14,6 @@ import javax.swing.JTextField;
 import classes.Contact;
 import classes.Group;
 import ihm.FormBuilder;
-import ihm.contact.CreateContact;
-import ihm.contact.CreateContactListener;
 
 public class CreateGroup extends JPanel{
 

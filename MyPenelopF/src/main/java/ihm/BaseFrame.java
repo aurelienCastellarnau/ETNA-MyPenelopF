@@ -2,7 +2,6 @@ package ihm;
 
 import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
-import ihm.contact.CreateContact;
 import ihm.group.CreateGroup;
 import ihm.group.GroupPanel;
 
@@ -97,8 +96,8 @@ public class BaseFrame extends JFrame {
         this.setSize(800, 800);
         this.setLayout(gl);
         this.getContentPane().add(this.buttonPane);
-        this.getContentPane().add(this.contactPanel.getPan());
-        this.getContentPane().add(this.createContact.getPan());
+        this.getContentPane().add(this.groupPanel.getPan());
+        this.getContentPane().add(this.createGroup.getPan());
         this.setVisible(true);
 	}
 
