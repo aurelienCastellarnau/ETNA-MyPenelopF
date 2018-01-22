@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 import com.google.gson.Gson;
@@ -40,18 +41,18 @@ public class ContactUtils implements ContactObserver {
         private final static ContactUtils instance = new ContactUtils();
     }
     public static ContactUtils get() {
-    	return SingletonHolder.instance;
+    		return SingletonHolder.instance;
     }
     
 	public ArrayList<Contact> createDummyContacts() {
 		ArrayList<Contact> al = new ArrayList<Contact>();
-    	Contact user1 = new Contact("test@etna-alternance.net", "Jean", "Billaud");
-    	Contact user2 = new Contact("test2@etna-alternance.net", "Aurel", "Castellarnau");
-    	Contact user3 = new Contact("test3@etna-alternance.net", "Adolf", "Trump");
-    	al.add(user1);
-    	al.add(user2);
-    	al.add(user3);
-    	return al;
+    		Contact user1 = new Contact("test@etna-alternance.net", "Jean", "Billaud");
+    		Contact user2 = new Contact("test2@etna-alternance.net", "Aurel", "Castellarnau");
+    		Contact user3 = new Contact("test3@etna-alternance.net", "Adolf", "Trump");
+    		al.add(user1);
+    		al.add(user2);
+    		al.add(user3);
+    		return al;
 	}
 	
 	public void addContact(Contact c) throws IOException {
@@ -91,26 +92,27 @@ public class ContactUtils implements ContactObserver {
 	}
 	
 	public ArrayList<Contact> getContacts() throws IOException{
-		int id = 0;
 		ArrayList<Contact> users = new ArrayList<Contact>();
 		String project_path = System.getProperty("user.dir");
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(project_path + "/users.json"));
 
         Gson gson = new Gson();
-        Object json = gson.fromJson(bufferedReader, ArrayList.class);
+        Contact[] json = gson.fromJson(bufferedReader, Contact[].class);
+        // Portion de code a supprimer en cas de probleme au niveau des ids
         // safe casting emulation, we can't avoid the warning: https://stackoverflow.com/questions/20275623/type-safety-unchecked-cast-from-object-to-arraylistmyvariable
-        ArrayList<LinkedTreeMap> object = (json instanceof ArrayList<?>) ? (ArrayList<LinkedTreeMap>) json : null;
-        for (LinkedTreeMap obj: object) {
-        	try {
-        		id = new Float(obj.get("id").toString()).intValue();
-        	} catch (NumberFormatException e) {
-        		System.out.println("Exception throwed in getUsers(): " + e.getMessage());
-        	}
-        	if (id != 0) {
-        		Contact user = new Contact(id, obj.get("email").toString(), obj.get("surname").toString(), obj.get("name").toString());
-        		users.add(user);
-        	}
-        }
+//        ArrayList<LinkedTreeMap> object = (json instanceof ArrayList<?>) ? (ArrayList<LinkedTreeMap>) json : null;
+//        for (LinkedTreeMap obj: object) {
+//        	try {
+//        		id = new Float(obj.get("id").toString()).intValue();
+//        	} catch (NumberFormatException e) {
+//        		System.out.println("Exception throwed in getUsers(): " + e.getMessage());
+//        	}
+//        	if (id != 0) {
+//        		Contact user = new Contact(id, obj.get("email").toString(), obj.get("surname").toString(), obj.get("name").toString());
+//        		users.add(user);
+//        	}
+//        }
+        users = new ArrayList<Contact>(Arrays.asList(json));
         return users;
 	}
 	
