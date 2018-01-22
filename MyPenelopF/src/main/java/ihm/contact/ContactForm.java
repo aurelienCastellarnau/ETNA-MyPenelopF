@@ -11,10 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Observer.ContactListener;
+import Observer.ContactObserver;
 import classes.Contact;
 import ihm.FormBuilder;
-import utils.ContactListener;
-import utils.ContactObserver;
 import utils.PenelopDevLogger;
 
 public class ContactForm extends JPanel implements ContactObserver {

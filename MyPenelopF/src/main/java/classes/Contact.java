@@ -3,15 +3,14 @@
  */
 package classes;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
+import DAO.ContactDAO;
+import DataInterface.FileSystemManager;
 import classes.Contact;
 import classes.Dashboard;
 import classes.Group;
 import classes.Message;
-import utils.ContactUtils;
-import utils.FileSystemManager;
 
 /**
  * @author aurelien
@@ -48,18 +47,13 @@ public class Contact {
 		return ++Contact.autoincrement;
 	}
 	private int lastId() {
-		try {
-			ArrayList<Contact> users = ContactUtils.get().getContacts();
-			int id = 0;
-			for (Contact c: users) {
-				if (c.getId() > id)
-					id = c.getId();
+		ArrayList<Contact> users = ContactDAO.getInstance(FileSystemManager.get()).get();
+		int id = 0;
+		for (Contact c: users) {
+			if (c.getId() > id)
+				id = c.getId();
 			}
-			return id;
-		} catch (IOException e) {
-			System.out.println("Exception throwed from Contact.lastId(): " + e.getMessage());
-		}
-		return 0;
+		return id;
 	}
 	// default constructor
 	public Contact() {}

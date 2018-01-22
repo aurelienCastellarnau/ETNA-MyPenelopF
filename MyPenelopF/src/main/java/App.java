@@ -1,12 +1,7 @@
 import java.io.IOException;
-import java.util.ArrayList;
 
-import classes.Contact;
 import controllers.ContactController;
 import controllers.GroupController;
-import utils.PenelopDevLogger;
-import utils.ContactUtils;
-import utils.FileSystemManager;
 
 /*
  * MyPenelopeF entry point
@@ -18,14 +13,9 @@ public class App
     	// delete once FileSystem is legit and safe
     	// App.setDummyData();
     	// Controllers are the only actors in main
-//    	final ContactController cCtrl = new ContactController();
-//    	cCtrl.initContact();
-    		final GroupController cCtrl = new GroupController();
-    		cCtrl.initGroup();
-    }
-
-    static private void setDummyData() {
-        ArrayList<Contact> al = ContactUtils.get().createDummyContacts();
-        FileSystemManager.get().writeContacts(al);
+    	final ContactController cCtrl = new ContactController();
+    	cCtrl.initContact();
+    	final GroupController gCtrl = new GroupController();
+    	gCtrl.initGroup();
     }
 }
