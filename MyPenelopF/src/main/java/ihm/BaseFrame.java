@@ -5,12 +5,15 @@ import ihm.contact.ContactPanel;
 import ihm.group.CreateGroup;
 import ihm.group.GroupPanel;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 import classes.Contact;
 import classes.Group;
@@ -37,16 +40,30 @@ public class BaseFrame extends JFrame {
 	CreateGroup createGroup;
 	JPanel buttonPane;
 	CardLayout cl = new CardLayout();
+	private JSplitPane split;
 
 	public BaseFrame() {
-        JFrame frame = new JFrame("FrameDemo");
-        frame.setTitle("Ma première fenêtre Java");
-        frame.setSize(400, 100);
-        frame.setResizable(true);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocation(250, 250);
-        frame.setVisible(true);
+        this.setTitle("MyPenelopF");
+        this.setSize(800, 800);
+        this.setResizable(true);
+        this.setLayout(new BorderLayout());
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocation(250, 250);
+        //On crée deux conteneurs de couleurs différentes
+        JPanel pan = new JPanel();
+          
+        JPanel pan2 = new JPanel();
+          
+        //On construit enfin notre séparateur
+        split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pan, pan2);
+        
+        split.setOneTouchExpandable(true);
+          
+        //On le passe ensuite au content pane de notre objet Fenetre
+        //placé au centre pour qu'il utilise tout l'espace disponible
+        this.getContentPane().add(split, BorderLayout.CENTER);
+        this.setVisible(true);
 	}
 
 	/**
