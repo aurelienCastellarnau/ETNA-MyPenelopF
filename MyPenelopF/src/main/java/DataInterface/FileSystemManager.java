@@ -1,4 +1,4 @@
-package utils;
+package DataInterface;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import classes.Group;
  * @author jean
  * 
  */
-public class FileSystemManager {
+public class FileSystemManager implements DataInterface {
 
 	String project_path = System.getProperty("user.dir");
 	

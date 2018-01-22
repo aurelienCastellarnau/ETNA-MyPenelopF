@@ -1,4 +1,4 @@
-package utils;
+package Observer;
 
 import classes.Contact;
 
