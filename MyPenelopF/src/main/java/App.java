@@ -1,17 +1,10 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
-<<<<<<< HEAD
 import controllers.ContactController;
 import controllers.GroupController;
 import controllers.PenelopeController;
-import utils.PenelopDevLogger;
-=======
-import classes.Contact;
->>>>>>> Refactoring des panel;
 import ihm.BaseFrame;
-import utils.ContactUtils;
-import utils.FileSystemManager;
 
 /*
  * MyPenelopeF entry point
@@ -27,11 +20,11 @@ public class App
 
     public static void main( String[] args ) throws IOException
     {
-    	App.init();
-    	for (PenelopeController ctrl: App.ctrls)
-    		ctrl.init();
+    		App.init();
+    		for (PenelopeController ctrl: App.ctrls)
+    			ctrl.init();
 
-    	BaseFrame base = new BaseFrame();
+    		BaseFrame base = new BaseFrame();
     }
 
     // Ca permet de simplifier le 'enable/disable' d'un controller

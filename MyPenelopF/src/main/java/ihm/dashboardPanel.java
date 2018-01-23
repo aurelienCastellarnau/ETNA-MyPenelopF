@@ -20,12 +20,14 @@ import utils.GroupUtils;
  * @author kumatetsu
  * Front Controller for the dashboard view
  */
-public class Dashboard implements ViewListener {
+public class dashboardPanel implements ViewListener {
 	
 	/**
 	 * Declaration du Panel Principal
 	 */
 	private JPanel  mPan;
+	private JPanel navPan;
+	private FormBuilder _fb;
 	
 	/**
 	 * Panels pouvant etre appelles dans le panel parent mPan
@@ -47,7 +49,7 @@ public class Dashboard implements ViewListener {
 	
 	private CardLayout cl = new CardLayout();
 	
-	public Dashboard() {
+	public dashboardPanel() {
 		this.mPan = new JPanel();
 	}
 	
@@ -64,7 +66,11 @@ public class Dashboard implements ViewListener {
 		}
 		this.contactPanel = new ContactPanel(new JPanel(), this.cl, users);
         this.contactPanel.addContactListener(this.cCtrl);
+        this._fb = new FormBuilder();
+        this.navPan = new JPanel();
+        this.navPan = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
 		this.mPan.removeAll();
+		this.mPan.add(navPan);
 		this.mPan.add(contactPanel.getPan());
 		this.mPan.setBackground(Color.red);
 		this.mPan.revalidate();

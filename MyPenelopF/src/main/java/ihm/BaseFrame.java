@@ -55,7 +55,7 @@ public class BaseFrame extends JFrame {
 
 	public BaseFrame() {
         this.setTitle("MyPenelopF");
-        this.setSize(400, 400);
+        this.setSize(800, 600);
         this.setResizable(true);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
@@ -63,7 +63,7 @@ public class BaseFrame extends JFrame {
         this.setLocation(250, 250);
         
         menuPanel mPan = new menuPanel();
-        Dashboard dPan = new Dashboard();
+        dashboardPanel dPan = new dashboardPanel();
         
         mPan.addViewListener(dPan);
         split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mPan.getPan(), dPan.getPan());
