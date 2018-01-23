@@ -16,6 +16,10 @@ public class PenelopDevLogger {
 		return SingletonHolder.instance;
 	}
 	
+	public void _(String str) {
+    	System.out.println(str);
+	}
+	
 	public void contacts(ArrayList<Contact> contacts) {
 		for (Contact c: contacts) {
         	System.out.println("User n°" + c.getId());
