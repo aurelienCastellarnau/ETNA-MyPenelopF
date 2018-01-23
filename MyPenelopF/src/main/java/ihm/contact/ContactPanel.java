@@ -11,10 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Observer.ContactListener;
+import Observer.ContactObserver;
 import classes.Contact;
 import ihm.BaseFrame;
-import utils.ContactListener;
-import utils.ContactObserver;
 
 /**
  * 
