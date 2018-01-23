@@ -3,7 +3,6 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import classes.Contact;
 import classes.Group;
 import ihm.BaseFrame;
 import ihm.group.CreateGroupListener;
