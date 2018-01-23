@@ -20,14 +20,14 @@ import utils.PenelopDevLogger;
  * implement observer pattern (interface CreateContactListener work with ihm.contact.CreateContact)
  * Calls on singletons.
  */
-public class ContactController implements ContactListener {
+public class ContactController implements PenelopeController, ContactListener {
 	// Singletons calls on utilitarie classes
 	public BaseFrame base;
 	public BaseFrame uForm;
 	final static PenelopDevLogger log = PenelopDevLogger.get();
 	final static ContactDAO contactDAO = (ContactDAO) DAOFactory.getContactDAO(FileSystemManager.get());
 	
-	public void initContact() {
+	public void init() {
 		contactDAO.createDummyContacts();
         ArrayList<Contact> retrievedContacts = contactDAO.get();
         System.out.println("INIT CONTACT");
