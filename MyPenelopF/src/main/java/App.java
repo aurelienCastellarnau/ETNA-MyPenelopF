@@ -1,12 +1,15 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import controllers.ContactController;
 import controllers.GroupController;
 import controllers.PenelopeController;
 import utils.PenelopDevLogger;
+=======
+import classes.Contact;
+>>>>>>> Refactoring des panel;
 import ihm.BaseFrame;
-import ihm.Dashboard;
 import utils.ContactUtils;
 import utils.FileSystemManager;
 
@@ -28,7 +31,7 @@ public class App
     	for (PenelopeController ctrl: App.ctrls)
     		ctrl.init();
 
-		Dashboard base = new Dashboard();
+    	BaseFrame base = new BaseFrame();
     }
 
     // Ca permet de simplifier le 'enable/disable' d'un controller

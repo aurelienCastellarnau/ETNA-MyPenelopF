@@ -10,7 +10,6 @@ import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -31,38 +30,46 @@ public class BaseFrame extends JFrame {
 	 * JFrame implementation requirement
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Controllers
+	 */
 	ContactController cCtrl;
+	
+	/**
+	 * Tools
+	 */
 	FormBuilder _fb = new FormBuilder();
+	CardLayout cl = new CardLayout();
+	private JSplitPane split;
+	
+	/**
+	 * Panels
+	 */
 	ContactPanel contactPanel;
 	ContactForm createContact;
 	ContactForm updateContact;
 	GroupPanel groupPanel;
 	CreateGroup createGroup;
 	JPanel buttonPane;
-	CardLayout cl = new CardLayout();
-	private JSplitPane split;
 
 	public BaseFrame() {
         this.setTitle("MyPenelopF");
-        this.setSize(800, 800);
+        this.setSize(400, 400);
         this.setResizable(true);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(250, 250);
-        //On crée deux conteneurs de couleurs différentes
-        JPanel pan = new JPanel();
-          
-        JPanel pan2 = new JPanel();
-          
-        //On construit enfin notre séparateur
-        split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pan, pan2);
         
-        split.setOneTouchExpandable(true);
-          
-        //On le passe ensuite au content pane de notre objet Fenetre
-        //placé au centre pour qu'il utilise tout l'espace disponible
+        menuPanel mPan = new menuPanel();
+        Dashboard dPan = new Dashboard();
+        
+        mPan.addViewListener(dPan);
+        split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mPan.getPan(), dPan.getPan());
+        
         this.getContentPane().add(split, BorderLayout.CENTER);
+        
         this.setVisible(true);
 	}
 
