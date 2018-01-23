@@ -3,7 +3,6 @@ package controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import classes.Contact;
 import classes.Group;
 import ihm.BaseFrame;
 import ihm.group.CreateGroupListener;
@@ -11,13 +10,13 @@ import utils.GroupListener;
 import utils.GroupUtils;
 import utils.PenelopDevLogger;
 
-public class GroupController implements GroupListener, CreateGroupListener {
+public class GroupController implements PenelopeController, GroupListener, CreateGroupListener {
 
 	public BaseFrame base;
 	final static PenelopDevLogger log = PenelopDevLogger.get();
 	final static GroupUtils gUtils = GroupUtils.get();
 	
-	public void initGroup() {
+	public void init() {
         try {
         	ArrayList<Group> retrievedGroups = gUtils.getGroups();
         	System.out.println("INIT GROUP");

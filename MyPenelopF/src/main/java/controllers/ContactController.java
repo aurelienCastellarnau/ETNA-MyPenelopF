@@ -1,6 +1,5 @@
 package controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import DAO.DAOFactory;
@@ -17,46 +16,53 @@ import utils.PenelopDevLogger;
  * ContactController
  * Initialize view using ihm package,
  * manage logic and FileSystem update using ContactUtils classe
- * implement observer pattern (interface CreateContactListener work with ihm.contact.CreateContact)
+ * implement observer pattern 
+ * (interface CreateContactListener work with ihm.contact.CreateContact)
  * Calls on singletons.
  */
-public class ContactController implements ContactListener {
+public class ContactController implements PenelopeController, ContactListener {
 	// Singletons calls on utilitarie classes
+	final static PenelopDevLogger log = PenelopDevLogger.get();
+	final static ContactDAO contactDAO = (ContactDAO) DAOFactory
+			.getContactDAO(FileSystemManager.get());
+	// View elements
 	public BaseFrame base;
 	public BaseFrame uForm;
-	final static PenelopDevLogger log = PenelopDevLogger.get();
-	final static ContactDAO contactDAO = (ContactDAO) DAOFactory.getContactDAO(FileSystemManager.get());
 	
-	public void initContact() {
+	public void init() {
 		contactDAO.createDummyContacts();
         ArrayList<Contact> retrievedContacts = contactDAO.get();
-        System.out.println("INIT CONTACT");
+        log._("INIT CONTACT");
         log.contacts(retrievedContacts);
         this.base = new BaseFrame(this, retrievedContacts);
         contactDAO.addContactListener(this);
 	}
 	
+	/**
+	 *  Observer pattern => ContactListener
+	 *  Interact with ihm.contact and ContactDAO
+	 *  ModelView linked by Observer pattern in controller
+	 */
 	public void CreateContactTriggered(Contact nContact) {
-		System.out.println("Triggered contact");
-    	System.out.println("CREATE CONTACT");
+    	log._("CREATE CONTACT");
 		log.contact(nContact);
 		contactDAO.add(nContact);
 	}
 	
 	public void DeleteContactTriggered(Contact dContact) {
-    	System.out.println("DELETE CONTACT");
+    	log._("DELETE CONTACT");
 		log.contact(dContact);
 		contactDAO.remove(dContact);
 	}
 
 	public void ShowUpdateTriggered(Contact c) {
-    	System.out.println("SHOW UPDATE CONTACT WITH:");
+    	log._("SHOW UPDATE CONTACT WITH:");
 		log.contact(c);
 		this.uForm = new BaseFrame(this, c);
 	}
 	
 	public void UpdateContactTriggered(Contact uContact) {
-    	System.out.println("CREATE CONTACT");
+    	log._("CREATE CONTACT");
 		log.contact(uContact);
 		contactDAO.update(uContact);
 	}
@@ -65,9 +71,10 @@ public class ContactController implements ContactListener {
 		this.refreshContact();
 	}
 	
+	//
 	private void refreshContact() {
         ArrayList<Contact> retrievedContacts = contactDAO.get();
-        System.out.println("REFRESH CONTACT");
+        log._("REFRESH CONTACT");
         log.contacts(retrievedContacts);
         this.base.refreshContactPanel(retrievedContacts);
 	}
