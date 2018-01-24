@@ -10,7 +10,7 @@ import DataInterface.FileSystemManager;
 import classes.Contact;
 import classes.Dashboard;
 import classes.Group;
-import classes.Message;
+import classes.Msg;
 
 /**
  * @author aurelien
@@ -38,7 +38,7 @@ public class Contact {
 	private ArrayList<Integer> gIds = new ArrayList<Integer>();
 	
 	// contact messages
-	private transient ArrayList<Message> messages = new ArrayList<Message>();
+	private transient ArrayList<Msg> messages = new ArrayList<Msg>();
 	private ArrayList<Integer> mIds = new ArrayList<Integer>();
 	
 	// contact projects
@@ -81,7 +81,7 @@ public class Contact {
 		// Logic to retrieve groups is in ContactDAO
 	}
 	// surcharged 'no-project' constructor
-	public Contact(String email, String surname, String name, Dashboard dashboard, ArrayList<Group> groups, ArrayList<Message> messages) {
+	public Contact(String email, String surname, String name, Dashboard dashboard, ArrayList<Group> groups, ArrayList<Msg> messages) {
 		this.id = Contact.increment();
 		this.email = email;
 		this.surname = surname;
@@ -91,7 +91,7 @@ public class Contact {
 		this.setMessages(messages);
 	}
 	// surcharged 'full' constructor
-	public Contact(String email, String surname, String name, Dashboard dashboard, ArrayList<Project>projects, ArrayList<Group> groups, ArrayList<Message> messages) {
+	public Contact(String email, String surname, String name, Dashboard dashboard, ArrayList<Project>projects, ArrayList<Group> groups, ArrayList<Msg> messages) {
 		this.id = Contact.increment();
 		this.email = email;
 		this.surname = surname;
@@ -126,7 +126,7 @@ public class Contact {
 		return this.gIds;
 	}
 	
-	public ArrayList<Message> getMessages() {
+	public ArrayList<Msg> getMessages() {
 		return this.messages;
 	}
 	public ArrayList<Integer> getMIds() {
@@ -162,19 +162,20 @@ public class Contact {
 			this.gIds.remove(g.getId());
 		}
 	}
-	public void setMessages(ArrayList<Message> messages) {
+	public void setMessages(ArrayList<Msg> messages) {
 		this.messages = messages;
 		for (int iterator = 0; iterator < this.messages.size(); iterator++) {
-			this.mIds.add(this.messages.get(iterator).getId());
+			Msg msg = this.messages.get(iterator);
+			this.mIds.add(msg.getId());
 		}
 	}
-	public void addMessage(Message m) {
+	public void addMessage(Msg m) {
 		if (!this.messages.contains(m)) {
 			this.messages.add(m);
 			this.mIds.add(m.getId());
 		}
 	}
-	public void deleteMessage(Message m) {
+	public void deleteMessage(Msg m) {
 		if (this.messages.contains(m)) {
 			this.messages.remove(m);
 			this.mIds.remove(m.getId());

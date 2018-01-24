@@ -41,7 +41,7 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	    for (final Contact user: users)
 	    {
 	    	JLabel tmp = new JLabel("User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName());
-	     	final JPanel card = new JPanel();
+	     	JPanel card = new JPanel();
 	        JButton del = new JButton("Delete");
 	        del.addActionListener(new ActionListener() {
 		     	public void actionPerformed(ActionEvent event) {

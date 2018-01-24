@@ -23,7 +23,7 @@ public class Project {
 	private ArrayList<Document> documents = new ArrayList<Document>();
 	private List<Integer> dIds = new ArrayList<Integer>();
 	
-	private ArrayList<Message> messages = new ArrayList<Message>();
+	private ArrayList<Msg> messages = new ArrayList<Msg>();
 	private List<Integer> mIds = new ArrayList<Integer>();
 	
 	static private int autoincrement = 0;

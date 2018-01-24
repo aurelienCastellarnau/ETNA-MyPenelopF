@@ -20,7 +20,7 @@ public class Group {
 	private transient ArrayList<Project> projects = new ArrayList<Project>();
 	private List<Integer>pIds = new ArrayList<Integer>();
 	
-	private transient ArrayList<Message> messages = new ArrayList<Message>();
+	private transient ArrayList<Msg> messages = new ArrayList<Msg>();
 	private List<Integer>mIds = new ArrayList<Integer>();
 	
 	// Database auto-increment id simulation, must be enhanced by a "retrieveLastId" method
@@ -66,7 +66,7 @@ public class Group {
 	}
 
 
-	public ArrayList<Message> getMessages() {
+	public ArrayList<Msg> getMessages() {
 		return this.messages;
 	}
 	public List<Integer> getMIds() {
@@ -120,19 +120,19 @@ public class Group {
 		}
 	}
 	
-	public void setMessages(ArrayList<Message> messages) {
+	public void setMessages(ArrayList<Msg> messages) {
 		this.messages = messages;
 		for (int iterator = 0; iterator < this.messages.size(); iterator++) {
 			this.mIds.add(this.messages.get(iterator).getId());
 		}
 	}
-	public void addMessage(Message message) {
+	public void addMessage(Msg message) {
 		if (!this.messages.contains(message)) {
 			this.messages.add(message);
 			this.mIds.add(message.getId());
 		}
 	}
-	public void deleteMessage(Message message) {
+	public void deleteMessage(Msg message) {
 		if (this.messages.contains(message)) {
 			this.messages.remove(message);
 			this.mIds.remove(message.getId());

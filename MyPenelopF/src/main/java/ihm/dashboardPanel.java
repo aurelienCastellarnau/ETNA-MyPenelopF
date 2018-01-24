@@ -12,6 +12,7 @@ import controllers.ContactController;
 import ihm.contact.ContactPanel;
 import ihm.group.GroupPanel;
 import utils.GroupUtils;
+import utils.PenelopDevLogger;
 
 /**
  * 
@@ -19,6 +20,8 @@ import utils.GroupUtils;
  * Front Controller for the dashboard view
  */
 public class dashboardPanel implements ViewListener {
+	
+	private static final PenelopDevLogger log = PenelopDevLogger.get();
 	
 	/**
 	 * Declaration du Panel Principal

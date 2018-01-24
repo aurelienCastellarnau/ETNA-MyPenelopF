@@ -99,8 +99,6 @@ public class ContactDAO extends DAO<Contact> implements ContactObserver {
 				if (user.getId() == c.getId()) {
 					int i = users.indexOf(user);
 					users.set(i, c);
-					System.out.println("ContactUtils.UpdateContact :");
-					log.contacts(users);
 					this.di.writeContacts(users);
 					this.triggerContactChange();
 					return true;

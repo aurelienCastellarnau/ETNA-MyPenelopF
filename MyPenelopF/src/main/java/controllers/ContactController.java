@@ -2,9 +2,6 @@ package controllers;
 
 import java.util.ArrayList;
 
-import DAO.DAOFactory;
-import DataInterface.DataInterface;
-import DataInterface.FileSystemManager;
 import Observer.ContactListener;
 import DAO.ContactDAO;
 import classes.Contact;
@@ -49,6 +46,7 @@ public class ContactController implements PenelopeController, ContactListener {
 	public void setDashboard(dashboardPanel dashboard) {
 		this.dashboard = dashboard;
 	}
+	
 	/**
 	 *  Observer pattern => ContactListener
 	 *  Interact with ihm.contact and ContactDAO
@@ -56,25 +54,25 @@ public class ContactController implements PenelopeController, ContactListener {
 	 */
 	public void CreateContactTriggered(Contact nContact) {
     	log._("CREATE CONTACT");
-		log.contact(nContact);
+		log._(nContact);
 		this.cDAO.add(nContact);
 	}
 	
 	public void DeleteContactTriggered(Contact dContact) {
     	log._("DELETE CONTACT");
-		log.contact(dContact);
+		log._(dContact);
 		this.cDAO.remove(dContact);
 	}
 
 	public void ShowUpdateTriggered(Contact c) {
     	log._("SHOW UPDATE CONTACT WITH:");
-		log.contact(c);
+		log._(c);
 		this.uForm = new BaseFrame(this, c);
 	}
 	
 	public void UpdateContactTriggered(Contact uContact) {
     	log._("CREATE CONTACT");
-		log.contact(uContact);
+		log._(uContact);
 		this.cDAO.update(uContact);
 	}
 	

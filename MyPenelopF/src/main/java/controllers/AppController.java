@@ -18,9 +18,9 @@ public class AppController implements PenelopeController {
 		this.cDAO = (ContactDAO)DAOFactory.getContactDAO(di);
 	}
 	public void init() {
-    	//App.ctrls.add("group", new GroupController());
+    	//App.ctrls.put("group", new GroupController(this.gDAO));
     	this.ctrls.put("contact", new ContactController(this.cDAO));
-    	// App.ctrls.add("xxx", new xxxController());
+    	// App.ctrls.put("xxx", new xxxController(this.xDAO));
     	for (String key: this.ctrls.keySet())
     		ctrls.get(key).init();
     	this.initViews(ctrls);
