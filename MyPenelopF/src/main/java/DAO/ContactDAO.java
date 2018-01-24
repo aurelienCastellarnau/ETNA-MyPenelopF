@@ -24,13 +24,17 @@ import utils.PenelopDevLogger;
  * Classe permettant les opérations du CRUD sur l'entité Contact
  * Implemente un pattern Singleton
  * Implémente un pattern Observer
+ * Implémente un DAO de la DAOFactory
+ * implémente l'interface ContactDAOReceipe
  * l'observer permet de déclencher un refresh du model
- * lors d'une modification 
+ * lors d'une modification, le Controller enregistré comme
+ * listener est chargé de répercuté le model sur els vues (ContactController) 
  */		
-public class ContactDAO extends DAO<Contact> implements ContactObserver {
+public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, ContactObserver {
 
 		private final Collection<ContactListener> contactListeners = new ArrayList<ContactListener>();
 		private PenelopDevLogger log = PenelopDevLogger.get();
+		
 		// Singleton implementation
 		public ContactDAO(DataInterface di) {
 			super(di);
@@ -142,6 +146,9 @@ public class ContactDAO extends DAO<Contact> implements ContactObserver {
 			}
 		}
 	
+		/**
+		 * Retrieve Contact.groups from Group.uIds (not from Contact.gIds...)		
+		 */
 		public ArrayList<Group> getGroups(Contact c) {
 			try {
 				ArrayList<Group> groups = GroupUtils.get().getGroups();
@@ -161,7 +168,18 @@ public class ContactDAO extends DAO<Contact> implements ContactObserver {
 				return null;
 			}
 		}
-		
+
+		/**
+		 * Retrieve Contact.groups from Group.uIds (not from Contact.gIds...)
+		 * For an ArrayList
+		 */
+		public void buildContactsGroups(ArrayList<Contact> contacts) {
+			for (int iterator = 0; iterator < contacts.size(); iterator++) {
+				Contact c = contacts.get(iterator);
+				ArrayList<Group> groups = this.getGroups(c);
+				c.setGroups(groups);
+			}
+		}
 		// Observer pattern
 		public void addContactListener(ContactListener listener) {
 			this.contactListeners.add(listener);
