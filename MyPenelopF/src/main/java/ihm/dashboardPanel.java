@@ -9,10 +9,14 @@ import javax.swing.JPanel;
 
 import classes.Contact;
 import classes.Group;
+import classes.Project;
 import controllers.ContactController;
+import controllers.ProjectController;
 import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
 import ihm.group.GroupPanel;
+import ihm.project.ProjectForm;
+import ihm.project.ProjectPanel;
 import utils.GroupUtils;
 import utils.PenelopDevLogger;
 
@@ -35,9 +39,14 @@ public class dashboardPanel implements ViewListener {
 	/**
 	 * Panels pouvant etre appelles dans le panel parent mPan
 	 */
+	// contact
 	private ContactForm contactForm;
 	private ContactPanel contactPanel;
+	// group
 	private GroupPanel groupPanel;
+	// project
+	private ProjectForm projectForm;
+	private ProjectPanel projectPanel;
 
 	private GroupUtils gUtils = GroupUtils.get();
 	
@@ -45,11 +54,13 @@ public class dashboardPanel implements ViewListener {
 	 * Controller permettant la gestion des Listeners;
 	 */
 	private ContactController cCtrl;
+	private ProjectController pCtrl;
 	
 	private CardLayout cl = new CardLayout();
 	
-	public dashboardPanel(ContactController cCtrl) {
+	public dashboardPanel(ContactController cCtrl, ProjectController pCtrl) {
 		this.cCtrl = cCtrl;
+		this.pCtrl = pCtrl;
 		this.mPan = new JPanel();
 	}
 	
@@ -81,7 +92,23 @@ public class dashboardPanel implements ViewListener {
 		this.mPan.revalidate();
 		this.mPan.repaint();
 	}
+
+	public void showProjectsTriggered() {
+		this.displayProjectPanel();
+	}
 	
+	private void displayProjectPanel() {
+		ArrayList<Project> projects = this.pCtrl.getPDAO().get();
+		// add contact view
+		this.projectForm = new ProjectForm(new JPanel());
+		this.projectForm.addProjectListener(this.pCtrl);
+		this.mPan.removeAll();
+		this.mPan.add(this.projectForm.getPan());
+		this.mPan.setBackground(Color.blue);
+		this.mPan.revalidate();
+		this.mPan.repaint();
+	}
+
 	public void showGroupsTriggered() {
 		ArrayList<Group> groups = null;
 		try {

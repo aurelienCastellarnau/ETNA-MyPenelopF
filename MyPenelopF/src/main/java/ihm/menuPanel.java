@@ -16,13 +16,14 @@ public class menuPanel extends JPanel implements ViewObserver {
 	private JPanel  mPan;
 	private JButton cButton;
 	private JButton gButton;
+	private JButton pButton;
 	
 	private final Collection<ViewListener> ViewListeners = new ArrayList<ViewListener>();
 	
 	public menuPanel() {
 		final menuPanel self = this;
 		this.mPan = new JPanel();
-		this.mPan.setLayout(new GridLayout(2, 1));
+		this.mPan.setLayout(new GridLayout(3, 1));
 		this.cButton = new JButton("Contacts");
 		this.cButton.addActionListener(new ActionListener() {
 	     	public void actionPerformed(ActionEvent event) {
@@ -35,8 +36,15 @@ public class menuPanel extends JPanel implements ViewObserver {
 				self.triggerShowGroups();
 			}
 		});
+		this.pButton = new JButton("Projects");
+		this.pButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				self.triggerShowProjects();
+			}
+		});
 		this.mPan.add(cButton);
 		this.mPan.add(gButton);
+		this.mPan.add(pButton);
 	}
 	
 	public JPanel getPan() {
@@ -61,6 +69,11 @@ public class menuPanel extends JPanel implements ViewObserver {
 			listener.showGroupsTriggered();
 		}
 	}
-	
+
+	public void triggerShowProjects() {
+		for (ViewListener listener: this.ViewListeners) {
+			listener.showProjectsTriggered();
+		}
+	}
 	
 }
