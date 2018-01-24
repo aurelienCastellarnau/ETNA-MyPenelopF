@@ -15,9 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
-import DAO.ContactDAO;
-import DAO.DAOFactory;
-import DataInterface.FileSystemManager;
 import classes.Contact;
 import classes.Group;
 import controllers.ContactController;
@@ -51,6 +48,8 @@ public class BaseFrame extends JFrame {
 	/**
 	 * Panels
 	 */
+	private menuPanel mPan;
+	private dashboardPanel dPan;
 	ContactPanel contactPanel;
 	ContactForm createContact;
 	ContactForm updateContact;
@@ -69,15 +68,22 @@ public class BaseFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(250, 250);
         
-        menuPanel mPan = new menuPanel();
-        dashboardPanel dPan = new dashboardPanel(this.cCtrl);
+        this.mPan = new menuPanel();
+        this.dPan = new dashboardPanel(this.cCtrl);
         
         mPan.addViewListener(dPan);
         split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mPan.getPan(), dPan.getPan());
         this.getContentPane().add(split, BorderLayout.CENTER);
         this.setVisible(true);
     }
-
+	
+	public menuPanel getMenuPanel() {
+		return this.mPan;
+	}
+	
+	public dashboardPanel getDashboardPanel() {
+		return this.dPan;
+	}
 	/**
 	 *
 	 * @param cCtrl
