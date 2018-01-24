@@ -19,6 +19,9 @@ public class ProjectController implements PenelopeController, ProjectListener {
 		log._("INIT PROJECT CONTROLLER");
 		this.pDAO.addProjectListener(this);
 	}
+	public ProjectDAO getPDAO() {
+		return this.pDAO;
+	}
 	public void ProjectChangeTriggered() {
 		// TODO Auto-generated method stub
 		
