@@ -74,6 +74,7 @@ public class BaseFrame extends JFrame {
         mPan.addViewListener(dPan);
         split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mPan.getPan(), dPan.getPan());
         this.getContentPane().add(split, BorderLayout.CENTER);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
     }
 	

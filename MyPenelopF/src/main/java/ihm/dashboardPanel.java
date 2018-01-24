@@ -7,8 +7,10 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import classes.Contact;
 import classes.Group;
 import controllers.ContactController;
+import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
 import ihm.group.GroupPanel;
 import utils.GroupUtils;
@@ -33,6 +35,7 @@ public class dashboardPanel implements ViewListener {
 	/**
 	 * Panels pouvant etre appelles dans le panel parent mPan
 	 */
+	private ContactForm contactForm;
 	private ContactPanel contactPanel;
 	private GroupPanel groupPanel;
 
@@ -57,16 +60,23 @@ public class dashboardPanel implements ViewListener {
 	public void showContactsTriggered() {
 		this.displayContactPanel();
 	}
-	
+
 	public void displayContactPanel() {
-		this.contactPanel = new ContactPanel(new JPanel(), this.cl, this.cCtrl.getContactDAO().get());
+		ArrayList<Contact> contacts = this.cCtrl.getContactDAO().get();
+		// add contact view
+		this.contactForm = new ContactForm(new JPanel());
+		this.contactForm.addContactListener(this.cCtrl);
+		// get, update and delete contact view
+		this.contactPanel = new ContactPanel(new JPanel(), this.cl, contacts);
         this.contactPanel.addContactListener(this.cCtrl);
         this._fb = new FormBuilder();
         this.navPan = new JPanel();
         this.navPan = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
+        // Panel construction
 		this.mPan.removeAll();
-		this.mPan.add(navPan);
-		this.mPan.add(contactPanel.getPan());
+		this.mPan.add(this.navPan);
+		this.mPan.add(this.contactPanel.getPan());
+		this.mPan.add(this.contactForm.getPan());
 		this.mPan.setBackground(Color.red);
 		this.mPan.revalidate();
 		this.mPan.repaint();
