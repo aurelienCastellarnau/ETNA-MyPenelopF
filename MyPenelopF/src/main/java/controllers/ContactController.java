@@ -23,21 +23,18 @@ import utils.PenelopDevLogger;
 public class ContactController implements PenelopeController, ContactListener {
 	// Singletons calls on utilitarie classes
 	final static PenelopDevLogger log = PenelopDevLogger.get();
-	final static ContactDAO contactDAO = (ContactDAO) DAOFactory
+	final private ContactDAO contactDAO = (ContactDAO) DAOFactory
 			.getContactDAO(FileSystemManager.get());
 	// View elements
 	public BaseFrame base;
 	public BaseFrame uForm;
 	
 	public void init() {
-		contactDAO.createDummyContacts();
-        ArrayList<Contact> retrievedContacts = contactDAO.get();
-        log._("INIT CONTACT");
-        log.contacts(retrievedContacts);
-        this.base = new BaseFrame(this, retrievedContacts);
         contactDAO.addContactListener(this);
 	}
-	
+	final public ContactDAO getContactDAO() {
+		return this.contactDAO;
+	}
 	/**
 	 *  Observer pattern => ContactListener
 	 *  Interact with ihm.contact and ContactDAO
@@ -74,8 +71,8 @@ public class ContactController implements PenelopeController, ContactListener {
 	//
 	private void refreshContact() {
         ArrayList<Contact> retrievedContacts = contactDAO.get();
-        log._("REFRESH CONTACT");
+        log._("REFRESH CONTACT DISCONNECTED FROM DASHBOARD");
         log.contacts(retrievedContacts);
-        this.base.refreshContactPanel(retrievedContacts);
+        // this.base.refreshContactPanel(retrievedContacts);
 	}
 }

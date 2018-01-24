@@ -21,7 +21,7 @@ public class GroupController implements PenelopeController, GroupListener, Creat
         	ArrayList<Group> retrievedGroups = gUtils.getGroups();
         	System.out.println("INIT GROUP");
             log.groups(retrievedGroups);
-            this.base = new BaseFrame(this, retrievedGroups);
+            // this.base = new BaseFrame(this, retrievedGroups);
             gUtils.addGroupListener(this);
         } catch (IOException e) {
         	System.out.println("ContactController.initContact/cUtils.getContacts throwed: " + e.getMessage());
@@ -46,9 +46,9 @@ public class GroupController implements PenelopeController, GroupListener, Creat
 	private void refreshGroup() {
         try {
         	ArrayList<Group> retrievedGroups = gUtils.getGroups();
-        	System.out.println("REFRESH Group");
+        	System.out.println("REFRESH Group DISCONNECTED FROM DASHBOARd");
             log.groups(retrievedGroups);
-            this.base.refreshGroupPanel(retrievedGroups);
+            // this.base.refreshGroupPanel(retrievedGroups);
         } catch (IOException e) {
         	System.out.println("ContactController.initContact/cUtils.getContacts throwed: " + e.getMessage());
         }

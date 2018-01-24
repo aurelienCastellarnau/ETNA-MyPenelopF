@@ -7,9 +7,13 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import DAO.ContactDAO;
+import DAO.DAOFactory;
+import DataInterface.FileSystemManager;
 import classes.Contact;
 import classes.Group;
 import controllers.ContactController;
+import controllers.PenelopeController;
 import ihm.contact.ContactPanel;
 import ihm.group.GroupPanel;
 import utils.ContactUtils;
@@ -35,21 +39,17 @@ public class dashboardPanel implements ViewListener {
 	private ContactPanel contactPanel;
 	private GroupPanel groupPanel;
 
-	/**
-	 * Utils appeles en fonction des listeners;
-	 */
-	private ContactUtils cUtils = ContactUtils.get();   
 	private GroupUtils gUtils = GroupUtils.get();
 	
 	/**
 	 * Controller permettant la gestion des Listeners;
 	 */
 	private ContactController cCtrl;
-
 	
 	private CardLayout cl = new CardLayout();
 	
-	public dashboardPanel() {
+	public dashboardPanel(ContactController cCtrl) {
+		this.cCtrl = cCtrl;
 		this.mPan = new JPanel();
 	}
 	
@@ -58,13 +58,7 @@ public class dashboardPanel implements ViewListener {
 	}
 
 	public void showContactsTriggered() {
-		ArrayList<Contact> users = null;
-		try {
-			users = this.cUtils.getContacts();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.contactPanel = new ContactPanel(new JPanel(), this.cl, users);
+		this.contactPanel = new ContactPanel(new JPanel(), this.cl, this.cCtrl.getContactDAO().get());
         this.contactPanel.addContactListener(this.cCtrl);
         this._fb = new FormBuilder();
         this.navPan = new JPanel();

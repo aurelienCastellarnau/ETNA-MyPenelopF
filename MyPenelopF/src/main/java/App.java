@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import controllers.ContactController;
 import controllers.GroupController;
@@ -16,15 +17,14 @@ public class App
 	// pour implémenter cette interface et être un
 	// putin de PeneloppeController, il faut
 	// avoir la méthode init appellée ici dans le for
-	static ArrayList<PenelopeController> ctrls;
+	static HashMap<String, PenelopeController> ctrls;
 
     public static void main( String[] args ) throws IOException
     {
     		App.init();
-    		for (PenelopeController ctrl: App.ctrls)
-    			ctrl.init();
-
-    		BaseFrame base = new BaseFrame();
+    		for (String key: App.ctrls.keySet())
+    			ctrls.get(key).init();
+    		new BaseFrame(ctrls);
     }
 
     // Ca permet de simplifier le 'enable/disable' d'un controller
@@ -32,9 +32,9 @@ public class App
     // encore faut-il que les classes Controllers implémentent
     // la méthode init().
     private static final void init() {
-    	App.ctrls  = new ArrayList<PenelopeController>();
-    	App.ctrls.add(new ContactController());
-    	App.ctrls.add(new GroupController());
-    	// App.ctrls.add(new xxxController());
+    	App.ctrls  = new HashMap<String, PenelopeController>();
+    	//App.ctrls.add("group", new GroupController());
+    	App.ctrls.put("contact", new ContactController());
+    	// App.ctrls.add("xxx", new xxxController());
     }
 }
