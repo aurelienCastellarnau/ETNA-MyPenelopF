@@ -52,6 +52,10 @@ public class dashboardPanel implements ViewListener {
 	}
 
 	public void showContactsTriggered() {
+		this.displayContactPanel();
+	}
+	
+	public void displayContactPanel() {
 		this.contactPanel = new ContactPanel(new JPanel(), this.cl, this.cCtrl.getContactDAO().get());
         this.contactPanel.addContactListener(this.cCtrl);
         this._fb = new FormBuilder();
@@ -64,7 +68,7 @@ public class dashboardPanel implements ViewListener {
 		this.mPan.revalidate();
 		this.mPan.repaint();
 	}
-
+	
 	public void showGroupsTriggered() {
 		ArrayList<Group> groups = null;
 		try {
