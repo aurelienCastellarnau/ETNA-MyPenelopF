@@ -5,12 +5,14 @@ import ihm.contact.ContactPanel;
 import ihm.group.CreateGroup;
 import ihm.group.GroupPanel;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 import classes.Contact;
 import classes.Group;
@@ -28,25 +30,47 @@ public class BaseFrame extends JFrame {
 	 * JFrame implementation requirement
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Controllers
+	 */
 	ContactController cCtrl;
+	
+	/**
+	 * Tools
+	 */
 	FormBuilder _fb = new FormBuilder();
+	CardLayout cl = new CardLayout();
+	private JSplitPane split;
+	
+	/**
+	 * Panels
+	 */
 	ContactPanel contactPanel;
 	ContactForm createContact;
 	ContactForm updateContact;
 	GroupPanel groupPanel;
 	CreateGroup createGroup;
 	JPanel buttonPane;
-	CardLayout cl = new CardLayout();
 
 	public BaseFrame() {
-        JFrame frame = new JFrame("FrameDemo");
-        frame.setTitle("Ma première fenêtre Java");
-        frame.setSize(400, 100);
-        frame.setResizable(true);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocation(250, 250);
-        frame.setVisible(true);
+        this.setTitle("MyPenelopF");
+        this.setSize(800, 600);
+        this.setResizable(true);
+        this.setLayout(new BorderLayout());
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocation(250, 250);
+        
+        menuPanel mPan = new menuPanel();
+        dashboardPanel dPan = new dashboardPanel();
+        
+        mPan.addViewListener(dPan);
+        split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mPan.getPan(), dPan.getPan());
+        
+        this.getContentPane().add(split, BorderLayout.CENTER);
+        
+        this.setVisible(true);
 	}
 
 	/**

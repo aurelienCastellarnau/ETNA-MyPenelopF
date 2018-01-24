@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import controllers.ContactController;
 import controllers.GroupController;
 import controllers.PenelopeController;
+import ihm.BaseFrame;
 
 /*
  * MyPenelopeF entry point
@@ -16,14 +17,16 @@ public class App
 	// putin de PeneloppeController, il faut
 	// avoir la méthode init appellée ici dans le for
 	static ArrayList<PenelopeController> ctrls;
-	
+
     public static void main( String[] args ) throws IOException
     {
-    	App.init();
-    	for (PenelopeController ctrl: App.ctrls)
-    		ctrl.init();
+    		App.init();
+    		for (PenelopeController ctrl: App.ctrls)
+    			ctrl.init();
+
+    		BaseFrame base = new BaseFrame();
     }
-    
+
     // Ca permet de simplifier le 'enable/disable' d'un controller
     // en gérant son ajout et son init juste en ajoutant une ligne ici
     // encore faut-il que les classes Controllers implémentent

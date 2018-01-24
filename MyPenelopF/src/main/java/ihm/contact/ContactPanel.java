@@ -7,17 +7,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Observer.ContactListener;
 import Observer.ContactObserver;
 import classes.Contact;
-import ihm.BaseFrame;
 
 /**
- * 
+ *
  * @author aurelien
  * ContactPanel define the JPanel to display an
  * ArrayList of Contact
@@ -25,8 +23,8 @@ import ihm.BaseFrame;
  * to allow us to reuse those container
  * from controller to add further logic
  */
-public class ContactPanel extends JPanel implements ContactObserver {
-	
+public class ContactPanel extends JPanel implements ContactObserver{
+
 	/**
 	 * JPanel implementation requirement
 	 */
@@ -34,13 +32,13 @@ public class ContactPanel extends JPanel implements ContactObserver {
 	private JPanel pan;
     private CardLayout cl;
 	private final Collection<ContactListener> ContactListeners = new ArrayList<ContactListener>();
-	
+
 	public ContactPanel(JPanel pan, CardLayout cl, ArrayList<Contact> users) {
         final ContactPanel self = this;
 		this.pan = pan;
 		this.cl = cl;
 		this.pan.setLayout(this.cl);
-	    for (final Contact user: users) 
+	    for (final Contact user: users)
 	    {
 	    	JLabel tmp = new JLabel("User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName());
 	     	final JPanel card = new JPanel();
@@ -62,17 +60,18 @@ public class ContactPanel extends JPanel implements ContactObserver {
 	        this.pan.add(card, user.getId().toString());
 	    }
 	}
-	
+
 	// Individual components accessors
 	public JPanel getPan() {
 		return this.pan;
 	}
-	
+
 	public CardLayout getCard() {
 		return this.cl;
 	}
 	// Observer subscribe, unsubscribe and notify
 	public void addContactListener(ContactListener listener) {
+		System.out.println(listener);
 		this.ContactListeners.add(listener);
 	}
 	public void removeContactListener(ContactListener listener) {
@@ -80,23 +79,24 @@ public class ContactPanel extends JPanel implements ContactObserver {
 	}
 	public void triggerDeleteContact(Contact contact) {
 		for (ContactListener listener: this.ContactListeners) {
+			System.out.println(listener);
 			listener.DeleteContactTriggered(contact);
 		}
 	}
 
 	public void triggerContactChange() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void triggerCreateContact(Contact contact) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void triggerUpdateContact(Contact contact) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void triggerShowUpdate(Contact c) {

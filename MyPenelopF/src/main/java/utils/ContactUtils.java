@@ -100,20 +100,6 @@ public class ContactUtils implements ContactObserver {
 
         Gson gson = new Gson();
         Contact[] json = gson.fromJson(bufferedReader, Contact[].class);
-        // Portion de code a supprimer en cas de probleme au niveau des ids
-        // safe casting emulation, we can't avoid the warning: https://stackoverflow.com/questions/20275623/type-safety-unchecked-cast-from-object-to-arraylistmyvariable
-//        ArrayList<LinkedTreeMap> object = (json instanceof ArrayList<?>) ? (ArrayList<LinkedTreeMap>) json : null;
-//        for (LinkedTreeMap obj: object) {
-//        	try {
-//        		id = new Float(obj.get("id").toString()).intValue();
-//        	} catch (NumberFormatException e) {
-//        		System.out.println("Exception throwed in getUsers(): " + e.getMessage());
-//        	}
-//        	if (id != 0) {
-//        		Contact user = new Contact(id, obj.get("email").toString(), obj.get("surname").toString(), obj.get("name").toString());
-//        		users.add(user);
-//        	}
-//        }
         users = new ArrayList<Contact>(Arrays.asList(json));
         return users;
 	}
