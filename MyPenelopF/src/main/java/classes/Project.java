@@ -1,6 +1,7 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Project {
 
@@ -10,15 +11,20 @@ public class Project {
 	
 	private String description;
 	
-	private ArrayList<Group> groups;
+	private ArrayList<Group> groups = new ArrayList<Group>();
+	private List<Integer> gIds = new ArrayList<Integer>();
 	
-	private ArrayList<Contact> users;
+	private ArrayList<Contact> users = new ArrayList<Contact>();
+	private List<Integer> uIds = new ArrayList<Integer>();
 	
-	private ArrayList<Task> tasks;
+	private ArrayList<Task> tasks = new ArrayList<Task>();
+	private List<Integer> tIds = new ArrayList<Integer>();
 	
-	private ArrayList<Document> documents;
+	private ArrayList<Document> documents = new ArrayList<Document>();
+	private List<Integer> dIds = new ArrayList<Integer>();
 	
-	private ArrayList<Message> messages;
+	private ArrayList<Message> messages = new ArrayList<Message>();
+	private List<Integer> mIds = new ArrayList<Integer>();
 	
 	static private int autoincrement = 0;
 	static private int increment() {
@@ -33,7 +39,6 @@ public class Project {
 		this.name = name;
 		this.description = description;
 	}
-	
 	public Project(String name, String description, ArrayList<Task> tasks) {
 		this.name = name;
 		this.description = description;

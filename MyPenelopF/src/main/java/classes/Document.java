@@ -9,6 +9,7 @@ public class Document {
 	private String path;
 	
 	private Project project;
+	private Integer pId;
 	
 	static private int autoincrement = 0;
 	static private int increment() {
@@ -19,6 +20,7 @@ public class Document {
 		this.id = Document.increment();
 	}
 	
+	// Object new Document constructor
 	public Document(String name, String path, Project project) {
 		this.id = Document.increment();
 		this.name = name;
@@ -47,7 +49,11 @@ public class Document {
 	public Project getProject() {
 		return this.project;
 	}
+	public Integer getPId() {
+		return this.pId;
+	}
 	public void setProject(Project project) {
 		this.project = project;
+		this.pId = project.getId();
 	}
 }

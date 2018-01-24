@@ -4,14 +4,18 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
 
 import DataInterface.DataInterface;
 import Observer.ContactListener;
+import Observer.ContactObserver;
 import classes.Contact;
+import classes.Group;
+import utils.GroupUtils;
 import utils.PenelopDevLogger;
 
 /**
@@ -23,7 +27,7 @@ import utils.PenelopDevLogger;
  * l'observer permet de déclencher un refresh du model
  * lors d'une modification 
  */		
-public class ContactDAO extends DAO<Contact> {
+public class ContactDAO extends DAO<Contact> implements ContactObserver {
 
 		private final Collection<ContactListener> contactListeners = new ArrayList<ContactListener>();
 		private PenelopDevLogger log = PenelopDevLogger.get();
@@ -59,11 +63,20 @@ public class ContactDAO extends DAO<Contact> {
 		public ArrayList<Contact> createDummyContacts() {
 			ArrayList<Contact> al = new ArrayList<Contact>();
 	    	Contact user1 = new Contact("test@etna-alternance.net", "Jean", "Billaud");
-	    	Contact user2 = new Contact("test2@etna-alternance.net", "Aurel", "Castellarnau");
-	    	Contact user3 = new Contact("test3@etna-alternance.net", "Adolf", "Trump");
+	    	try {
+	    		ArrayList<Group> groups = GroupUtils.get().getGroups();
+	    		user1.setGroups(groups);
+	    	} catch (IOException e) {
+	    		log._("Throwed in createDummyContact: " + e.getMessage());
+	    	}
 	    	al.add(user1);
+	    	this.di.writeContacts(al);
+	    	Contact user2 = new Contact("test2@etna-alternance.net", "Aurel", "Castellarnau");
 	    	al.add(user2);
+	    	this.di.writeContacts(al);
+	    	Contact user3 = new Contact("test3@etna-alternance.net", "Adolf", "Trump");
 	    	al.add(user3);
+	    	this.di.writeContacts(al);
 	    	return al;
 		}
 
@@ -81,7 +94,8 @@ public class ContactDAO extends DAO<Contact> {
 		public boolean update(Contact c) {
 			ArrayList<Contact> users = new ArrayList<Contact>();
 			users = this.get();
-			for (Contact user: users) {
+			for (int iterator = 0; iterator < users.size(); iterator++) {
+				Contact user = users.get(iterator);
 				if (user.getId() == c.getId()) {
 					int i = users.indexOf(user);
 					users.set(i, c);
@@ -101,7 +115,8 @@ public class ContactDAO extends DAO<Contact> {
 			ArrayList<Contact> users = new ArrayList<Contact>();
 			users = this.get();
 			System.out.println("remove contact");
-			for (Contact user: users) {
+			for (int iterator = 0; iterator < users.size(); iterator++) {
+				Contact user = users.get(iterator);
 				if (user.getId() == c.getId()) {
 					users.remove(user);
 					this.di.writeContacts(users);
@@ -114,30 +129,39 @@ public class ContactDAO extends DAO<Contact> {
 		 
 		@Override
 		public ArrayList<Contact> get(){
-			int id = 0;
-			ArrayList<Contact> users = new ArrayList<Contact>();
-			String project_path = System.getProperty("user.dir");
 			try {
-				FileReader fr = new FileReader(project_path + "/users.json");
-		        Gson gson = new Gson();
-		        Object json = gson.fromJson(new BufferedReader(fr), ArrayList.class);
-		        // safe casting emulation, we can't avoid the warning: https://stackoverflow.com/questions/20275623/type-safety-unchecked-cast-from-object-to-arraylistmyvariable
-		        ArrayList<LinkedTreeMap> object = (json instanceof ArrayList<?>) ? (ArrayList<LinkedTreeMap>) json : null;
-		        for (LinkedTreeMap obj: object) {
-		        	try {
-		        		id = new Float(obj.get("id").toString()).intValue();
-		        	} catch (NumberFormatException e) {
-		        		System.out.println("Exception throwed in getUsers(): " + e.getMessage());
-		        	}
-		        	if (id != 0) {
-		        		Contact user = new Contact(id, obj.get("email").toString(), obj.get("surname").toString(), obj.get("name").toString());
-		        		users.add(user);
-		        	}
-		        }
+				BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/users.json"));
+				Contact[] json = new Gson().fromJson(bufferedReader, Contact[].class);
+				ArrayList<Contact> contacts = json != null ? new ArrayList<Contact>(Arrays.asList(json)) : new ArrayList<Contact>();
+				for (int iterator = 0; iterator < contacts.size(); iterator++) {
+					Contact c = contacts.get(iterator);
+					c.setGroups(this.getGroups(c));
+				}
+				return contacts;
 			} catch (IOException e) {
-				System.out.println("Throwed in ContactGet: " + e.getMessage());
+				log._("Throwed in get Contacts: " + e.getMessage());
+				return null;
 			}
-			return users;
+		}
+	
+		public ArrayList<Group> getGroups(Contact c) {
+			try {
+				ArrayList<Group> groups = GroupUtils.get().getGroups();
+				ArrayList<Group> cGroups = new ArrayList<Group>();
+				for (int iterator = 0; iterator < groups.size(); iterator++) {
+					Group g = groups.get(iterator);
+					List<Integer>ids = g.getUIds();
+					for (int it = 0; it < ids.size(); it++) {
+						if (ids.get(it) == c.getId()) {
+							cGroups.add(g);
+						}
+					}
+				}
+				return cGroups;
+			} catch (IOException e) {
+				log._("Throwed in ContactDAO.getGroups: " + e.getMessage());
+				return null;
+			}
 		}
 		
 		// Observer pattern
