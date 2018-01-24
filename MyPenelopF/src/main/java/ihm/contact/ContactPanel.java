@@ -90,7 +90,6 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	}
 	// Observer subscribe, unsubscribe and notify
 	public void addContactListener(ContactListener listener) {
-		System.out.println(listener);
 		this.ContactListeners.add(listener);
 	}
 	public void removeContactListener(ContactListener listener) {
@@ -98,7 +97,6 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	}
 	public void triggerDeleteContact(Contact contact) {
 		for (ContactListener listener: this.ContactListeners) {
-			System.out.println(listener);
 			listener.DeleteContactTriggered(contact);
 		}
 	}

@@ -131,42 +131,30 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 		 
 		@Override
 		public ArrayList<Contact> get(){
-			try {
-				BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/users.json"));
-				Contact[] json = new Gson().fromJson(bufferedReader, Contact[].class);
-				ArrayList<Contact> contacts = json != null ? new ArrayList<Contact>(Arrays.asList(json)) : new ArrayList<Contact>();
-				for (int iterator = 0; iterator < contacts.size(); iterator++) {
-					Contact c = contacts.get(iterator);
-					c.setGroups(this.getGroups(c));
-				}
-				return contacts;
-			} catch (IOException e) {
-				log._("Throwed in get Contacts: " + e.getMessage());
-				return null;
+			ArrayList<Contact> contacts = this.di.readContacts();
+			for (int iterator = 0; iterator < contacts.size(); iterator++) {
+				Contact c = contacts.get(iterator);
+				c.setGroups(this.getGroups(c));
 			}
+			return contacts;
 		}
 	
 		/**
 		 * Retrieve Contact.groups from Group.uIds (not from Contact.gIds...)		
 		 */
 		public ArrayList<Group> getGroups(Contact c) {
-			try {
-				ArrayList<Group> groups = GroupUtils.get().getGroups();
-				ArrayList<Group> cGroups = new ArrayList<Group>();
-				for (int iterator = 0; iterator < groups.size(); iterator++) {
-					Group g = groups.get(iterator);
-					List<Integer>ids = g.getUIds();
-					for (int it = 0; it < ids.size(); it++) {
-						if (ids.get(it) == c.getId()) {
-							cGroups.add(g);
-						}
+			ArrayList<Group> groups = this.di.readGroups();
+			ArrayList<Group> cGroups = new ArrayList<Group>();
+			for (int iterator = 0; iterator < groups.size(); iterator++) {
+				Group g = groups.get(iterator);
+				List<Integer>ids = g.getUIds();
+				for (int it = 0; it < ids.size(); it++) {
+					if (ids.get(it) == c.getId()) {
+						cGroups.add(g);
 					}
 				}
-				return cGroups;
-			} catch (IOException e) {
-				log._("Throwed in ContactDAO.getGroups: " + e.getMessage());
-				return null;
 			}
+			return cGroups;
 		}
 
 		/**
