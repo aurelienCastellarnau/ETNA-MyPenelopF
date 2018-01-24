@@ -7,16 +7,10 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import DAO.ContactDAO;
-import DAO.DAOFactory;
-import DataInterface.FileSystemManager;
-import classes.Contact;
 import classes.Group;
 import controllers.ContactController;
-import controllers.PenelopeController;
 import ihm.contact.ContactPanel;
 import ihm.group.GroupPanel;
-import utils.ContactUtils;
 import utils.GroupUtils;
 
 /**
@@ -74,7 +68,7 @@ public class dashboardPanel implements ViewListener {
 	public void showGroupsTriggered() {
 		ArrayList<Group> groups = null;
 		try {
-			groups = this.gUtils.getGroups();
+			groups = this.gUtils.getGroups(); 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

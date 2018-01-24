@@ -19,6 +19,7 @@ import classes.Group;
 public class GroupUtils {
 	
 	private final Collection<GroupListener> groupListeners = new ArrayList<GroupListener>();
+	private final PenelopDevLogger log = PenelopDevLogger.get();
 	
 	private GroupUtils() {}
 	
