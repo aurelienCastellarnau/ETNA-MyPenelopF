@@ -3,11 +3,13 @@ package controllers;
 import java.util.ArrayList;
 
 import DAO.DAOFactory;
+import DataInterface.DataInterface;
 import DataInterface.FileSystemManager;
 import Observer.ContactListener;
 import DAO.ContactDAO;
 import classes.Contact;
 import ihm.BaseFrame;
+import ihm.dashboardPanel;
 import utils.PenelopDevLogger;
 
 /**
@@ -23,17 +25,29 @@ import utils.PenelopDevLogger;
 public class ContactController implements PenelopeController, ContactListener {
 	// Singletons calls on utilitarie classes
 	final static PenelopDevLogger log = PenelopDevLogger.get();
-	final private ContactDAO contactDAO = (ContactDAO) DAOFactory
-			.getContactDAO(FileSystemManager.get());
+	private ContactDAO cDAO = null;
 	// View elements
-	public BaseFrame base;
+	public dashboardPanel dashboard;
 	public BaseFrame uForm;
-	
-	public void init() {
-        contactDAO.addContactListener(this);
+	// Constructor
+	public ContactController(ContactDAO cDAO) {
+		this.cDAO = cDAO;
 	}
+	// Link DAO and Controller
+	public void init() {
+		cDAO.addContactListener(this);
+	}
+	// DAO accessor
 	final public ContactDAO getContactDAO() {
-		return this.contactDAO;
+		return this.cDAO;
+	}
+	// Global View accessor
+	public dashboardPanel getDashboard() {
+		return this.dashboard;
+	}
+	// Global View mutator
+	public void setDashboard(dashboardPanel dashboard) {
+		this.dashboard = dashboard;
 	}
 	/**
 	 *  Observer pattern => ContactListener
@@ -43,13 +57,13 @@ public class ContactController implements PenelopeController, ContactListener {
 	public void CreateContactTriggered(Contact nContact) {
     	log._("CREATE CONTACT");
 		log.contact(nContact);
-		contactDAO.add(nContact);
+		this.cDAO.add(nContact);
 	}
 	
 	public void DeleteContactTriggered(Contact dContact) {
     	log._("DELETE CONTACT");
 		log.contact(dContact);
-		contactDAO.remove(dContact);
+		this.cDAO.remove(dContact);
 	}
 
 	public void ShowUpdateTriggered(Contact c) {
@@ -61,7 +75,7 @@ public class ContactController implements PenelopeController, ContactListener {
 	public void UpdateContactTriggered(Contact uContact) {
     	log._("CREATE CONTACT");
 		log.contact(uContact);
-		contactDAO.update(uContact);
+		this.cDAO.update(uContact);
 	}
 	
 	public void ContactChangeTriggered() {
@@ -70,9 +84,9 @@ public class ContactController implements PenelopeController, ContactListener {
 	
 	//
 	private void refreshContact() {
-        ArrayList<Contact> retrievedContacts = contactDAO.get();
+        ArrayList<Contact> retrievedContacts = this.cDAO.get();
         log._("REFRESH CONTACT DISCONNECTED FROM DASHBOARD");
         log.contacts(retrievedContacts);
-        // this.base.refreshContactPanel(retrievedContacts);
+        this.dashboard.displayContactPanel();
 	}
 }
