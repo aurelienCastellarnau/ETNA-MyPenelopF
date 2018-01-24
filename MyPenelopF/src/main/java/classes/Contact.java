@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import DAO.ContactDAO;
 import DataInterface.FileSystemManager;
 import classes.Contact;
-import classes.Dashboard;
 import classes.Group;
 import classes.Msg;
 
@@ -30,8 +29,6 @@ public class Contact {
 	// contact name
 	private String name;
 	
-	// contact dashboard
-	private Dashboard dashboard;
 	
 	// contact groups
 	private transient ArrayList<Group> groups = new ArrayList<Group>();
@@ -81,22 +78,20 @@ public class Contact {
 		// Logic to retrieve groups is in ContactDAO
 	}
 	// surcharged 'no-project' constructor
-	public Contact(String email, String surname, String name, Dashboard dashboard, ArrayList<Group> groups, ArrayList<Msg> messages) {
+	public Contact(String email, String surname, String name, ArrayList<Group> groups, ArrayList<Msg> messages) {
 		this.id = Contact.increment();
 		this.email = email;
 		this.surname = surname;
 		this.name = name;
-		this.dashboard = dashboard;
 		this.setGroups(groups);
 		this.setMessages(messages);
 	}
 	// surcharged 'full' constructor
-	public Contact(String email, String surname, String name, Dashboard dashboard, ArrayList<Project>projects, ArrayList<Group> groups, ArrayList<Msg> messages) {
+	public Contact(String email, String surname, String name, ArrayList<Project>projects, ArrayList<Group> groups, ArrayList<Msg> messages) {
 		this.id = Contact.increment();
 		this.email = email;
 		this.surname = surname;
 		this.name = name;
-		this.dashboard = dashboard;
 		this.setProjects(projects);
 		this.setGroups(groups);
 		this.setMessages(messages);
@@ -114,9 +109,6 @@ public class Contact {
 	}
 	public String getName() {
 		return this.name;
-	}
-	public Dashboard getDashboard() {
-		return this.dashboard;
 	}
 	
 	public ArrayList<Group> getGroups() {
