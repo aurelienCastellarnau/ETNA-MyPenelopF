@@ -73,50 +73,117 @@ public class Project {
 	public ArrayList<Group> getGroups() {
 		return this.groups;
 	}
+	public List<Integer> getGIds() {
+		return this.gIds;
+	}
 
 	public void setGroups(ArrayList<Group> groups) {
 		this.groups = groups;
 	}
 
-	public ArrayList<Contact> getUsers() {
+	public ArrayList<Contact> getContacts() {
 		return this.users;
 	}
-
-	public void setUsers(ArrayList<Contact> users) {
-		this.users = users;
+	public List<Integer> getUIds() {
+		return this.uIds;
 	}
+	
 
 	public ArrayList<Task> getTasks() {
 		return this.tasks;
 	}
-
-	public void setTasks(ArrayList<Task> tasks) {
-		this.tasks = tasks;
+	public List<Integer> getTIds() {
+		return this.tIds;
 	}
 
+	
 	public ArrayList<Document> getDocuments() {
 		return this.documents;
 	}
-
-	public void setDocuments(ArrayList<Document> documents) {
-		this.documents = documents;
+	public List<Integer> getDIds() {
+		return this.dIds;
 	}
 
-	public ArrayList<Message> getMessages() {
+	public ArrayList<Msg> getMessages() {
 		return this.messages;
 	}
-
-	public void setMessages(ArrayList<Message> messages) {
-		this.messages = messages;
+	public List<Integer> getMIds() {
+		return this.mIds;
 	}
-	
-	public void addTask(Task task) {
-		if (!this.tasks.contains(task)) {
-			this.tasks.add(task);
+
+	// Contacts mutators
+	public void setContacts(ArrayList<Contact> users) {
+		this.users = users;
+		for (int iterator = 0; iterator < this.users.size(); iterator ++) {
+			this.uIds.add(this.users.get(iterator).getId());
 		}
 	}
-	
-	public void delete(Task task) {
+	public void addContact(Contact c) {
+		if (!this.users.contains(c)) {
+			this.users.add(c);
+			this.uIds.add(c.getId());
+		}
+	}
+	public void deleteContact(Contact c) {
+		if (this.users.contains(c)) {
+			this.users.remove(c);
+			this.uIds.remove(c.getId());
+		}
+	}
+	// Documents mutators
+	public void setDocuments(ArrayList<Document> documents) {
+		this.documents = documents;
+		for (int iterator = 0; iterator < this.documents.size(); iterator++) {
+			this.dIds.add(this.documents.get(iterator).getId());
+		}
+	}
+	public void addDocument(Document d) {
+		if (!this.documents.contains(d)) {
+			this.documents.add(d);
+			this.dIds.add(d.getId());		
+		}
+	}
+	public void deleteDocument(Document d) {
+		if (this.documents.contains(d)) {
+			this.documents.remove(d);
+			this.dIds.remove(d.getId());
+		}
+	}
+
+	// Message mutators
+	public void setMessages(ArrayList<Msg> messages) {
+		this.messages = messages;
+		for (int iterator = 0; iterator < this.messages.size(); iterator++) {
+			this.mIds.add(this.messages.get(iterator).getId());
+		}
+	}
+	public void addMessage(Msg m) {
+		if (!this.messages.contains(m)) {
+			this.messages.add(m);
+			this.mIds.add(m.getId());		
+		}
+	}
+	public void deleteMessage(Msg m) {
+		if (this.messages.contains(m)) {
+			this.messages.remove(m);
+			this.mIds.remove(m.getId());
+		}
+	}
+
+	// Task mutators
+	public void setTasks(ArrayList<Task> tasks) {
+		this.tasks = tasks;
+		for (int iterator = 0; iterator < this.tasks.size(); iterator++) {
+			this.tIds.add(this.tasks.get(iterator).getId());
+		}
+	}
+	public void addTask(Task t) {
+		if (!this.tasks.contains(t)) {
+			this.tasks.add(t);
+			this.tIds.add(t.getId());
+		}
+	}
+	public void deleteTask(Task task) {
 		if (this.tasks.contains(task)) {
 			this.tasks.remove(task);
 		}
