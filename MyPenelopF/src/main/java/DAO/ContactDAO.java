@@ -1,14 +1,9 @@
 package DAO;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
-import com.google.gson.Gson;
 
 import DataInterface.DataInterface;
 import Observer.ContactListener;
@@ -19,7 +14,7 @@ import utils.GroupUtils;
 import utils.PenelopDevLogger;
 
 /**
- * 
+ *
  * @author jean
  * Classe permettant les opérations du CRUD sur l'entité Contact
  * Implemente un pattern Singleton
@@ -28,22 +23,22 @@ import utils.PenelopDevLogger;
  * implémente l'interface ContactDAOReceipe
  * l'observer permet de déclencher un refresh du model
  * lors d'une modification, le Controller enregistré comme
- * listener est chargé de répercuté le model sur els vues (ContactController) 
- */		
+ * listener est chargé de répercuté le model sur els vues (ContactController)
+ */
 public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, ContactObserver {
 
 		private final Collection<ContactListener> contactListeners = new ArrayList<ContactListener>();
 		private PenelopDevLogger log = PenelopDevLogger.get();
-		
+
 		// Singleton implementation
 		public ContactDAO(DataInterface di) {
 			super(di);
 		}
 		/** Holder */
 	    private static class SingletonHolder
-	    {       
-	        /** Instance unique non préinitialisée 
-	         * la classe interne ne sera chargée en mémoire 
+	    {
+	        /** Instance unique non préinitialisée
+	         * la classe interne ne sera chargée en mémoire
 	         * que lorsque l'on y fera référence pour la première fois
 	         * Permet de protéger d'un double appel en environnement multithreadé.
 	         * C'est overkill pour le moment, mais c'est une bonne pratique.
@@ -55,7 +50,7 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 	         * du programme.
 	        */
 	        private static ContactDAO instance = null;
-	        private final static ContactDAO get(DataInterface di) { 
+	        private final static ContactDAO get(DataInterface di) {
 	        	instance = (instance == null) ? new ContactDAO(di) : instance;
 	        	return instance;
 	        }
@@ -63,7 +58,7 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 	    public static ContactDAO getInstance(DataInterface di) {
 	    	return SingletonHolder.get(di);
 	    }
-	    
+
 		public ArrayList<Contact> createDummyContacts() {
 			ArrayList<Contact> al = new ArrayList<Contact>();
 	    	Contact user1 = new Contact("test@etna-alternance.net", "Jean", "Billaud");
@@ -110,7 +105,7 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 			}
 			return false;
 		}
-		
+
 		@Override
 		public boolean remove(Contact c) {
 			System.out.println("into remove contact");
@@ -128,7 +123,7 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 			}
 			return false;
 		}
-		 
+
 		@Override
 		public ArrayList<Contact> get(){
 			ArrayList<Contact> contacts = this.di.readContacts();
@@ -138,9 +133,9 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 			}
 			return contacts;
 		}
-	
+
 		/**
-		 * Retrieve Contact.groups from Group.uIds (not from Contact.gIds...)		
+		 * Retrieve Contact.groups from Group.uIds (not from Contact.gIds...)
 		 */
 		public ArrayList<Group> getGroups(Contact c) {
 			ArrayList<Group> groups = this.di.readGroups();

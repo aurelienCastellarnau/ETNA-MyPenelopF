@@ -16,9 +16,9 @@ import classes.Task;
 import utils.PenelopDevLogger;
 
 /**
- * 
+ *
  * @author jean
- * 
+ *
  */
 public class FileSystemManager implements DataInterface {
 
@@ -28,7 +28,9 @@ public class FileSystemManager implements DataInterface {
 	private String groupFile = "/group.json";
 	private String projectFile = "/project.json";
 	private String taskFile = "/task.json";
-	
+
+	private PenelopDevLogger log = PenelopDevLogger.get();
+
 	private FileSystemManager() {}
 	private static class SingletonHolder
 	{
@@ -37,7 +39,7 @@ public class FileSystemManager implements DataInterface {
 	public static FileSystemManager get() {
 		return SingletonHolder.instance;
 	}
-	
+
 	public ArrayList<Contact>readContacts() {
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + this.contactFile));
@@ -73,7 +75,7 @@ public class FileSystemManager implements DataInterface {
 			return null;
 		}
 	}
-	
+
 	public ArrayList<Task>readTasks() {
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + this.taskFile));
@@ -91,7 +93,7 @@ public class FileSystemManager implements DataInterface {
 	 */
 	public void writeContacts(ArrayList<Contact> users) {
 		Gson gson = new Gson();
-    	String json = gson.toJson(users);
+		String json = gson.toJson(users);
 		try {
 			FileWriter fileWriter = new FileWriter(this.project_path + this.contactFile);
     		fileWriter.write(json);
@@ -100,7 +102,19 @@ public class FileSystemManager implements DataInterface {
 			log._("Exception trhowed in writeContacts(): " + e.getMessage());
 		}
 	}
-	
+
+	public ArrayList<Contact> getContacts() {
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/users.json"));
+			Contact[] json = new Gson().fromJson(bufferedReader, Contact[].class);
+			ArrayList<Contact> contacts = json != null ? new ArrayList<Contact>(Arrays.asList(json)) : new ArrayList<Contact>();
+			return contacts;
+		} catch (IOException e) {
+			log._("Throwed in get Contacts: " + e.getMessage());
+			return null;
+		}
+	}
+
 	/**
 	 * Write the new groups List in the file groups.
 	 * @param groups
@@ -132,7 +146,7 @@ public class FileSystemManager implements DataInterface {
 			log._("Exception trhowed in writeContacts(): " + e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Write the new projects List in the file projects.json.
 	 * @param projects
