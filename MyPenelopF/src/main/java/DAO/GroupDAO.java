@@ -13,15 +13,15 @@ import classes.Group;
 public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserver {
 
 	private final Collection<GroupListener> groupListeners = new ArrayList<GroupListener>();
-	
+
 	public GroupDAO(DataInterface di) {
 		super(di);
 	}
-	
+
 	 private static class SingletonHolder
-	    {       
-	        /** Instance unique non préinitialisée 
-	         * la classe interne ne sera chargée en mémoire 
+	    {
+	        /** Instance unique non préinitialisée
+	         * la classe interne ne sera chargée en mémoire
 	         * que lorsque l'on y fera référence pour la première fois
 	         * Permet de protéger d'un double appel en environnement multithreadé.
 	         * C'est overkill pour le moment, mais c'est une bonne pratique.
@@ -33,7 +33,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 	         * du programme.
 	        */
 	        private static GroupDAO instance = null;
-	        private final static GroupDAO get(DataInterface di) { 
+	        private final static GroupDAO get(DataInterface di) {
 	        		instance = (instance == null) ? new GroupDAO(di) : instance;
 	        		return instance;
 	        }
@@ -41,7 +41,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 	    public static GroupDAO getInstance(DataInterface di) {
 	    	return SingletonHolder.get(di);
 	    }
-	    
+
 		@Override
 		public boolean add(Group g) {
 			ArrayList<Group> groups;
@@ -51,7 +51,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 			this.triggerGroupChange();
 			return true;
 		}
-		
+
 		@Override
 		public boolean remove(Group g) {
 			System.out.println("IN DELETE GROUP");
@@ -68,7 +68,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 			}
 			return false;
 		}
-		
+
 		@Override
 		public boolean update(Group g) {
 			ArrayList<Group> groups = new ArrayList<Group>();
@@ -85,7 +85,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 			}
 			return false;
 		}
-		
+
 		@Override
 		public ArrayList<Group> get() {
 			ArrayList<Group> groups = this.di.readGroups();
@@ -95,7 +95,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 			}
 			return groups;
 		}
-		
+
 		public ArrayList<Contact> getContacts(Group g) {
 			ArrayList<Contact> contacts = this.di.readContacts();
 			ArrayList<Contact> gContacts = new ArrayList<Contact>();
@@ -110,7 +110,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 			}
 			return gContacts;
 		}
-		
+
 		public void triggerGroupChange() {
 			for (GroupListener listener: this.groupListeners) {
 				listener.GroupChangeTriggered();
@@ -121,7 +121,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 		}
 		public void removeGroupListener(GroupListener listener) {
 			this.groupListeners.remove(listener);
-			
+
 		}
 		public void triggerCreateGroup(Group group) {}
 		public void triggerUpdateGroup(Group group) {}
@@ -129,6 +129,6 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 
 		public void triggerShowUpdate(Group group) {
 			// TODO Auto-generated method stub
-			
+
 		}
 }

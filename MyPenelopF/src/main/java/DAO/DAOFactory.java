@@ -18,7 +18,7 @@ public class DAOFactory {
 		  ContactDAOReceipe cDAO = new ContactDAO(di);
 		  return (ContactDAO)cDAO;
 	  }
-	  
+
 	  public static DAO<Group> getGroupDAO(DataInterface di) {
 		  // GroupDAO must implement GroupDAOReceipe
 		  GroupDAOReceipe gDAO = new GroupDAO(di);

@@ -1,5 +1,6 @@
 package DAO;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -10,6 +11,7 @@ import Observer.ContactListener;
 import Observer.ContactObserver;
 import classes.Contact;
 import classes.Group;
+import utils.PenelopDevLogger;
 
 /**
  *
@@ -26,6 +28,7 @@ import classes.Group;
 public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, ContactObserver {
 
 		private final Collection<ContactListener> contactListeners = new ArrayList<ContactListener>();
+		private PenelopDevLogger log = PenelopDevLogger.get();
 
 		// Singleton implementation
 		public ContactDAO(DataInterface di) {
