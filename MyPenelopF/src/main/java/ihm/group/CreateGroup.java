@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import classes.Contact;
 import classes.Group;
 import ihm.FormBuilder;
 

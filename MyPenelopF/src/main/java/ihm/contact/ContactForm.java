@@ -23,6 +23,7 @@ public class ContactForm extends JPanel implements ContactObserver {
 	 * JPanel implementation requirement
 	 */
 	private static final long serialVersionUID = 4029539107222146186L;
+	private static final PenelopDevLogger log = PenelopDevLogger.get();
 	private FormBuilder _fb = new FormBuilder();
 	private JPanel pan;
 	private JLabel title = new JLabel("Create New Contact");
@@ -78,7 +79,6 @@ public class ContactForm extends JPanel implements ContactObserver {
 	    					self.getNameInput().getText()
 	    				);
 	     		self.triggerUpdateContact(c);
-	    		PenelopDevLogger.get().contact(c);
 	     	}
 		});
 		this.pan.add(this.updateButton);
@@ -119,9 +119,7 @@ public class ContactForm extends JPanel implements ContactObserver {
 	}
 	public void triggerUpdateContact(Contact contact) {
 		System.out.println("UPDATE CONTACT");
-		PenelopDevLogger.get().contact(contact);
 		for (ContactListener listener: this.contactListeners) {
-			PenelopDevLogger.get().contact(contact);
 			listener.UpdateContactTriggered(contact);
 		}
 	}

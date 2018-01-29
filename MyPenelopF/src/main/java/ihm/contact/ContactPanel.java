@@ -1,6 +1,7 @@
 package ihm.contact;
 
 import java.awt.CardLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,6 +14,10 @@ import javax.swing.JPanel;
 import Observer.ContactListener;
 import Observer.ContactObserver;
 import classes.Contact;
+import classes.Group;
+import ihm.FormBuilder;
+import ihm.group.GroupPanel;
+import utils.PenelopDevLogger;
 
 /**
  *
@@ -29,7 +34,10 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	 * JPanel implementation requirement
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final PenelopDevLogger log = PenelopDevLogger.get();
+    private FormBuilder _fb = new FormBuilder();
 	private JPanel pan;
+	private GroupPanel groupPan;
     private CardLayout cl;
 	private final Collection<ContactListener> ContactListeners = new ArrayList<ContactListener>();
 
@@ -40,8 +48,15 @@ public class ContactPanel extends JPanel implements ContactObserver{
 		this.pan.setLayout(this.cl);
 	    for (final Contact user: users)
 	    {
+	    	JPanel userPan = new JPanel();
+			GridLayout gl = new GridLayout(6, 2, 5, 5);
+			userPan.setLayout(gl);
+	    	CardLayout groupCl = new CardLayout();
+	    	ArrayList<Group>userGroups = user.getGroups();
+	    	this.groupPan = new GroupPanel(new JPanel(), groupCl, userGroups);
+	        JPanel groupNavPan = this._fb.getNavPanel(this.groupPan.getCard(), this.groupPan.getPan());
 	    	JLabel tmp = new JLabel("User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName());
-	     	final JPanel card = new JPanel();
+	     	JPanel card = new JPanel();
 	        JButton del = new JButton("Delete");
 	        del.addActionListener(new ActionListener() {
 		     	public void actionPerformed(ActionEvent event) {
@@ -54,9 +69,13 @@ public class ContactPanel extends JPanel implements ContactObserver{
 		     		self.triggerShowUpdate(user);
 		     	}
 	        });
-	     	card.add(tmp);
-	     	card.add(up);
-	        card.add(del);
+	        userPan.add(tmp);
+	        userPan.add(groupNavPan);
+	        userPan.add(this.groupPan.getPan());
+	        userPan.add(up);
+	        userPan.add(del);
+	     	card.add(userPan);
+	     	card.add(groupPan);
 	        this.pan.add(card, user.getId().toString());
 	    }
 	}

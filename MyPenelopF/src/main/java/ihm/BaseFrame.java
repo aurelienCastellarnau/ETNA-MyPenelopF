@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import classes.Contact;
 import classes.Group;
 import controllers.ContactController;
 import controllers.GroupController;
+import controllers.PenelopeController;
 
 /**
  *
@@ -35,7 +37,7 @@ public class BaseFrame extends JFrame {
 	 * Controllers
 	 */
 	ContactController cCtrl;
-	
+	GroupController gCtrl;
 	/**
 	 * Tools
 	 */
@@ -46,6 +48,8 @@ public class BaseFrame extends JFrame {
 	/**
 	 * Panels
 	 */
+	private menuPanel mPan;
+	private dashboardPanel dPan;
 	ContactPanel contactPanel;
 	ContactForm createContact;
 	ContactForm updateContact;
@@ -53,8 +57,10 @@ public class BaseFrame extends JFrame {
 	CreateGroup createGroup;
 	JPanel buttonPane;
 
-	public BaseFrame() {
-        this.setTitle("MyPenelopF");
+	public BaseFrame(HashMap<String, PenelopeController> ctrls) {
+        this.cCtrl = (ContactController)ctrls.get("contact");
+        this.gCtrl = (GroupController)ctrls.get("group");
+		this.setTitle("MyPenelopF");
         this.setSize(800, 600);
         this.setResizable(true);
         this.setLayout(new BorderLayout());
@@ -62,17 +68,23 @@ public class BaseFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(250, 250);
         
-        menuPanel mPan = new menuPanel();
-        dashboardPanel dPan = new dashboardPanel();
+        this.mPan = new menuPanel();
+        this.dPan = new dashboardPanel(this.cCtrl);
         
         mPan.addViewListener(dPan);
         split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mPan.getPan(), dPan.getPan());
-        
         this.getContentPane().add(split, BorderLayout.CENTER);
-        
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
+    }
+	
+	public menuPanel getMenuPanel() {
+		return this.mPan;
 	}
-
+	
+	public dashboardPanel getDashboardPanel() {
+		return this.dPan;
+	}
 	/**
 	 *
 	 * @param cCtrl

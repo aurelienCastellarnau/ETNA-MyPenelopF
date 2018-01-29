@@ -10,10 +10,11 @@ import javax.swing.JPanel;
 import classes.Contact;
 import classes.Group;
 import controllers.ContactController;
+import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
 import ihm.group.GroupPanel;
-import utils.ContactUtils;
 import utils.GroupUtils;
+import utils.PenelopDevLogger;
 
 /**
  * 
@@ -21,6 +22,8 @@ import utils.GroupUtils;
  * Front Controller for the dashboard view
  */
 public class dashboardPanel implements ViewListener {
+	
+	private static final PenelopDevLogger log = PenelopDevLogger.get();
 	
 	/**
 	 * Declaration du Panel Principal
@@ -32,24 +35,21 @@ public class dashboardPanel implements ViewListener {
 	/**
 	 * Panels pouvant etre appelles dans le panel parent mPan
 	 */
+	private ContactForm contactForm;
 	private ContactPanel contactPanel;
 	private GroupPanel groupPanel;
 
-	/**
-	 * Utils appeles en fonction des listeners;
-	 */
-	private ContactUtils cUtils = ContactUtils.get();   
 	private GroupUtils gUtils = GroupUtils.get();
 	
 	/**
 	 * Controller permettant la gestion des Listeners;
 	 */
 	private ContactController cCtrl;
-
 	
 	private CardLayout cl = new CardLayout();
 	
-	public dashboardPanel() {
+	public dashboardPanel(ContactController cCtrl) {
+		this.cCtrl = cCtrl;
 		this.mPan = new JPanel();
 	}
 	
@@ -58,29 +58,34 @@ public class dashboardPanel implements ViewListener {
 	}
 
 	public void showContactsTriggered() {
-		ArrayList<Contact> users = null;
-		try {
-			users = this.cUtils.getContacts();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.contactPanel = new ContactPanel(new JPanel(), this.cl, users);
+		this.displayContactPanel();
+	}
+
+	public void displayContactPanel() {
+		ArrayList<Contact> contacts = this.cCtrl.getContactDAO().get();
+		// add contact view
+		this.contactForm = new ContactForm(new JPanel());
+		this.contactForm.addContactListener(this.cCtrl);
+		// get, update and delete contact view
+		this.contactPanel = new ContactPanel(new JPanel(), this.cl, contacts);
         this.contactPanel.addContactListener(this.cCtrl);
         this._fb = new FormBuilder();
         this.navPan = new JPanel();
         this.navPan = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
+        // Panel construction
 		this.mPan.removeAll();
-		this.mPan.add(navPan);
-		this.mPan.add(contactPanel.getPan());
+		this.mPan.add(this.navPan);
+		this.mPan.add(this.contactPanel.getPan());
+		this.mPan.add(this.contactForm.getPan());
 		this.mPan.setBackground(Color.red);
 		this.mPan.revalidate();
 		this.mPan.repaint();
 	}
-
+	
 	public void showGroupsTriggered() {
 		ArrayList<Group> groups = null;
 		try {
-			groups = this.gUtils.getGroups();
+			groups = this.gUtils.getGroups(); 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
