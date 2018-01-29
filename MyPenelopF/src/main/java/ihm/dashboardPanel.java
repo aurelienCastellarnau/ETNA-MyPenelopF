@@ -2,7 +2,6 @@ package ihm;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -11,13 +10,13 @@ import classes.Contact;
 import classes.Group;
 import classes.Project;
 import controllers.ContactController;
+import controllers.GroupController;
 import controllers.ProjectController;
 import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 import ihm.project.ProjectPanel;
-import utils.PenelopDevLogger;
 
 /**
  * 
@@ -25,8 +24,6 @@ import utils.PenelopDevLogger;
  * Front Controller for the dashboard view
  */
 public class dashboardPanel implements ViewListener {
-	
-	private static final PenelopDevLogger log = PenelopDevLogger.get();
 	
 	/**
 	 * Declaration du Panel Principal
@@ -54,15 +51,17 @@ public class dashboardPanel implements ViewListener {
 	 */
 	private ContactController cCtrl;
 	private ProjectController pCtrl;
+	private GroupController gCtrl;
 	
 	private CardLayout contactCl = new CardLayout();
 	private CardLayout projectCl = new CardLayout();
 	private CardLayout groupCl = new CardLayout();
 	private CardLayout taskCl = new CardLayout();
 	
-	public dashboardPanel(ContactController cCtrl, ProjectController pCtrl) {
+	public dashboardPanel(ContactController cCtrl, ProjectController pCtrl, GroupController gCtrl) {
 		this.cCtrl = cCtrl;
 		this.pCtrl = pCtrl;
+		this.gCtrl = gCtrl;
 		this.mPan = new JPanel();
 	}
 	
@@ -123,13 +122,8 @@ public class dashboardPanel implements ViewListener {
 	}
 
 	public void showGroupsTriggered() {
-		ArrayList<Group> groups = null;
-		try {
-			groups = this.gUtils.getGroups(); 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.groupPanel = new GroupPanel(new JPanel(), this.groupCl, groups);
+		ArrayList<Group> groups = this.gCtrl.getGroupDAO().get();
+		this.groupPanel = new GroupPanel(new JPanel(), this.cl, groups);
 		this.mPan.removeAll();
 		this.mPan.add(groupPanel.getPan());
 		this.mPan.revalidate();

@@ -34,8 +34,8 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 	        */
 	        private static GroupDAO instance = null;
 	        private final static GroupDAO get(DataInterface di) { 
-	        	instance = (instance == null) ? new GroupDAO(di) : instance;
-	        	return instance;
+	        		instance = (instance == null) ? new GroupDAO(di) : instance;
+	        		return instance;
 	        }
 	    }
 	    public static GroupDAO getInstance(DataInterface di) {

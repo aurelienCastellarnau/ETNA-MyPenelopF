@@ -76,7 +76,7 @@ public class BaseFrame extends JFrame {
         this.setLocation(250, 250);
         
         this.mPan = new menuPanel();
-        this.dPan = new dashboardPanel(this.cCtrl, this.pCtrl);
+        this.dPan = new dashboardPanel(this.cCtrl, this.pCtrl, this.gCtrl);
         
         mPan.addViewListener(dPan);
         split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mPan.getPan(), dPan.getPan());
