@@ -1,18 +1,15 @@
 package DAO;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import DataInterface.DataInterface;
+import DataInterface.FileSystemManager;
 import Observer.ContactListener;
 import Observer.ContactObserver;
 import classes.Contact;
 import classes.Group;
-import controllers.AppController;
-import controllers.GroupController;
-import utils.PenelopDevLogger;
 
 /**
  *
@@ -29,7 +26,6 @@ import utils.PenelopDevLogger;
 public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, ContactObserver {
 
 		private final Collection<ContactListener> contactListeners = new ArrayList<ContactListener>();
-		private PenelopDevLogger log = PenelopDevLogger.get();
 
 		// Singleton implementation
 		public ContactDAO(DataInterface di) {
@@ -63,13 +59,9 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 		public ArrayList<Contact> createDummyContacts() {
 			ArrayList<Contact> al = new ArrayList<Contact>();
 	    	Contact user1 = new Contact("test@etna-alternance.net", "Jean", "Billaud");
-	    	try {
-	    		GroupController gController = GroupController.init();
-	    		ArrayList<Group> groups = gDAO.get();
-	    		user1.setGroups(groups);
-	    	} catch (IOException e) {
-	    		log._("Throwed in createDummyContact: " + e.getMessage());
-	    	}
+	    	GroupDAO gDAO = GroupDAO.getInstance(FileSystemManager.get());
+	    	ArrayList<Group> groups = gDAO.get();
+	    	user1.setGroups(groups);
 	    	al.add(user1);
 	    	this.di.writeContacts(al);
 	    	Contact user2 = new Contact("test2@etna-alternance.net", "Aurel", "Castellarnau");

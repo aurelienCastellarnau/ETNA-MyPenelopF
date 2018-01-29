@@ -2,7 +2,6 @@ package ihm;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -11,23 +10,21 @@ import classes.Contact;
 import classes.Group;
 import classes.Project;
 import controllers.ContactController;
+import controllers.GroupController;
 import controllers.ProjectController;
 import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 import ihm.project.ProjectPanel;
-import utils.PenelopDevLogger;
 
 /**
- * 
+ *
  * @author kumatetsu
  * Front Controller for the dashboard view
  */
 public class dashboardPanel implements ViewListener {
-	
-	private static final PenelopDevLogger log = PenelopDevLogger.get();
-	
+
 	/**
 	 * Declaration du Panel Principal
 	 */
@@ -36,7 +33,7 @@ public class dashboardPanel implements ViewListener {
 	private JPanel projectNavPan;
 	private JPanel taskNavPan;
 	private FormBuilder _fb = new FormBuilder();
-	
+
 	/**
 	 * Panels pouvant etre appelles dans le panel parent mPan
 	 */
@@ -54,18 +51,20 @@ public class dashboardPanel implements ViewListener {
 	 */
 	private ContactController cCtrl;
 	private ProjectController pCtrl;
-	
+	private GroupController gCtrl;
+
 	private CardLayout contactCl = new CardLayout();
 	private CardLayout projectCl = new CardLayout();
 	private CardLayout groupCl = new CardLayout();
 	private CardLayout taskCl = new CardLayout();
-	
-	public dashboardPanel(ContactController cCtrl, ProjectController pCtrl) {
+
+	public dashboardPanel(ContactController cCtrl, ProjectController pCtrl, GroupController gCtrl) {
 		this.cCtrl = cCtrl;
 		this.pCtrl = pCtrl;
+		this.gCtrl = gCtrl;
 		this.mPan = new JPanel();
 	}
-	
+
 	public JPanel getPan() {
 		return this.mPan;
 	}
@@ -99,7 +98,7 @@ public class dashboardPanel implements ViewListener {
 	public void showProjectsTriggered() {
 		this.displayProjectPanel();
 	}
-	
+
 	public void displayProjectPanel() {
 		ArrayList<Project> projects = this.pCtrl.getPDAO().get();
 		if (projects == null)
@@ -125,7 +124,7 @@ public class dashboardPanel implements ViewListener {
 	public void showGroupsTriggered() {
 		ArrayList<Group> groups = null;
 		try {
-			groups = this.gUtils.getGroups(); 
+			groups = this.gUtils.getGroups();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
