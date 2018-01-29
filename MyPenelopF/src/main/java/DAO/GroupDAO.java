@@ -68,6 +68,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 			}
 			return false;
 		}
+
 		@Override
 		public boolean update(Group g) {
 			ArrayList<Group> groups = new ArrayList<Group>();
@@ -84,6 +85,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 			}
 			return false;
 		}
+
 		@Override
 		public ArrayList<Group> get() {
 			ArrayList<Group> groups = this.di.readGroups();
@@ -93,6 +95,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 			}
 			return groups;
 		}
+
 		public ArrayList<Contact> getContacts(Group g) {
 			ArrayList<Contact> contacts = this.di.readContacts();
 			ArrayList<Contact> gContacts = new ArrayList<Contact>();
