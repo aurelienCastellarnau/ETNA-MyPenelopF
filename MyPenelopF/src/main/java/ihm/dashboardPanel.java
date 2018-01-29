@@ -18,7 +18,6 @@ import ihm.group.FormGroup;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 import ihm.project.ProjectPanel;
-import utils.PenelopDevLogger;
 
 /**
  *
@@ -26,7 +25,6 @@ import utils.PenelopDevLogger;
  * Front Controller for the dashboard view
  */
 public class dashboardPanel implements ViewListener {
-
 	/**
 	 * Declaration du Panel Principal
 	 */
@@ -55,12 +53,20 @@ public class dashboardPanel implements ViewListener {
 	private ContactController cCtrl;
 	private ProjectController pCtrl;
 	private GroupController gCtrl;
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> DAO compléte des groups et ajout à l'app fonctionnel.
 	private CardLayout contactCl = new CardLayout();
 	private CardLayout projectCl = new CardLayout();
 	private CardLayout groupCl = new CardLayout();
 	private CardLayout taskCl = new CardLayout();
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> DAO compléte des groups et ajout à l'app fonctionnel.
 	public dashboardPanel(ContactController cCtrl, ProjectController pCtrl, GroupController gCtrl) {
 		this.cCtrl = cCtrl;
 		this.pCtrl = pCtrl;
