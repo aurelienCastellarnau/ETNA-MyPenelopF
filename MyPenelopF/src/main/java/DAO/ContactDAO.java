@@ -10,7 +10,8 @@ import Observer.ContactListener;
 import Observer.ContactObserver;
 import classes.Contact;
 import classes.Group;
-import utils.GroupUtils;
+import controllers.AppController;
+import controllers.GroupController;
 import utils.PenelopDevLogger;
 
 /**
@@ -63,7 +64,8 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 			ArrayList<Contact> al = new ArrayList<Contact>();
 	    	Contact user1 = new Contact("test@etna-alternance.net", "Jean", "Billaud");
 	    	try {
-	    		ArrayList<Group> groups = GroupUtils.get().getGroups();
+	    		GroupController gController = GroupController.init();
+	    		ArrayList<Group> groups = gDAO.get();
 	    		user1.setGroups(groups);
 	    	} catch (IOException e) {
 	    		log._("Throwed in createDummyContact: " + e.getMessage());

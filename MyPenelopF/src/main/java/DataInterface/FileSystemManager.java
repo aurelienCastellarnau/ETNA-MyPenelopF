@@ -29,8 +29,6 @@ public class FileSystemManager implements DataInterface {
 	private String projectFile = "/project.json";
 	private String taskFile = "/task.json";
 	
-	private PenelopDevLogger log = PenelopDevLogger.get();
-	
 	private FileSystemManager() {}
 	private static class SingletonHolder
 	{
