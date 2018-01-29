@@ -12,25 +12,25 @@ import com.google.gson.Gson;
 import DataInterface.FileSystemManager;
 import classes.Group;
 /**
- * 
+ *
  * @author kumatetsu
  *
  */
 public class GroupUtils {
-	
+
 	private final Collection<GroupListener> groupListeners = new ArrayList<GroupListener>();
 	private final PenelopDevLogger log = PenelopDevLogger.get();
-	
+
 	private GroupUtils() {}
-	
+
 	private static class SingletonHolder
-    {       
+    {
         private final static GroupUtils instance = new GroupUtils();
     }
     public static GroupUtils get() {
     		return SingletonHolder.instance;
     }
-    
+
     /**
      * Method to add one group to the file 'groups.json'
      * @param Group g
@@ -42,7 +42,7 @@ public class GroupUtils {
 		FileSystemManager.get().writeGroups(groups);
 		this.triggerGroupChange();
 	}
-    
+
     /**
      * Method to load groups from file 'groups.json'
      * @return ArrayList<Group> groups
@@ -58,15 +58,15 @@ public class GroupUtils {
         groups = new ArrayList<Group>(Arrays.asList(json));
         return groups;
 	}
-    
+
     public void addGroupListener(GroupListener listener) {
 		this.groupListeners.add(listener);
 	}
-    
+
 	public void removeGroupListener(GroupListener listener) {
 		this.groupListeners.remove(listener);
 	}
-	
+
 	public void triggerGroupChange() {
 		for (GroupListener listener: this.groupListeners) {
 			listener.GroupChangeTriggered();

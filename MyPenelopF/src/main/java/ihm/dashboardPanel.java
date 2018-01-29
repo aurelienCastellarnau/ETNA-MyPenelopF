@@ -17,7 +17,6 @@ import ihm.contact.ContactPanel;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 import ihm.project.ProjectPanel;
-import utils.GroupUtils;
 import utils.PenelopDevLogger;
 
 /**
@@ -50,8 +49,6 @@ public class dashboardPanel implements ViewListener {
 	private ProjectForm projectForm;
 	private ProjectPanel projectPanel;
 
-	private GroupUtils gUtils = GroupUtils.get();
-	
 	/**
 	 * Controller permettant la gestion des Listeners;
 	 */
