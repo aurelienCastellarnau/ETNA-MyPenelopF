@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 
 import classes.Contact;
 import classes.Group;
+import classes.Project;
+import classes.Task;
 import utils.PenelopDevLogger;
 
 /**
@@ -21,7 +23,11 @@ import utils.PenelopDevLogger;
 public class FileSystemManager implements DataInterface {
 
 	private static final PenelopDevLogger log = PenelopDevLogger.get();
-	String project_path = System.getProperty("user.dir");
+	private String project_path = System.getProperty("user.dir");
+	private String contactFile = "/contact.json";
+	private String groupFile = "/group.json";
+	private String projectFile = "/project.json";
+	private String taskFile = "/task.json";
 	
 	private FileSystemManager() {}
 	private static class SingletonHolder
@@ -34,7 +40,7 @@ public class FileSystemManager implements DataInterface {
 	
 	public ArrayList<Contact>readContacts() {
 		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/users.json"));
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + this.contactFile));
 			Contact[] json = new Gson().fromJson(bufferedReader, Contact[].class);
 			ArrayList<Contact> contacts = json != null ? new ArrayList<Contact>(Arrays.asList(json)) : new ArrayList<Contact>();
 			return contacts;
@@ -46,7 +52,7 @@ public class FileSystemManager implements DataInterface {
 
 	public ArrayList<Group>readGroups() {
 		try {
-			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/groups.json"));
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + this.groupFile));
 			Group[] json = new Gson().fromJson(bufferedReader, Group[].class);
 			ArrayList<Group> groups = json != null ? new ArrayList<Group>(Arrays.asList(json)) : new ArrayList<Group>();
 			return groups;
@@ -55,7 +61,30 @@ public class FileSystemManager implements DataInterface {
 			return null;
 		}
 	}
+
+	public ArrayList<Project>readProjects() {
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + this.projectFile));
+			Project[] json = new Gson().fromJson(bufferedReader, Project[].class);
+			ArrayList<Project> projects = json != null ? new ArrayList<Project>(Arrays.asList(json)) : new ArrayList<Project>();
+			return projects;
+		} catch (IOException e) {
+			log._("Throwed in readGroups: " + e.getMessage());
+			return null;
+		}
+	}
 	
+	public ArrayList<Task>readTasks() {
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + this.taskFile));
+			Task[] json = new Gson().fromJson(bufferedReader, Task[].class);
+			ArrayList<Task> tasks = json != null ? new ArrayList<Task>(Arrays.asList(json)) : new ArrayList<Task>();
+			return tasks;
+		} catch (IOException e) {
+			log._("Throwed in readGroups: " + e.getMessage());
+			return null;
+		}
+	}
 	/**
 	 * Wrtie the new contacts List in the file groups
 	 * @param users
@@ -64,7 +93,7 @@ public class FileSystemManager implements DataInterface {
 		Gson gson = new Gson();
     	String json = gson.toJson(users);
 		try {
-			FileWriter fileWriter = new FileWriter(this.project_path + "/users.json");
+			FileWriter fileWriter = new FileWriter(this.project_path + this.contactFile);
     		fileWriter.write(json);
             fileWriter.close();
 		} catch (IOException e) {
@@ -80,7 +109,39 @@ public class FileSystemManager implements DataInterface {
 		Gson gson = new Gson();
     	String json = gson.toJson(groups);
 		try {
-			FileWriter fileWriter = new FileWriter(this.project_path + "/groups.json");
+			FileWriter fileWriter = new FileWriter(this.project_path + this.groupFile);
+    		fileWriter.write(json);
+            fileWriter.close();
+		} catch (IOException e) {
+			log._("Exception trhowed in writeContacts(): " + e.getMessage());
+		}
+	}
+
+	/**
+	 * Write the new projects List in the file projects.json.
+	 * @param projects
+	 */
+	public void writeProjects(ArrayList<Project> projects) {
+		Gson gson = new Gson();
+    	String json = gson.toJson(projects);
+		try {
+			FileWriter fileWriter = new FileWriter(this.project_path + this.projectFile);
+    		fileWriter.write(json);
+            fileWriter.close();
+		} catch (IOException e) {
+			log._("Exception trhowed in writeContacts(): " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * Write the new projects List in the file projects.json.
+	 * @param projects
+	 */
+	public void writeTasks(ArrayList<Task> tasks) {
+		Gson gson = new Gson();
+    	String json = gson.toJson(tasks);
+		try {
+			FileWriter fileWriter = new FileWriter(this.project_path + this.taskFile);
     		fileWriter.write(json);
             fileWriter.close();
 		} catch (IOException e) {

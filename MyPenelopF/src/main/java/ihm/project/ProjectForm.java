@@ -34,25 +34,25 @@ public class ProjectForm extends JPanel implements ProjectObserver  {
 	private JButton createButton = new JButton("Create");
 	private JButton updateButton = new JButton("Update");
 	private JPanel name = this._fb.getTextField("Name");
-	private JPanel content = this._fb.getTextField("Content Description");
+	private JPanel description = this._fb.getTextField("Content Description");
 	// chiche: 
 	private ArrayList<CreateGroup> groupsForm = new ArrayList<CreateGroup>();
-	private final Collection<ContactListener> contactListeners = new ArrayList<ContactListener>();
+	private final Collection<ProjectListener> projectListeners = new ArrayList<ProjectListener>();
 	
+	// create constructor
 	public ProjectForm(JPanel pan) {
 		GridLayout gl = new GridLayout(5, 1, 5, 5);
 		this.pan = pan;
 		this.pan.setLayout(gl);
 		this.pan.add(this.title);
 		this.pan.add(this.name);
-		this.pan.add(this.content);
-		
+		this.pan.add(this.description);
 		final ProjectForm self = this;
 		this.createButton.addActionListener(new ActionListener() {
 	     	public void actionPerformed(ActionEvent event) {
 	     		Project p = new Project(
 	     					self.getNameInput().getText(),
-	     					self.getContentInput().getText()
+	     					self.getDescriptionInput().getText()
 	     				);
 	     		self.triggerCreateProject(p);
 	     	}
@@ -60,45 +60,85 @@ public class ProjectForm extends JPanel implements ProjectObserver  {
 		this.pan.add(this.createButton);
 	}
 	
+	// update Constructor
+	public ProjectForm(JPanel pan, Project project) {
+		GridLayout gl = new GridLayout(5, 1, 5, 5);
+		this.pan = pan;
+		this.pan.setLayout(gl);
+		this.pan.add(this.title);
+		this.pan.add(this.name);
+		this.getNameInput().setText(project.getName());
+		this.pan.add(this.description);
+		this.getDescriptionInput().setText(project.getDescription());
+		final ProjectForm self = this;
+		final Integer id = project.getId();
+		this.updateButton.addActionListener(new ActionListener() {
+	     	public void actionPerformed(ActionEvent event) {
+	     		Project p = new Project(
+	     					id,
+	     					self.getNameInput().getText(),
+	     					self.getDescriptionInput().getText()
+	     				);
+	     		self.triggerUpdateProject(p);
+	     	}
+		});
+		this.pan.add(this.updateButton);
+	}
+	
 	// View components accessors
 	public JPanel getPan() {
 		return this.pan;
 	}
+	public JPanel getNamePanel() {
+		return this.name;
+	}
 	public JTextField getNameInput() {
 		return (JTextField)this.name.getComponent(1);
 	}
-	public JTextField getContentInput() {
-		return (JTextField)this.content.getComponent(1);
+	public JPanel getDescriptionPanel() {
+		return this.description;
+	}
+	public JTextField getDescriptionInput() {
+		return (JTextField)this.description.getComponent(1);
 	}
 	
+	/**
+	 * Oberver pattern,ProjectObserver implementation
+	 */
 	public void addProjectListener(ProjectListener listener) {
-		// TODO Auto-generated method stub
-		
+		if (!this.projectListeners.contains(listener)) {
+			this.projectListeners.add(listener);
+		}
 	}
 
 	public void removeProjectListener(ProjectListener listener) {
-		// TODO Auto-generated method stub
-		
+		if (this.projectListeners.contains(listener)) {
+			this.projectListeners.remove(listener);
+		}
 	}
 
 	public void triggerProjectChange() {
-		// TODO Auto-generated method stub
-		
+		// DAO working part
 	}
 
 	public void triggerShowUpdate(Project project) {
-		// TODO Auto-generated method stub
-		
+		for (ProjectListener listener: this.projectListeners) {
+			listener.ShowUpdateTriggered(project);
+		}
 	}
 
 	public void triggerCreateProject(Project project) {
-		// TODO Auto-generated method stub
-		
+		for (ProjectListener listener: this.projectListeners) {
+			log._("Create project trigger from form");
+			listener.CreateProjectTriggered(project);
+		}
 	}
 
 	public void triggerUpdateProject(Project project) {
-		// TODO Auto-generated method stub
-		
+		for (ProjectListener listener: this.projectListeners) {
+			log._("Update project trigger from form");
+			listener.UpdateProjectTriggered(project);
+		}
 	}
 
 	public void triggerDeleteProject(Project project) {

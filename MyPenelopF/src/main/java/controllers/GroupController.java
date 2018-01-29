@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import classes.Group;
 import ihm.BaseFrame;
+import ihm.dashboardPanel;
 import ihm.group.CreateGroupListener;
 import utils.GroupListener;
 import utils.GroupUtils;
@@ -52,5 +53,19 @@ public class GroupController implements PenelopeController, GroupListener, Creat
         } catch (IOException e) {
         	log._("ContactController.initContact/cUtils.getContacts throwed: " + e.getMessage());
         }
+	}
+	
+	public void testCtrl() {
+		log._("TEST Group Controller");
+	}
+
+	public dashboardPanel getDashboard() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setDashboard(dashboardPanel dashboard) {
+		// TODO Auto-generated method stub
+		
 	}
 }

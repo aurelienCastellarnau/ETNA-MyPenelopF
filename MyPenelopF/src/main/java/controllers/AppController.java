@@ -7,9 +7,11 @@ import DAO.DAOFactory;
 import DAO.ProjectDAO;
 import DataInterface.DataInterface;
 import ihm.BaseFrame;
+import utils.PenelopDevLogger;
 import classes.Project;
 
 public class AppController implements PenelopeController {
+	private static final PenelopDevLogger log = PenelopDevLogger.get();
 	private HashMap<String, PenelopeController> ctrls = new HashMap<String, PenelopeController>();
 	private ContactDAO cDAO = null;
 	private ProjectDAO pDAO = null;
@@ -32,11 +34,17 @@ public class AppController implements PenelopeController {
 	}
 	private void initViews(HashMap<String, PenelopeController> ctrls) {
 		ContactController cCtrl = (ContactController)ctrls.get("contact");
+		ProjectController pCtrl = (ProjectController)ctrls.get("project");
 		if (this.Dashboard == null)
 			this.Dashboard = new BaseFrame(ctrls);
 		cCtrl.setDashboard(this.Dashboard.getDashboardPanel());
+		pCtrl.setDashboard(this.Dashboard.getDashboardPanel());
 	}
 	public ContactDAO getContactDAO() {
 		return this.cDAO;
+	}
+	
+	public void testCtrl() {
+		log._("TEST App Controller");
 	}
 }

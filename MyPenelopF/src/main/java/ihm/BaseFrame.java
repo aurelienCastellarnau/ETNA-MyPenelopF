@@ -4,6 +4,7 @@ import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
 import ihm.group.CreateGroup;
 import ihm.group.GroupPanel;
+import ihm.project.ProjectForm;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -17,6 +18,7 @@ import javax.swing.JSplitPane;
 
 import classes.Contact;
 import classes.Group;
+import classes.Project;
 import controllers.ContactController;
 import controllers.GroupController;
 import controllers.PenelopeController;
@@ -55,6 +57,8 @@ public class BaseFrame extends JFrame {
 	ContactPanel contactPanel;
 	ContactForm createContact;
 	ContactForm updateContact;
+	ProjectForm createProject;
+	ProjectForm updateProject;
 	GroupPanel groupPanel;
 	CreateGroup createGroup;
 	JPanel buttonPane;
@@ -112,6 +116,32 @@ public class BaseFrame extends JFrame {
         this.getContentPane().add(this.updateContact.getPan());
         this.setVisible(true);
 	}
+	
+	/**
+	 *
+	 * @param Project p
+	 * BaseFrame for Project Update
+	 * Display ProjectForm with p
+	 * Allow to update a Project
+	 */
+	public BaseFrame(ProjectController pCtrl, Project p) {
+		
+		this.pCtrl = pCtrl;
+		JFrame frame = new JFrame("Projects");
+		GridLayout gl = new GridLayout(3, 2, 5, 5);
+		frame.setTitle("Update User: ");
+		frame.setResizable(true);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocation(250, 250);
+		this.updateProject = new ProjectForm(new JPanel(), p);
+		this.updateProject.addProjectListener(this.pCtrl);
+		this.setSize(800, 800);
+		this.setLayout(gl);
+		this.getContentPane().add(this.updateProject.getPan());
+		this.setVisible(true);
+	}
+
 	/**
 	 *
 	 * @param contacts

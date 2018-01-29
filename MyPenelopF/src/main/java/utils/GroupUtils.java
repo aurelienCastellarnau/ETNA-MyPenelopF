@@ -51,7 +51,7 @@ public class GroupUtils {
     public ArrayList<Group> getGroups() throws IOException{
 		ArrayList<Group> groups = new ArrayList<Group>();
 		String project_path = System.getProperty("user.dir");
-		BufferedReader bufferedReader = new BufferedReader(new FileReader(project_path + "/groups.json"));
+		BufferedReader bufferedReader = new BufferedReader(new FileReader(project_path + "/group.json"));
 
         Gson gson = new Gson();
         Group[] json = gson.fromJson(bufferedReader, Group[].class);
