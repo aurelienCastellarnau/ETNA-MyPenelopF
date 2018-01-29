@@ -16,7 +16,7 @@ public class GroupController implements PenelopeController, GroupListener {
 	public dashboardPanel dashboard;
 
 	private GroupDAO gDAO = null;
-	
+
 	public BaseFrame uForm;
 
 	public GroupController(GroupDAO gDAO) {
@@ -26,11 +26,11 @@ public class GroupController implements PenelopeController, GroupListener {
 	public dashboardPanel getDashboard() {
 		return this.dashboard;
 	}
-	
+
 	public void setDashboard(dashboardPanel dashboard) {
 		this.dashboard = dashboard;
 	}
-	
+
 	public void init() {
 		gDAO.addGroupListener(this);
 	}
@@ -77,5 +77,5 @@ public class GroupController implements PenelopeController, GroupListener {
 		log._(group);
 		this.uForm = new BaseFrame(this, group);
 	}
-	
+
 }

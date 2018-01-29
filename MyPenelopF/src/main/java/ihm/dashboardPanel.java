@@ -18,6 +18,7 @@ import ihm.group.FormGroup;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 import ihm.project.ProjectPanel;
+import utils.PenelopDevLogger;
 
 /**
  *
@@ -124,14 +125,14 @@ public class dashboardPanel implements ViewListener {
 	public void showGroupsTriggered() {
 		this.displayGroupPanel();
 	}
-	
+
 	public void displayGroupPanel() {
 		ArrayList<Group> groups = this.gCtrl.getGroupDAO().get();
 		if (groups == null)
 			return;
 		this.groupPanel         = new GroupPanel(new JPanel(), this.groupCl, groups);
 		this.groupCreate        = new FormGroup(new JPanel(), this.gCtrl, this.pCtrl, this.cCtrl);
-		
+
 		this.groupCreate.addGroupListener(this.gCtrl);
 		this.groupPanel.addGroupListener(this.gCtrl);
 		this.mPan.removeAll();

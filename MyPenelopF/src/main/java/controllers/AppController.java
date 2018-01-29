@@ -17,7 +17,6 @@ public class AppController implements PenelopeController {
 	private ContactDAO cDAO = null;
 	private ProjectDAO pDAO = null;
 	private GroupDAO gDAO = null;
-
 	private BaseFrame Dashboard = null;
 
 	public AppController(DataInterface di) {
@@ -47,7 +46,7 @@ public class AppController implements PenelopeController {
 	public ContactDAO getContactDAO() {
 		return this.cDAO;
 	}
-	
+
 	public GroupDAO getGroupDAO() {
 		return this.gDAO;
 	}

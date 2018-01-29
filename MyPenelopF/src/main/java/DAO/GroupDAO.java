@@ -40,7 +40,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 	    }
 	    public static GroupDAO getInstance(DataInterface di) {
 	    	return SingletonHolder.get(di);
-	    }
+		}
 
 		@Override
 		public boolean add(Group g) {
