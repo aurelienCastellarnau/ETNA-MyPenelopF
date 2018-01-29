@@ -38,7 +38,7 @@ public class BaseFrame extends JFrame {
 	 * JFrame implementation requirement
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Controllers
 	 */
@@ -52,7 +52,7 @@ public class BaseFrame extends JFrame {
 	FormBuilder _fb = new FormBuilder();
 	CardLayout cl = new CardLayout();
 	private JSplitPane split;
-	
+
 	/**
 	 * Panels
 	 */
@@ -86,25 +86,25 @@ public class BaseFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(250, 250);
-        
+
         this.mPan = new menuPanel();
         this.dPan = new dashboardPanel(this.cCtrl, this.pCtrl, this.gCtrl, this.tCtrl);
-        
+
         mPan.addViewListener(dPan);
         split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mPan.getPan(), dPan.getPan());
         this.getContentPane().add(split, BorderLayout.CENTER);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
     }
-	
+
 	public menuPanel getMenuPanel() {
 		return this.mPan;
 	}
-	
+
 	public dashboardPanel getDashboardPanel() {
 		return this.dPan;
 	}
-	
+
 	/**
 	 *
 	 * @param Contact c
@@ -128,7 +128,7 @@ public class BaseFrame extends JFrame {
         this.getContentPane().add(this.updateContact.getPan());
         this.setVisible(true);
 	}
-	
+
 	/**
 	 *
 	 * @param Project p
@@ -137,7 +137,7 @@ public class BaseFrame extends JFrame {
 	 * Allow to update a Project
 	 */
 	public BaseFrame(ProjectController pCtrl, Project p) {
-		
+
 		this.pCtrl = pCtrl;
 		JFrame frame = new JFrame("Projects");
 		GridLayout gl = new GridLayout(3, 2, 5, 5);
@@ -179,7 +179,7 @@ public class BaseFrame extends JFrame {
 	 * Allow to update a Task
 	 */
 	public BaseFrame(TaskController tCtrl, Task t) {
-		
+
 		this.tCtrl = tCtrl;
 		JFrame frame = new JFrame("Tasks");
 		GridLayout gl = new GridLayout(3, 2, 5, 5);
@@ -195,7 +195,7 @@ public class BaseFrame extends JFrame {
 		this.getContentPane().add(this.updateTask.getPan());
 		this.setVisible(true);
 	}
-	
+
 	/**
 	 *
 	 * @param contacts
