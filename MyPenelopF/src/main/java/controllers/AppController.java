@@ -7,8 +7,8 @@ import DAO.DAOFactory;
 import DAO.ProjectDAO;
 import DataInterface.DataInterface;
 import ihm.BaseFrame;
+import ihm.dashboardPanel;
 import utils.PenelopDevLogger;
-import classes.Project;
 
 public class AppController implements PenelopeController {
 	private static final PenelopDevLogger log = PenelopDevLogger.get();
@@ -46,5 +46,13 @@ public class AppController implements PenelopeController {
 	
 	public void testCtrl() {
 		log._("TEST App Controller");
+	}
+	public dashboardPanel getDashboard() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void setDashboard(dashboardPanel dashboard) {
+		// TODO Auto-generated method stub
+		
 	}
 }
