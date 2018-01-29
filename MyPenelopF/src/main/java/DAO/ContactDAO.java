@@ -10,6 +10,8 @@ import Observer.ContactListener;
 import Observer.ContactObserver;
 import classes.Contact;
 import classes.Group;
+import controllers.AppController;
+import controllers.GroupController;
 import utils.PenelopDevLogger;
 
 /**

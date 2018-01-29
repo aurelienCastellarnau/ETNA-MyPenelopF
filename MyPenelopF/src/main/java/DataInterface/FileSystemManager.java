@@ -28,8 +28,8 @@ public class FileSystemManager implements DataInterface {
 	private String groupFile = "/group.json";
 	private String projectFile = "/project.json";
 	private String taskFile = "/task.json";
-
 	private FileSystemManager() {}
+
 	private static class SingletonHolder
 	{
 		private final static FileSystemManager instance = new FileSystemManager();
