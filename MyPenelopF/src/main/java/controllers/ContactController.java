@@ -87,4 +87,8 @@ public class ContactController implements PenelopeController, ContactListener {
         log.contacts(retrievedContacts);
         this.dashboard.displayContactPanel();
 	}
+	
+	public void testCtrl() {
+		log._("TEST Contact Controller");
+	}
 }

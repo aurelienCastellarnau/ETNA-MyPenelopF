@@ -11,19 +11,19 @@ public class Project {
 	
 	private String description;
 	
-	private ArrayList<Group> groups = new ArrayList<Group>();
+	private transient ArrayList<Group> groups = new ArrayList<Group>();
 	private List<Integer> gIds = new ArrayList<Integer>();
 	
-	private ArrayList<Contact> users = new ArrayList<Contact>();
+	private transient ArrayList<Contact> users = new ArrayList<Contact>();
 	private List<Integer> uIds = new ArrayList<Integer>();
 	
-	private ArrayList<Task> tasks = new ArrayList<Task>();
+	private transient ArrayList<Task> tasks = new ArrayList<Task>();
 	private List<Integer> tIds = new ArrayList<Integer>();
 	
-	private ArrayList<Document> documents = new ArrayList<Document>();
+	private transient ArrayList<Document> documents = new ArrayList<Document>();
 	private List<Integer> dIds = new ArrayList<Integer>();
 	
-	private ArrayList<Msg> messages = new ArrayList<Msg>();
+	private transient ArrayList<Msg> messages = new ArrayList<Msg>();
 	private List<Integer> mIds = new ArrayList<Integer>();
 	
 	static private int autoincrement = 0;
@@ -36,6 +36,12 @@ public class Project {
 	}
 	
 	public Project(String name, String description) {
+		this.id = Project.increment();
+		this.name = name;
+		this.description = description;
+	}
+	public Project(Integer id, String name, String description) {
+		this.id = id;
 		this.name = name;
 		this.description = description;
 	}
