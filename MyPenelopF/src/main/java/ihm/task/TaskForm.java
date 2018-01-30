@@ -29,7 +29,7 @@ public class TaskForm extends JPanel implements TaskObserver {
 	private JButton updateButton = new JButton("Update");
 	private JPanel description = this._fb.getTextField("Content Description");
 	private final Collection<TaskListener> tasksListeners = new ArrayList<TaskListener>();
-	
+
 	public TaskForm(JPanel pan) {
 		GridLayout gl = new GridLayout(5, 1, 5, 5);
 		this.pan = pan;
@@ -48,7 +48,7 @@ public class TaskForm extends JPanel implements TaskObserver {
 		this.pan.add(this.createButton);
 
 	}
-	
+
 	public TaskForm(JPanel pan, Task task) {
 		GridLayout gl = new GridLayout(5, 1, 5, 5);
 		this.pan = pan;
@@ -69,11 +69,11 @@ public class TaskForm extends JPanel implements TaskObserver {
 		});
 		this.pan.add(this.updateButton);
 	}
-	
+
 	public JTextField getDescriptionInput() {
 		return (JTextField)this.description.getComponent(1);
 	}
-	
+
 	public JPanel getPan() {
 		return this.pan;
 	}
@@ -104,17 +104,17 @@ public class TaskForm extends JPanel implements TaskObserver {
 
 	public void triggerDeleteTask(Task task) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void triggerTaskChange() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void triggerShowUpdate(Task task) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
