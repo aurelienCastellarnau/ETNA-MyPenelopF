@@ -13,8 +13,10 @@ import utils.PenelopDevLogger;
 public class GroupController implements PenelopeController, GroupListener {
 
 	public BaseFrame base;
+
+	private dashboardPanel dashboard;
+
 	final static PenelopDevLogger log = PenelopDevLogger.get();
-	public dashboardPanel dashboard;
 
 	private GroupDAO gDAO = null;
 
@@ -70,7 +72,7 @@ public class GroupController implements PenelopeController, GroupListener {
 	}
 
 	public void testCtrl() {
-		log._("TEST Group Controller");
+		log._("INIT GroupController");
 	}
 
 	public void ShowUpdateTriggered(Group group) {
