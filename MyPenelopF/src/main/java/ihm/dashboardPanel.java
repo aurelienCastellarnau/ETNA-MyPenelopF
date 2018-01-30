@@ -2,6 +2,7 @@ package ihm;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ import controllers.GroupController;
 import controllers.ProjectController;
 import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
+import ihm.group.CreateGroup;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 import ihm.project.ProjectPanel;
@@ -42,6 +44,7 @@ public class dashboardPanel implements ViewListener {
 	private ContactPanel contactPanel;
 	// group
 	private GroupPanel groupPanel;
+	private CreateGroup groupCreate;
 	// project
 	private ProjectForm projectForm;
 	private ProjectPanel projectPanel;
@@ -90,7 +93,6 @@ public class dashboardPanel implements ViewListener {
 		this.mPan.add(this.contactNavPan);
 		this.mPan.add(this.contactPanel.getPan());
 		this.mPan.add(this.contactForm.getPan());
-		this.mPan.setBackground(Color.red);
 		this.mPan.revalidate();
 		this.mPan.repaint();
 	}
@@ -123,9 +125,12 @@ public class dashboardPanel implements ViewListener {
 
 	public void showGroupsTriggered() {
 		ArrayList<Group> groups = this.gCtrl.getGroupDAO().get();
-		this.groupPanel = new GroupPanel(new JPanel(), this.cl, groups);
+		this.groupPanel         = new GroupPanel(new JPanel(), this.cl, groups);
+		this.groupCreate        = new CreateGroup(new JPanel());
+		
 		this.mPan.removeAll();
 		this.mPan.add(groupPanel.getPan());
+		this.mPan.add(this.groupCreate.getPan());
 		this.mPan.revalidate();
 		this.mPan.repaint();
 	}
