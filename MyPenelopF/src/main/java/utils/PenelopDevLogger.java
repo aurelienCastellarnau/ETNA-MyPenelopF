@@ -60,8 +60,6 @@ public class PenelopDevLogger {
 	
 	public void _(Task t) {
     	System.out.println("Task n°" + t.getId());
-    	System.out.println("Description: " + t.getDescription());
-		System.out.println("Linked to project n°" + t.getPId());
     }
 
 	public void contacts(ArrayList<Contact> contacts) {

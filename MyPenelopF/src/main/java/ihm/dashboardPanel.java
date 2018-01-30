@@ -19,6 +19,7 @@ import ihm.group.CreateGroup;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 import ihm.project.ProjectPanel;
+import utils.PenelopDevLogger;
 
 /**
  * 
@@ -26,6 +27,8 @@ import ihm.project.ProjectPanel;
  * Front Controller for the dashboard view
  */
 public class dashboardPanel implements ViewListener {
+	
+	private static final PenelopDevLogger log = PenelopDevLogger.get();
 	
 	/**
 	 * Declaration du Panel Principal
@@ -125,7 +128,7 @@ public class dashboardPanel implements ViewListener {
 
 	public void showGroupsTriggered() {
 		ArrayList<Group> groups = this.gCtrl.getGroupDAO().get();
-		this.groupPanel         = new GroupPanel(new JPanel(), this.cl, groups);
+		this.groupPanel         = new GroupPanel(new JPanel(), this.groupCl, groups);
 		this.groupCreate        = new CreateGroup(new JPanel());
 		
 		this.mPan.removeAll();
