@@ -53,7 +53,7 @@ public class ContactPanel extends JPanel implements ContactObserver{
 		this.pan.setLayout(this.cl);
 	    for (final Contact user: users)
 	    {
-	    	JPanel userPan = new JPanel();
+	    		JPanel userPan = new JPanel();
 			GridLayout gl = new GridLayout(6, 2, 5, 5);
 			userPan.setLayout(gl);
 	    	CardLayout groupCl = new CardLayout();
