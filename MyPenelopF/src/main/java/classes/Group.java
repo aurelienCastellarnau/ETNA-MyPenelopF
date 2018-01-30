@@ -8,7 +8,7 @@ import java.util.List;
  * @author Kumatetsu
  *
  */
-public class Group {
+public class Group extends Item {
 	
 	private Integer id;
 	
@@ -20,9 +20,6 @@ public class Group {
 	private transient ArrayList<Project> projects = new ArrayList<Project>();
 	private List<Integer>pIds = new ArrayList<Integer>();
 	
-	private transient ArrayList<Msg> messages = new ArrayList<Msg>();
-	private List<Integer>mIds = new ArrayList<Integer>();
-	
 	// Database auto-increment id simulation, must be enhanced by a "retrieveLastId" method
 	static private int autoincrement = 0;
 	static private int increment() {
@@ -30,17 +27,31 @@ public class Group {
 	}
 	
 	//default constructor
-	public Group() {}
+	public Group() { 
+		super();
+		this.id = Group.increment();
+	}
 	//Surcharged minimal constructor
 	public Group(String name) {
+		super();
 		this.id = Group.increment();
 		this.name = name;
 	}
 	//Surchaged complete constructor
-	public Group(String name, ArrayList<Contact> users) {
+	public Group(String name, ArrayList<Contact> users, ArrayList<Project> projects, ArrayList<Msg> msgs) {
+		super(msgs);
 		this.id = Group.increment();
 		this.name = name;
 		this.users = users;
+		this.projects = projects;
+	}
+	//Surchaged existing Group constructor
+	public Group(Integer id, String name, ArrayList<Contact> users, ArrayList<Project> projects, ArrayList<Msg> msgs) {
+		super(msgs);
+		this.id = id;
+		this.name = name;
+		this.users = users;
+		this.projects = projects;
 	}
 	
 	public Group(int id, String text) {
@@ -75,14 +86,6 @@ public class Group {
 		return this.pIds;
 	}
 
-
-	public ArrayList<Msg> getMessages() {
-		return this.messages;
-	}
-	public List<Integer> getMIds() {
-		return this.mIds;
-	}
-	
 	// Mutators
 	public void setId(Integer id) {
 		this.id = id;
@@ -135,25 +138,6 @@ public class Group {
 		if (this.projects.contains(project)) {
 			this.projects.remove(project);
 			this.pIds.remove(project.getId());
-		}
-	}
-	
-	public void setMessages(ArrayList<Msg> messages) {
-		this.messages = messages;
-		for (int iterator = 0; iterator < this.messages.size(); iterator++) {
-			this.mIds.add(this.messages.get(iterator).getId());
-		}
-	}
-	public void addMessage(Msg message) {
-		if (!this.messages.contains(message)) {
-			this.messages.add(message);
-			this.mIds.add(message.getId());
-		}
-	}
-	public void deleteMessage(Msg message) {
-		if (this.messages.contains(message)) {
-			this.messages.remove(message);
-			this.mIds.remove(message.getId());
 		}
 	}
 }

@@ -10,6 +10,7 @@ import Observer.ContactListener;
 import Observer.ContactObserver;
 import classes.Contact;
 import classes.Group;
+import classes.Msg;
 import classes.Project;
 
 /**
@@ -126,6 +127,7 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 				Contact c = contacts.get(iterator);
 				c.setGroups(this.getGroups(c));
 				c.setProjects(this.getProjects(c));
+				c.setMessages(this.getMsgs(c));
 			}
 			return contacts;
 		}
@@ -164,6 +166,24 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 				}
 			}
 			return cProjects;
+		}
+		
+		/**
+		 * Retrieve Contact.messages from Contact.mIds
+		 */
+		public ArrayList<Msg> getMsgs(Contact c) {
+			ArrayList<Msg> msgs = this.di.readMsgs();
+			ArrayList<Msg> cMsgs = new ArrayList<Msg>();
+			for (int iterator = 0; iterator < msgs.size(); iterator++) {
+				Msg m = msgs.get(iterator);
+				List<Integer>ids = c.getMIds();
+				for (int it = 0; it < ids.size(); it++) {
+					if (ids.get(it) == m.getId()) {
+						cMsgs.add(m);
+					}
+				}
+			}
+			return cMsgs;
 		}
 		/**
 		 * Retrieve Contact.groups from Group.uIds (not from Contact.gIds...)
