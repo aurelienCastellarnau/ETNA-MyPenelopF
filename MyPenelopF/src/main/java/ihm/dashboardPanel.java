@@ -66,12 +66,10 @@ public class dashboardPanel implements ViewListener {
 	private ProjectController pCtrl;
 	private GroupController gCtrl;
 	private TaskController tCtrl;
-
 	private CardLayout contactCl = new CardLayout();
 	private CardLayout projectCl = new CardLayout();
 	private CardLayout groupCl = new CardLayout();
 	private CardLayout taskCl = new CardLayout();
-
 	public dashboardPanel(ContactController cCtrl, ProjectController pCtrl, GroupController gCtrl, TaskController tCtrl) {
 		this.cCtrl = cCtrl;
 		this.pCtrl = pCtrl;

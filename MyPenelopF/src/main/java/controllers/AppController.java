@@ -19,7 +19,6 @@ public class AppController implements PenelopeController {
 	private ProjectDAO pDAO = null;
 	private GroupDAO gDAO = null;
 	private TaskDAO tDAO = null;
-
 	private BaseFrame Dashboard = null;
 
 	public AppController(DataInterface di) {
