@@ -38,21 +38,23 @@ public class ProjectPanel extends JPanel implements ProjectObserver {
 			{
 				JLabel tmp = new JLabel("Project N°" + project.getId() + " | Name: " + project.getName() + " | Description: " + project.getDescription());
 				JPanel card = new JPanel();
-				JButton del = new JButton("Delete");
-				del.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent event) {
-						self.triggerDeleteProject(project);
-					}
-				});
-				JButton up = new JButton("Update");
-				up.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent event) {
-						self.triggerShowUpdate(project);
-					}
-				});
 				card.add(tmp);
-				card.add(up);
-				card.add(del);
+				if (projectListeners.size() > 0) {
+					JButton del = new JButton("Delete");
+					del.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent event) {
+							self.triggerDeleteProject(project);
+						}
+					});
+					JButton up = new JButton("Update");
+					up.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent event) {
+							self.triggerShowUpdate(project);
+						}
+					});
+					card.add(up);
+					card.add(del);
+				}
 				this.pan.add(card, project.getId().toString());
 			}
 		}
