@@ -19,6 +19,7 @@ import ihm.group.FormGroup;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 import ihm.project.ProjectPanel;
+import utils.PenelopDevLogger;
 
 /**
  *
@@ -26,6 +27,9 @@ import ihm.project.ProjectPanel;
  * Front Controller for the dashboard view
  */
 public class dashboardPanel implements ViewListener {
+
+	private static final PenelopDevLogger log = PenelopDevLogger.get();
+
 	/**
 	 * Declaration du Panel Principal
 	 */

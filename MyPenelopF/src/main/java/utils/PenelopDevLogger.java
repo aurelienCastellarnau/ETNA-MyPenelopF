@@ -18,7 +18,7 @@ public class PenelopDevLogger {
 	public static PenelopDevLogger get() {
 		return SingletonHolder.instance;
 	}
-	
+
 	public void _(String str) {
     	System.out.println(str);
 	}
@@ -32,7 +32,7 @@ public class PenelopDevLogger {
     	this._("Contact related Groups: ");
     	this.groups(groups);
 	}
-	
+
 	public void _(Group g) {
     	System.out.println("Group n°" + g.getId());
     	System.out.println("Name: " + g.getName());
@@ -57,12 +57,10 @@ public class PenelopDevLogger {
     	}
     	*/
 	}
-	
-//	public void _(Task t) {
-//    	System.out.println("Task n°" + t.getId());
-//    	System.out.println("Description: " + t.getDescription());
-//		System.out.println("Linked to project n°" + t.getPId());
-//    }
+
+	public void _(Task t) {
+    	System.out.println("Task n°" + t.getId());
+    }
 
 	public void contacts(ArrayList<Contact> contacts) {
 		for (Integer iterator = 0; iterator < contacts.size(); iterator++) {
@@ -74,13 +72,13 @@ public class PenelopDevLogger {
 	public void groups(ArrayList<Group> groups) {
 		for (Integer iterator = 0; iterator < groups.size(); iterator++)
 			this._(groups.get(iterator));
-	}	
+	}
 
 	public void projects(ArrayList<Project> projects) {
 		for (Integer iterator = 0; iterator < projects.size(); iterator++)
 			this._(projects.get(iterator));
 	}
-	
+
 //	public void tasks(ArrayList<Task> tasks) {
 //		for (Integer iterator = 0; iterator < tasks.size(); iterator++)
 //			this._(tasks.get(iterator));
