@@ -4,30 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * @author Kumatetsu
  *
  */
 public class Group extends Item {
-	
+
 	private Integer id;
-	
+
 	private String name;
-	
+
 	private transient ArrayList<Contact> users = new ArrayList<Contact>();
 	private List<Integer>uIds = new ArrayList<Integer>();
-	
+
 	private transient ArrayList<Project> projects = new ArrayList<Project>();
 	private List<Integer>pIds = new ArrayList<Integer>();
-	
+
 	// Database auto-increment id simulation, must be enhanced by a "retrieveLastId" method
 	static private int autoincrement = 0;
 	static private int increment() {
 		return ++Group.autoincrement;
 	}
-	
+
 	//default constructor
-	public Group() { 
+	public Group() {
 		super();
 		this.id = Group.increment();
 	}
@@ -53,7 +53,7 @@ public class Group extends Item {
 		this.users = users;
 		this.projects = projects;
 	}
-	
+
 	public Group(int id, String text) {
 		this.id = id;
 		this.name = text;
@@ -71,14 +71,14 @@ public class Group extends Item {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public ArrayList<Contact> getUsers() {
 		return this.users;
 	}
 	public List<Integer> getUIds() {
 		return this.uIds;
 	}
-	
+
 	public ArrayList<Project> getProjects() {
 		return this.projects;
 	}
@@ -94,15 +94,15 @@ public class Group extends Item {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public void setPids(ArrayList<Integer> pIds) {
 		this.pIds = pIds;
 	}
-	
+
 	public void setUids(ArrayList<Integer> uIds) {
 		this.uIds = uIds;
 	}
-	
+
 	public void setUsers(ArrayList<Contact> users) {
 		this.users = users;
 		for (int iterator = 0; iterator < this.users.size(); iterator++) {
@@ -121,7 +121,7 @@ public class Group extends Item {
 			this.uIds.remove(user.getId());
 		}
 	}
-	
+
 	public void setProjects(ArrayList<Project> projects) {
 		this.projects = projects;
 		for (int iterator = 0; iterator < this.projects.size(); iterator++) {

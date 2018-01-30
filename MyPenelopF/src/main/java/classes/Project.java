@@ -10,23 +10,23 @@ import DataInterface.FileSystemManager;
 public class Project extends Item {
 
 	private Integer id;
-	
+
 	private String name;
-	
+
 	private String description;
-	
+
 	private transient ArrayList<Group> groups = new ArrayList<Group>();
 	private List<Integer> gIds = new ArrayList<Integer>();
-	
+
 	private transient ArrayList<Contact> users = new ArrayList<Contact>();
 	private List<Integer> uIds = new ArrayList<Integer>();
-	
+
 	private transient ArrayList<Task> tasks = new ArrayList<Task>();
 	private List<Integer> tIds = new ArrayList<Integer>();
-	
+
 	private transient ArrayList<Document> documents = new ArrayList<Document>();
 	private List<Integer> dIds = new ArrayList<Integer>();
-	
+
 	static private int autoincrement = 0;
 	static private int increment() {
 		return ++Project.autoincrement;
@@ -46,9 +46,9 @@ public class Project extends Item {
 	}
 	public Project() {
 		super();
-		this.id = Project.increment(); 
+		this.id = Project.increment();
 	}
-	
+
 	public Project(String name, String description) {
 		Project.autoincrement = this.lastId();
 		this.id = Project.increment();
@@ -65,7 +65,7 @@ public class Project extends Item {
 		this.description = description;
 		this.tasks = tasks;
 	}
-	
+
 
 	public Integer getId() {
 		return this.id;
@@ -114,7 +114,7 @@ public class Project extends Item {
 	public void setUids( ArrayList<Integer> uIds){
 		this.uIds = uIds;
 	}
-	
+
 
 	public ArrayList<Task> getTasks() {
 		return this.tasks;
@@ -123,7 +123,7 @@ public class Project extends Item {
 		return this.tIds;
 	}
 
-	
+
 	public ArrayList<Document> getDocuments() {
 		return this.documents;
 	}
@@ -150,7 +150,7 @@ public class Project extends Item {
 			this.uIds.remove(c.getId());
 		}
 	}
-	
+
 	// Documents mutators
 	public void setDocuments(ArrayList<Document> documents) {
 		this.documents = documents;
@@ -161,7 +161,7 @@ public class Project extends Item {
 	public void addDocument(Document d) {
 		if (!this.documents.contains(d)) {
 			this.documents.add(d);
-			this.dIds.add(d.getId());		
+			this.dIds.add(d.getId());
 		}
 	}
 	public void deleteDocument(Document d) {
@@ -189,7 +189,7 @@ public class Project extends Item {
 			this.tasks.remove(task);
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 	    return name;

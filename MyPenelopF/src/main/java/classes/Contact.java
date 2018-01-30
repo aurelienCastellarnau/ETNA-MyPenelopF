@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package classes;
 
@@ -16,25 +16,25 @@ import classes.Msg;
  *
  */
 public class Contact extends Item {
-	
+
 	// contact id
 	private Integer id;
 
 	// contact email
 	private String email;
-	
+
 	// contact surname
 	private String surname;
-	
+
 	// contact name
 	private String name;
-	
-	
+
+
 	// contact groups
 	private transient ArrayList<Group> groups = new ArrayList<Group>();
 	private ArrayList<Integer> gIds = new ArrayList<Integer>();
-	
-	
+
+
 	// contact projects
 	private transient ArrayList<Project> projects = new ArrayList<Project>();
 	private ArrayList<Integer> pIds = new ArrayList<Integer>();
@@ -99,12 +99,12 @@ public class Contact extends Item {
 		this.setGroups(groups);
 		this.setMessages(messages);
 	}
-	
+
 	@Override
 	public String toString() {
 	    return name;
 	}
-	
+
 	// accessors
 	public Integer getId() {
 		return id;
@@ -118,22 +118,22 @@ public class Contact extends Item {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public ArrayList<Group> getGroups() {
 		return this.groups;
 	}
 	public ArrayList<Integer> getGIds() {
 		return this.gIds;
 	}
-	
-	
+
+
 	public ArrayList<Project> getProjects() {
 		return this.projects;
 	}
 	public ArrayList<Integer> getPIds() {
 		return this.pIds;
 	}
-	
+
 	// mutators
 	public void setId(Integer id) {
 		this.id = id;
