@@ -89,6 +89,6 @@ public class ContactController implements PenelopeController, ContactListener {
 	}
 	
 	public void testCtrl() {
-		log._("TEST Contact Controller");
+		log._("INIT ContactController");
 	}
 }

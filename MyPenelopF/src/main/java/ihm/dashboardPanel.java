@@ -10,15 +10,19 @@ import javax.swing.JPanel;
 import classes.Contact;
 import classes.Group;
 import classes.Project;
+import classes.Task;
 import controllers.ContactController;
 import controllers.GroupController;
 import controllers.ProjectController;
+import controllers.TaskController;
 import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
 import ihm.group.CreateGroup;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 import ihm.project.ProjectPanel;
+import ihm.task.TaskForm;
+import ihm.task.TaskPanel;
 import utils.PenelopDevLogger;
 
 /**
@@ -51,6 +55,9 @@ public class dashboardPanel implements ViewListener {
 	// project
 	private ProjectForm projectForm;
 	private ProjectPanel projectPanel;
+	// task
+	private TaskForm taskForm;
+	private TaskPanel taskPanel;
 
 	/**
 	 * Controller permettant la gestion des Listeners;
@@ -58,16 +65,18 @@ public class dashboardPanel implements ViewListener {
 	private ContactController cCtrl;
 	private ProjectController pCtrl;
 	private GroupController gCtrl;
+	private TaskController tCtrl;
 	
 	private CardLayout contactCl = new CardLayout();
 	private CardLayout projectCl = new CardLayout();
 	private CardLayout groupCl = new CardLayout();
 	private CardLayout taskCl = new CardLayout();
 	
-	public dashboardPanel(ContactController cCtrl, ProjectController pCtrl, GroupController gCtrl) {
+	public dashboardPanel(ContactController cCtrl, ProjectController pCtrl, GroupController gCtrl, TaskController tCtrl) {
 		this.cCtrl = cCtrl;
 		this.pCtrl = pCtrl;
 		this.gCtrl = gCtrl;
+		this.tCtrl = tCtrl;
 		this.mPan = new JPanel();
 	}
 	
@@ -126,6 +135,31 @@ public class dashboardPanel implements ViewListener {
 		this.mPan.repaint();
 	}
 
+	public void showTasksTriggered() {
+		this.displayTaskPanel();
+	}
+	
+	public void displayTaskPanel() {
+		ArrayList<Task> tasks = this.tCtrl.getDAO().get();
+		if (tasks == null)
+			return;
+		// add contact view
+		log.tasks(tasks);
+		this.taskForm = new TaskForm(new JPanel());
+		this.taskForm.addTaskListener(this.tCtrl);
+		// get, update, and delete project views
+		this.taskPanel = new TaskPanel(new JPanel(), this.taskCl, tasks);
+		this.taskPanel.addTaskListener(this.tCtrl);
+		this.taskNavPan = this._fb.getNavPanel(this.taskPanel.getCard(), this.taskPanel.getPan());
+		// Panel construction
+		this.mPan.removeAll();
+		this.mPan.add(this.taskNavPan);
+		this.mPan.add(this.taskPanel.getPan());
+		this.mPan.add(this.taskForm.getPan());
+		this.mPan.setBackground(Color.green);
+		this.mPan.revalidate();
+		this.mPan.repaint();
+	}
 	public void showGroupsTriggered() {
 		ArrayList<Group> groups = this.gCtrl.getGroupDAO().get();
 		this.groupPanel         = new GroupPanel(new JPanel(), this.groupCl, groups);

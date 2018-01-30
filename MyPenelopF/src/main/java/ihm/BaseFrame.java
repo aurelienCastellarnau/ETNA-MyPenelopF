@@ -5,6 +5,7 @@ import ihm.contact.ContactPanel;
 import ihm.group.CreateGroup;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
+import ihm.task.TaskForm;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -19,10 +20,12 @@ import javax.swing.JSplitPane;
 import classes.Contact;
 import classes.Group;
 import classes.Project;
+import classes.Task;
 import controllers.ContactController;
 import controllers.GroupController;
 import controllers.PenelopeController;
 import controllers.ProjectController;
+import controllers.TaskController;
 
 /**
  *
@@ -42,6 +45,7 @@ public class BaseFrame extends JFrame {
 	ContactController cCtrl;
 	GroupController gCtrl;
 	ProjectController pCtrl;
+	TaskController tCtrl;
 	/**
 	 * Tools
 	 */
@@ -53,21 +57,28 @@ public class BaseFrame extends JFrame {
 	 * Panels
 	 */
 	private menuPanel mPan;
-	private dashboardPanel dPan;
+	private dashboardPanel dPan = null;
 	ContactPanel contactPanel;
 	ContactForm createContact;
 	ContactForm updateContact;
 	ProjectForm createProject;
 	ProjectForm updateProject;
+	TaskForm createTask;
+	TaskForm updateTask;
 	GroupPanel groupPanel;
 	CreateGroup createGroup;
 	JPanel buttonPane;
 
 	public BaseFrame(HashMap<String, PenelopeController> ctrls) {
-        this.cCtrl = (ContactController)ctrls.get("contact");
+		this.cCtrl = (ContactController)ctrls.get("contact");
         this.gCtrl = (GroupController)ctrls.get("group");
         this.pCtrl = (ProjectController)ctrls.get("project");
-		this.setTitle("MyPenelopF");
+        this.tCtrl = (TaskController)ctrls.get("task");
+		this.cCtrl.testCtrl();
+		this.gCtrl.testCtrl();
+		this.pCtrl.testCtrl();
+		this.tCtrl.testCtrl();
+        this.setTitle("MyPenelopF");
         this.setSize(800, 600);
         this.setResizable(true);
         this.setLayout(new BorderLayout());
@@ -76,7 +87,7 @@ public class BaseFrame extends JFrame {
         this.setLocation(250, 250);
         
         this.mPan = new menuPanel();
-        this.dPan = new dashboardPanel(this.cCtrl, this.pCtrl, this.gCtrl);
+        this.dPan = new dashboardPanel(this.cCtrl, this.pCtrl, this.gCtrl, this.tCtrl);
         
         mPan.addViewListener(dPan);
         split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mPan.getPan(), dPan.getPan());
@@ -142,6 +153,31 @@ public class BaseFrame extends JFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 *
+	 * @param Task t
+	 * BaseFrame for Task Update
+	 * Display TaskForm with t
+	 * Allow to update a Task
+	 */
+	public BaseFrame(TaskController tCtrl, Task t) {
+		
+		this.tCtrl = tCtrl;
+		JFrame frame = new JFrame("Tasks");
+		GridLayout gl = new GridLayout(3, 2, 5, 5);
+		frame.setTitle("Update Task: ");
+		frame.setResizable(true);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocation(250, 250);
+		this.updateTask = new TaskForm(new JPanel(), t);
+		this.updateTask.addTaskListener(this.tCtrl);
+		this.setSize(800, 800);
+		this.setLayout(gl);
+		this.getContentPane().add(this.updateTask.getPan());
+		this.setVisible(true);
+	}
+	
 	/**
 	 *
 	 * @param contacts
