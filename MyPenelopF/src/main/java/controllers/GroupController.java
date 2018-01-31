@@ -6,8 +6,6 @@ import classes.Group;
 import ihm.BaseFrame;
 import ihm.dashboardPanel;
 import ihm.group.CreateGroupListener;
-import utils.GroupListener;
-import utils.GroupUtils;
 import utils.PenelopDevLogger;
 
 public class GroupController implements PenelopeController, GroupListener {

@@ -106,7 +106,6 @@ public class dashboardPanel implements ViewListener {
 		if (projects == null)
 			return;
 		// add contact view
-		log.projects(projects);
 		this.projectForm = new ProjectForm(new JPanel());
 		this.projectForm.addProjectListener(this.pCtrl);
 		// get, update, and delete project views
@@ -125,7 +124,7 @@ public class dashboardPanel implements ViewListener {
 
 	public void showGroupsTriggered() {
 		ArrayList<Group> groups = this.gCtrl.getGroupDAO().get();
-		this.groupPanel         = new GroupPanel(new JPanel(), this.cl, groups);
+		this.groupPanel         = new GroupPanel(new JPanel(), this.groupCl, groups);
 		this.groupCreate        = new CreateGroup(new JPanel());
 
 		this.mPan.removeAll();
