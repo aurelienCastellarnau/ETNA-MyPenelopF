@@ -2,10 +2,13 @@ package DAO;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import DataInterface.DataInterface;
 import Observer.ProjectListener;
 import Observer.ProjectObserver;
+import classes.Contact;
+import classes.Group;
 import classes.Project;
 import utils.PenelopDevLogger;
 
@@ -74,9 +77,31 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 		/**
 		 * association retrieving logic
 		 */
+		for (int iterator = 0; iterator < projects.size(); iterator++) {
+			Project p = projects.get(iterator);
+			p.setGroups(this.getGroups(p));
+		}
 		return projects;
 	}
 
+	/**
+	 * Retrieve Project.groups from Group.pIds (not from Project.gIds...)
+	 */
+	public ArrayList<Group> getGroups(Project p) {
+		ArrayList<Group> groups = this.di.readGroups();
+		ArrayList<Group> cGroups = new ArrayList<Group>();
+		for (int iterator = 0; iterator < groups.size(); iterator++) {
+			Group g = groups.get(iterator);
+			List<Integer>ids = g.getPIds();
+			for (int it = 0; it < ids.size(); it++) {
+				if (ids.get(it) == p.getId()) {
+					cGroups.add(g);
+				}
+			}
+		}
+		return cGroups;
+	}
+	
 	// Observer pattern on DAO part
 	public void addProjectListener(ProjectListener listener) {
 		if (!this.projectListeners.contains(listener)) {
