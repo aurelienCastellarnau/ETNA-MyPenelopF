@@ -2,7 +2,7 @@ package ihm;
 
 import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
-import ihm.group.CreateGroup;
+import ihm.group.FormGroup;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 
@@ -60,7 +60,7 @@ public class BaseFrame extends JFrame {
 	ProjectForm createProject;
 	ProjectForm updateProject;
 	GroupPanel groupPanel;
-	CreateGroup createGroup;
+	FormGroup createGroup;
 	JPanel buttonPane;
 
 	public BaseFrame(HashMap<String, PenelopeController> ctrls) {

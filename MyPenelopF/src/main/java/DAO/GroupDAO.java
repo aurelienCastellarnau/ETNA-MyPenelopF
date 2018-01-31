@@ -54,6 +54,7 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 		
 		@Override
 		public boolean remove(Group g) {
+			System.out.println("IN DELETE GROUP");
 			ArrayList<Group> groups = new ArrayList<Group>();
 			groups = this.get();
 			for (int iterator = 0; iterator < groups.size(); iterator++) {

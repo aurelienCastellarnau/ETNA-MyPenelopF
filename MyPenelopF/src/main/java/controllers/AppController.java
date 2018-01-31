@@ -37,13 +37,19 @@ public class AppController implements PenelopeController {
 	private void initViews(HashMap<String, PenelopeController> ctrls) {
 		ContactController cCtrl = (ContactController)ctrls.get("contact");
 		ProjectController pCtrl = (ProjectController)ctrls.get("project");
+		GroupController gCtrl = (GroupController)ctrls.get("group");
 		if (this.Dashboard == null)
 			this.Dashboard = new BaseFrame(ctrls);
 		cCtrl.setDashboard(this.Dashboard.getDashboardPanel());
 		pCtrl.setDashboard(this.Dashboard.getDashboardPanel());
+		gCtrl.setDashboard(this.Dashboard.getDashboardPanel());
 	}
 	public ContactDAO getContactDAO() {
 		return this.cDAO;
+	}
+	
+	public GroupDAO getGroupDAO() {
+		return this.gDAO;
 	}
 
 	public void testCtrl() {

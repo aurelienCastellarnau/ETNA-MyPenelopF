@@ -18,7 +18,7 @@ import classes.Contact;
 import classes.Project;
 import ihm.FormBuilder;
 import ihm.contact.ContactForm;
-import ihm.group.CreateGroup;
+import ihm.group.FormGroup;
 import utils.PenelopDevLogger;
 
 public class ProjectForm extends JPanel implements ProjectObserver  {
@@ -36,7 +36,7 @@ public class ProjectForm extends JPanel implements ProjectObserver  {
 	private JPanel name = this._fb.getTextField("Name");
 	private JPanel description = this._fb.getTextField("Content Description");
 	// chiche: 
-	private ArrayList<CreateGroup> groupsForm = new ArrayList<CreateGroup>();
+	private ArrayList<FormGroup> groupsForm = new ArrayList<FormGroup>();
 	private final Collection<ProjectListener> projectListeners = new ArrayList<ProjectListener>();
 	
 	// create constructor

@@ -1,17 +1,19 @@
 package controllers;
 
+import java.util.ArrayList;
+
 import DAO.GroupDAO;
 import Observer.GroupListener;
 import classes.Group;
 import ihm.BaseFrame;
 import ihm.dashboardPanel;
-import ihm.group.CreateGroupListener;
 import utils.PenelopDevLogger;
 
 public class GroupController implements PenelopeController, GroupListener {
 
 	public BaseFrame base;
 	final static PenelopDevLogger log = PenelopDevLogger.get();
+	public dashboardPanel dashboard;
 
 	private GroupDAO gDAO = null;
 
@@ -19,6 +21,14 @@ public class GroupController implements PenelopeController, GroupListener {
 		this.gDAO = gDAO;
 	}
 
+	public dashboardPanel getDashboard() {
+		return this.dashboard;
+	}
+	
+	public void setDashboard(dashboardPanel dashboard) {
+		this.dashboard = dashboard;
+	}
+	
 	public void init() {
 		gDAO.addGroupListener(this);
 	}
@@ -35,11 +45,17 @@ public class GroupController implements PenelopeController, GroupListener {
 		this.refreshGroup();
 	}
 
-	private void refreshGroup() {}
+	private void refreshGroup() {
+		ArrayList<Group> retrievedGroups = this.gDAO.get();
+        log._("REFRESH GROUP DISCONNECTED FROM DASHBOARD");
+        log.groups(retrievedGroups);
+        log._("AFTER GROUP");
+        this.dashboard.displayGroupPanel();
+	}
 
 	public void DeleteGroupTriggered(Group dGroup) {
-		// TODO Auto-generated method stub
-
+		System.out.println("IN DELETEGROUP TRIGERED");
+		this.gDAO.remove(dGroup);
 	}
 
 	public void UpdateGroupTriggered(Group uGroup) {
@@ -50,14 +66,5 @@ public class GroupController implements PenelopeController, GroupListener {
 	public void testCtrl() {
 		log._("TEST Group Controller");
 	}
-
-	public dashboardPanel getDashboard() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void setDashboard(dashboardPanel dashboard) {
-		// TODO Auto-generated method stub
-
-	}
+	
 }

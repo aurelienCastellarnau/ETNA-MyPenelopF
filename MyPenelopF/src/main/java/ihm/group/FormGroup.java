@@ -3,18 +3,26 @@ package ihm.group;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import classes.Group;
+import classes.Project;
+import controllers.ProjectController;
 import ihm.FormBuilder;
 
-public class CreateGroup extends JPanel{
+public class FormGroup extends JPanel{
+	
+	private ProjectController pCtrl;
 
 	private static final long serialVersionUID = 1L;
 	private FormBuilder _fb = new FormBuilder();
@@ -22,15 +30,19 @@ public class CreateGroup extends JPanel{
 	private JLabel title = new JLabel("Create New Group");
 	private JButton submit = new JButton("Create");
 	private JPanel name = this._fb.getTextField("Name");
+	private JList uList = null;
 	private final Collection<CreateGroupListener> createGroupListeners = new ArrayList<CreateGroupListener>();
 	
-	public CreateGroup(JPanel pan) {
+	public FormGroup(JPanel pan) {
+		ArrayList<Project> p = this.pCtrl.getPDAO().get();
+		List<Project> pArray = p;
+		this.uList = JList(new Vector<Project>(pArray));
 		GridLayout gl = new GridLayout(5, 1, 5, 5);
 		this.pan = pan;
 		this.pan.setLayout(gl);
 		this.pan.add(this.title);
 		this.pan.add(this.name);
-		final CreateGroup self = this;
+		final FormGroup self = this;
 		this.submit.addActionListener(new ActionListener() {
 	     	public void actionPerformed(ActionEvent event) {
 	     		Group g = new Group(

@@ -57,23 +57,23 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	        JPanel groupNavPan = this._fb.getNavPanel(this.groupPan.getCard(), this.groupPan.getPan());
 	    		JLabel tmp = new JLabel("User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName());
 	     	JPanel card = new JPanel();
-//	        JButton del = new JButton("Delete");
-//	        del.addActionListener(new ActionListener() {
-//		     	public void actionPerformed(ActionEvent event) {
-//		     		self.triggerDeleteContact(user);
-//		     	}
-//	        });
-//	        JButton up = new JButton("Update");
-//	        up.addActionListener(new ActionListener() {
-//		     	public void actionPerformed(ActionEvent event) {
-//		     		self.triggerShowUpdate(user);
-//		     	}
-//	        });
+	        JButton del = new JButton("Delete");
+	        del.addActionListener(new ActionListener() {
+		     	public void actionPerformed(ActionEvent event) {
+		     		self.triggerDeleteContact(user);
+		     	}
+	        });
+	        JButton up = new JButton("Update");
+	        up.addActionListener(new ActionListener() {
+		     	public void actionPerformed(ActionEvent event) {
+		     		self.triggerShowUpdate(user);
+		     	}
+	        });
 	        userPan.add(tmp);
 	        userPan.add(groupNavPan);
 	        userPan.add(this.groupPan.getPan());
-//	        userPan.add(up);
-//	        userPan.add(del);
+	        userPan.add(up);
+	        userPan.add(del);
 	     	card.add(userPan);
 	     	card.add(groupPan);
 	        this.pan.add(card, user.getId().toString());
