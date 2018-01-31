@@ -92,7 +92,7 @@ public class ProjectPanel extends JPanel implements ProjectObserver {
 	public CardLayout getCard() {
 		return this.cl;
 	}
-	
+
 	public void addProjectListener(ProjectListener listener) {
 		if (!this.projectListeners.contains(listener)) {
 			this.projectListeners.add(listener);

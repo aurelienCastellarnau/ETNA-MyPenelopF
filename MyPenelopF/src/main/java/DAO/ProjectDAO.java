@@ -15,8 +15,8 @@ import utils.PenelopDevLogger;
 public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, ProjectObserver  {
 
 	private static final PenelopDevLogger log = PenelopDevLogger.get();
-	private final Collection<ProjectListener> projectListeners = new ArrayList<ProjectListener>(); 
-	
+	private final Collection<ProjectListener> projectListeners = new ArrayList<ProjectListener>();
+
 	public ProjectDAO(DataInterface di) {
 		super(di);
 	}
@@ -53,7 +53,7 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 	public boolean remove(Project p) {
 		ArrayList<Project> projects = this.di.readProjects();
 		for (int iterator = 0; iterator < projects.size(); iterator++) {
-			Project project = projects.get(iterator); 
+			Project project = projects.get(iterator);
 			if (project.getId() == p.getId()) {
 				projects.remove(project);
 				this.di.writeProjects(projects);
@@ -133,11 +133,11 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 		}
 		return pContacts;
 	}
-	
+
 	// Observer pattern on DAO part
 	public void addProjectListener(ProjectListener listener) {
 		if (!this.projectListeners.contains(listener)) {
-			this.projectListeners.add(listener);		
+			this.projectListeners.add(listener);
 		}
 	}
 
@@ -155,21 +155,21 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 
 	public void triggerShowUpdate(Project project) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void triggerCreateProject(Project project) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void triggerUpdateProject(Project project) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void triggerDeleteProject(Project project) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
