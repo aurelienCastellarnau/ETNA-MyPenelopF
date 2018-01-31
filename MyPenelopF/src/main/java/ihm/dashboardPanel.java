@@ -76,8 +76,6 @@ public class dashboardPanel implements ViewListener {
 		this.gCtrl = gCtrl;
 		this.tCtrl = tCtrl;
 		this.mPan = new JPanel();
-		GridLayout l = new GridLayout(2,1,5,5);
-		this.mPan.setLayout(l);
 	}
 
 	public JPanel getPan() {
@@ -97,7 +95,7 @@ public class dashboardPanel implements ViewListener {
 		this.contactForm = new ContactForm(new JPanel(), this.gCtrl, this.pCtrl);
 		this.contactForm.addContactListener(this.cCtrl);
 		// get, update and delete contact view
-		this.contactPanel = new ContactPanel(new JPanel(), this.contactCl, contacts);
+		this.contactPanel = new ContactPanel(new JPanel(), this.contactCl, contacts, true);
         this.contactPanel.addContactListener(this.cCtrl);
         this.contactNavPan = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
         // Panel construction
@@ -105,6 +103,7 @@ public class dashboardPanel implements ViewListener {
 		this.mPan.add(this.contactNavPan);
 		this.mPan.add(this.contactPanel.getPan());
 		this.mPan.add(this.contactForm.getPan());
+		this.mPan.setBackground(Color.gray);
 		this.mPan.revalidate();
 		this.mPan.repaint();
 	}
@@ -121,7 +120,7 @@ public class dashboardPanel implements ViewListener {
 		this.projectForm = new ProjectForm(new JPanel(), this.gCtrl, this.cCtrl);
 		this.projectForm.addProjectListener(this.pCtrl);
 		// get, update, and delete project views
-		this.projectPanel = new ProjectPanel(new JPanel(), this.projectCl, projects);
+		this.projectPanel = new ProjectPanel(new JPanel(), this.projectCl, projects, true);
 		this.projectPanel.addProjectListener(this.pCtrl);
 		this.projectNavPan = this._fb.getNavPanel(this.projectPanel.getCard(), this.projectPanel.getPan());
 		// Panel construction
@@ -174,6 +173,7 @@ public class dashboardPanel implements ViewListener {
 		this.mPan.removeAll();
 		this.mPan.add(groupPanel.getPan());
 		this.mPan.add(this.groupCreate.getPan());
+		this.mPan.setBackground(Color.red);
 		this.mPan.revalidate();
 		this.mPan.repaint();
 	}

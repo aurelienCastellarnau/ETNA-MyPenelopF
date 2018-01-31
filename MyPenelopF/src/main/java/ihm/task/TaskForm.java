@@ -52,6 +52,7 @@ public class TaskForm extends JPanel implements TaskObserver {
 		GridLayout gl = new GridLayout(5, 1, 5, 5);
 		this.pan = pan;
 		this.pan.setLayout(gl);
+		this.title = new JLabel("Update task n°" + task.getId().toString());
 		this.pan.add(this.title);
 		this.pan.add(this.description);
 		this.getDescriptionInput().setText(task.getDescription());

@@ -9,7 +9,9 @@ import Observer.ProjectListener;
 import Observer.ProjectObserver;
 import classes.Contact;
 import classes.Group;
+import classes.Msg;
 import classes.Project;
+import classes.Task;
 import utils.PenelopDevLogger;
 
 public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, ProjectObserver  {
@@ -94,6 +96,8 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 			Project p = projects.get(iterator);
 			p.setGroups(this.getGroups(p));
 			p.setContacts(this.getContacts(p));
+			p.setTasks(this.getTasks(p));
+			p.setMessages(this.getMsgs(p));
 		}
 		return projects;
 	}
@@ -117,7 +121,7 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 	}
 
 	/**
-	 * Retrieve Project.contacts from Group.pIds (not from Project.uIds)
+	 * Retrieve Project.contacts from Contact.pIds (not from Project.uIds)
 	 */
 	public ArrayList<Contact> getContacts(Project p) {
 		ArrayList<Contact> contacts = this.di.readContacts();
@@ -133,6 +137,43 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 		}
 		return pContacts;
 	}
+
+	/**
+	 * Retrieve Project.tasks from Project.tIds
+	 */
+	public ArrayList<Task> getTasks(Project p) {
+		ArrayList<Task> tasks = this.di.readTasks();
+		ArrayList<Task> pTasks = new ArrayList<Task>();
+		for (int iterator = 0; iterator < tasks.size(); iterator++) {
+			Task t = tasks.get(iterator);
+			List<Integer>ids = p.getTIds();
+			for (int it = 0; it < ids.size(); it++) {
+				if (ids.get(it) == t.getId()) {
+					pTasks.add(t);
+				}
+			}
+		}
+		return pTasks;
+	}
+
+	/**
+	 * Retrieve Project.messages from Project.mIds
+	 */
+	public ArrayList<Msg> getMsgs(Project p) {
+		ArrayList<Msg> msgs = this.di.readMsgs();
+		ArrayList<Msg> cMsgs = new ArrayList<Msg>();
+		for (int iterator = 0; iterator < msgs.size(); iterator++) {
+			Msg m = msgs.get(iterator);
+			List<Integer>ids = p.getMIds();
+			for (int it = 0; it < ids.size(); it++) {
+				if (ids.get(it) == m.getId()) {
+					cMsgs.add(m);
+				}
+			}
+		}
+		return cMsgs;
+	}
+
 	// Observer pattern on DAO part
 	public void addProjectListener(ProjectListener listener) {
 		if (!this.projectListeners.contains(listener)) {
