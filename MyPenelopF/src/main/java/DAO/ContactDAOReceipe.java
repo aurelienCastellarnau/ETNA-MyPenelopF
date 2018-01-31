@@ -31,7 +31,7 @@ public interface ContactDAOReceipe {
 	public ArrayList<Project> getProjects(Contact c);
 	/**
 	 * retrieve messages where c.[Item].mIds contain Msg.id
-	 * use Contact.mIds from contact.json to retrieve abstrated messages
+	 * use Contact.mIds from contact.json to retrieve abstracted messages
 	 * @param c
 	 * @return ArrayList<Msg>
 	 */

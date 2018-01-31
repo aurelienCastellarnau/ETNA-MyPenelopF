@@ -46,7 +46,7 @@ public class ContactPanel extends JPanel implements ContactObserver{
     private CardLayout cl;
 	private final Collection<ContactListener> ContactListeners = new ArrayList<ContactListener>();
 
-	public ContactPanel(JPanel pan, CardLayout cl, ArrayList<Contact> users) {
+	public ContactPanel(JPanel pan, CardLayout cl, ArrayList<Contact> users, boolean edit) {
         final ContactPanel self = this;
         this._fb = new FormBuilder();
 		this.pan = pan;
@@ -57,7 +57,7 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	    	// Card and Panel init + layout
 	    	JPanel card = new JPanel();
 	        JPanel userPan = new JPanel();
-			GridLayout gl = new GridLayout(8, 2, 5, 5);
+			GridLayout gl = new GridLayout(6, 2, 5, 5);
 			userPan.setLayout(gl);
 			// groupPanel definition
 	    	CardLayout groupCl = new CardLayout();
@@ -67,7 +67,7 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	    	// projectPanel definition
 	    	// with external navPanel
 	    	ArrayList<Project> userProjects = user.getProjects();
-	    	this.projectPan = new ProjectPanel(new JPanel(), projectCl, userProjects);
+	    	this.projectPan = new ProjectPanel(new JPanel(), projectCl, userProjects, false);
 	        this.projectNav = this._fb.getNavPanel(this.projectPan.getCard(), this.projectPan.getPan());
 	    	// contact content
 	        JLabel tmp = new JLabel("User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName());
@@ -82,11 +82,12 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	    	}
 	    	userPan.add(compiledMsgs);
 	        userPan.add(tmp);
-	        userPan.add(this.groupPan.getPan());
-	        userPan.add(this.projectNav);
-	        userPan.add(this.projectPan.getPan());
 	        // Delete and Update rely on listeners
-	        if (ContactListeners.size() > 0) {
+	        if (edit) {
+				log._("EDIT MODE FOR CONTACT");
+		        userPan.add(this.groupPan.getPan());
+		        userPan.add(this.projectNav);
+		        userPan.add(this.projectPan.getPan());
 	        	JButton del = new JButton("Delete");
 	        	del.addActionListener(new ActionListener() {
 	        		public void actionPerformed(ActionEvent event) {
