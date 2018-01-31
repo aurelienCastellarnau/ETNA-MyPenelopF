@@ -151,7 +151,7 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 		}
 
 		/**
-		 * Retrieve Contact.groups from Group.uIds (not from Contact.gIds...)
+		 * Retrieve Contact.projects from Project.uIds (not from Contact.pIds...)
 		 */
 		public ArrayList<Project> getProjects(Contact c) {
 			ArrayList<Project> projects = this.di.readProjects();
