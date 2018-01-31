@@ -3,6 +3,10 @@ package classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import DAO.ContactDAO;
+import DAO.ProjectDAO;
+import DataInterface.FileSystemManager;
+
 public class Project extends Item {
 
 	private Integer id;
@@ -27,13 +31,26 @@ public class Project extends Item {
 	static private int increment() {
 		return ++Project.autoincrement;
 	}
-	
+
+	private int lastId() {
+		ArrayList<Project> projects = ProjectDAO.getInstance(FileSystemManager.get()).get();
+		int id = 0;
+		if (users != null) {
+			for (int iterator = 0; iterator < users.size(); iterator++) {
+				Project p = projects.get(iterator);
+				if (p.getId() > id)
+					id = p.getId();
+				}
+		}
+		return id;
+	}
 	public Project() {
 		super();
 		this.id = Project.increment(); 
 	}
 	
 	public Project(String name, String description) {
+		Project.autoincrement = this.lastId();
 		this.id = Project.increment();
 		this.name = name;
 		this.description = description;

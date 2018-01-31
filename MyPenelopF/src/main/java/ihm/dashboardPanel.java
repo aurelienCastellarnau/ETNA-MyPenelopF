@@ -76,6 +76,8 @@ public class dashboardPanel implements ViewListener {
 		this.gCtrl = gCtrl;
 		this.tCtrl = tCtrl;
 		this.mPan = new JPanel();
+		GridLayout l = new GridLayout(2,1,5,5);
+		this.mPan.setLayout(l);
 	}
 
 	public JPanel getPan() {
@@ -139,11 +141,11 @@ public class dashboardPanel implements ViewListener {
 		ArrayList<Task> tasks = this.tCtrl.getDAO().get();
 		if (tasks == null)
 			return;
-		// add contact view
+		// add task view
 		log.tasks(tasks);
 		this.taskForm = new TaskForm(new JPanel());
 		this.taskForm.addTaskListener(this.tCtrl);
-		// get, update, and delete project views
+		// get, update, and delete task views
 		this.taskPanel = new TaskPanel(new JPanel(), this.taskCl, tasks);
 		this.taskPanel.addTaskListener(this.tCtrl);
 		this.taskNavPan = this._fb.getNavPanel(this.taskPanel.getCard(), this.taskPanel.getPan());
