@@ -48,14 +48,11 @@ public class PenelopDevLogger {
     	System.out.println("Group n°" + p.getId());
     	System.out.println("Name: " + p.getName());
     	System.out.println("Description: " + p.getDescription());
-		System.out.println("Groups in project: TO BUILD ");
-		/*
 		List<Integer>gIds = p.getGIds();
-    	for (int iterator = 0; iterator < ids.size(); iterator++) {
-    		Integer id = ids.get(iterator);
+    	for (int iterator = 0; iterator < gIds.size(); iterator++) {
+    		Integer id = gIds.get(iterator);
     		System.out.println(id + "\n");
     	}
-    	*/
 	}
 
 	public void _(Task t) {
