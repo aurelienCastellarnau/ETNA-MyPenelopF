@@ -133,7 +133,6 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 		}
 		return pContacts;
 	}
-
 	// Observer pattern on DAO part
 	public void addProjectListener(ProjectListener listener) {
 		if (!this.projectListeners.contains(listener)) {

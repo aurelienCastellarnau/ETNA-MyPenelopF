@@ -80,20 +80,7 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	    	for (int iterator = 0; iterator < messages.size(); iterator++) {
 	    		compiledMsgs.add(new JLabel(messages.get(iterator).getContent()));
 	    	}
-	     	JPanel card = new JPanel();
-	        JButton del = new JButton("Delete");
-	        del.addActionListener(new ActionListener() {
-		     	public void actionPerformed(ActionEvent event) {
-		     		self.triggerDeleteContact(user);
-		     	}
-	        });
-	        JButton up = new JButton("Update");
-	        up.addActionListener(new ActionListener() {
-		     	public void actionPerformed(ActionEvent event) {
-		     		self.triggerShowUpdate(user);
-		     	}
-	        });
-	        userPan.add(compiledMsgs);
+	    	userPan.add(compiledMsgs);
 	        userPan.add(tmp);
 	        userPan.add(this.groupPan.getPan());
 	        userPan.add(this.projectNav);
