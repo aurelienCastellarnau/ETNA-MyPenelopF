@@ -130,7 +130,7 @@ public class dashboardPanel implements ViewListener {
 		if (groups == null)
 			return;
 		this.groupPanel         = new GroupPanel(new JPanel(), this.groupCl, groups);
-		this.groupCreate        = new FormGroup(new JPanel());
+		this.groupCreate        = new FormGroup(new JPanel(), this.gCtrl, this.pCtrl);
 		this.groupPanel.addGroupListener(this.gCtrl);
 		this.mPan.removeAll();
 		this.mPan.add(groupPanel.getPan());

@@ -82,6 +82,10 @@ public class Group {
 		this.name = name;
 	}
 	
+	public void setPids(ArrayList<Integer> pIds) {
+		this.pIds = pIds;
+	}
+	
 	public void setUsers(ArrayList<Contact> users) {
 		this.users = users;
 		for (int iterator = 0; iterator < this.users.size(); iterator++) {

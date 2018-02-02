@@ -194,4 +194,9 @@ public class Project {
 			this.tasks.remove(task);
 		}
 	}
+	
+	@Override
+	public String toString() {
+	    return name;
+	}
 }
