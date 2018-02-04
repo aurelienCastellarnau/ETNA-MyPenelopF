@@ -81,7 +81,7 @@ public class dashboardPanel implements ViewListener {
 			return;
 		}
 		// add contact view
-		this.contactForm = new ContactForm(new JPanel());
+		this.contactForm = new ContactForm(new JPanel(), this.gCtrl, this.pCtrl);
 		this.contactForm.addContactListener(this.cCtrl);
 		// get, update and delete contact view
 		this.contactPanel = new ContactPanel(new JPanel(), this.contactCl, contacts);
@@ -105,7 +105,7 @@ public class dashboardPanel implements ViewListener {
 		if (projects == null)
 			return;
 		// add contact view
-		this.projectForm = new ProjectForm(new JPanel());
+		this.projectForm = new ProjectForm(new JPanel(), this.gCtrl, this.cCtrl);
 		this.projectForm.addProjectListener(this.pCtrl);
 		// get, update, and delete project views
 		this.projectPanel = new ProjectPanel(new JPanel(), this.projectCl, projects);
@@ -130,7 +130,9 @@ public class dashboardPanel implements ViewListener {
 		if (groups == null)
 			return;
 		this.groupPanel         = new GroupPanel(new JPanel(), this.groupCl, groups);
-		this.groupCreate        = new FormGroup(new JPanel(), this.gCtrl, this.pCtrl);
+		this.groupCreate        = new FormGroup(new JPanel(), this.gCtrl, this.pCtrl, this.cCtrl);
+		
+		this.groupCreate.addGroupListener(this.gCtrl);
 		this.groupPanel.addGroupListener(this.gCtrl);
 		this.mPan.removeAll();
 		this.mPan.add(groupPanel.getPan());

@@ -8,12 +8,20 @@ import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
 
 import Observer.ContactListener;
 import Observer.ContactObserver;
 import classes.Contact;
+import classes.Group;
+import classes.Project;
+import controllers.GroupController;
+import controllers.ProjectController;
 import ihm.FormBuilder;
 import utils.PenelopDevLogger;
 
@@ -32,12 +40,15 @@ public class ContactForm extends JPanel implements ContactObserver {
 	private JPanel email = this._fb.getTextField("Email");
 	private JPanel surname = this._fb.getTextField("Surname");
 	private JPanel name = this._fb.getTextField("Name");
+	private JList pList = null;
+	private JList gList = null;
 	private final Collection<ContactListener> contactListeners = new ArrayList<ContactListener>();
 	
 	public ContactForm(JPanel pan) {
-		GridLayout gl = new GridLayout(5, 1, 5, 5);
+		GridLayout gl = new GridLayout(7, 4, 20, 20);
 		this.pan = pan;
 		this.pan.setLayout(gl);
+		this.pan.setBorder(new EmptyBorder(100, 10, 10, 10));
 		this.pan.add(this.title);
 		this.pan.add(this.email);
 		this.pan.add(this.surname);
@@ -50,6 +61,46 @@ public class ContactForm extends JPanel implements ContactObserver {
 	     					self.getSurnameInput().getText(),
 	     					self.getNameInput().getText()
 	     				);
+	     		self.triggerCreateContact(c);
+	     	}
+		});
+		this.pan.add(this.createButton);
+	}
+	
+	public ContactForm(JPanel pan, GroupController gCtrl, ProjectController pCtrl) {
+		ArrayList<Project> p = pCtrl.getPDAO().get();
+		ArrayList<Group> g = gCtrl.getGroupDAO().get();
+		this.pList = new JList(p.toArray());
+		this.gList = new JList(g.toArray());
+		this.pList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		this.gList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		this.pList.setVisibleRowCount(3);
+		this.gList.setVisibleRowCount(3);
+		GridLayout gl = new GridLayout(5, 1, 5, 5);
+		this.pan = pan;
+		this.pan.setLayout(gl);
+		this.pan.add(this.title);
+		this.pan.add(this.email);
+		this.pan.add(this.surname);
+		this.pan.add(this.name);
+		this.pan.add(new JScrollPane(this.pList));
+		this.pan.add(new JScrollPane(this.gList));
+		final ContactForm self = this;
+		this.createButton.addActionListener(new ActionListener() {
+	     	public void actionPerformed(ActionEvent event) {
+	     		Contact c = new Contact(
+	     					self.getEmailInput().getText(),
+	     					self.getSurnameInput().getText(),
+	     					self.getNameInput().getText()
+	     				);
+	     		ArrayList<Integer> pIds = formatPids();
+	     		ArrayList<Integer> gIds = formatGids();
+	     		if (!pIds.isEmpty()) {
+	     			c.setPids(pIds);
+	     		}
+	     		if (!gIds.isEmpty()) {
+	     			c.setGids(gIds);
+	     		}
 	     		self.triggerCreateContact(c);
 	     	}
 		});
@@ -137,5 +188,27 @@ public class ContactForm extends JPanel implements ContactObserver {
 	public void triggerShowUpdate(Contact c) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	ArrayList<Integer> formatPids() {
+		Object[] projects =  this.pList.getSelectedValues();
+		ArrayList<Integer> pIds = new ArrayList<Integer>();
+		for (Object project: projects) {
+			Project newProject = (Project)project;
+			System.out.println(newProject.getName());
+			pIds.add(newProject.getId());
+		}
+		return pIds;
+	}
+	
+	ArrayList<Integer> formatGids() {
+		Object[] groups =  this.gList.getSelectedValues();
+		ArrayList<Integer> uIds = new ArrayList<Integer>();
+		for (Object group: groups) {
+			Group newGroup = (Group)group;
+			System.out.println(newGroup.getName());
+			uIds.add(newGroup.getId());
+		}
+		return uIds;
 	}
 }

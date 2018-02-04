@@ -82,6 +82,9 @@ public class Project {
 	public List<Integer> getGIds() {
 		return this.gIds;
 	}
+	public void setGids( ArrayList<Integer> gIds){
+		this.gIds = gIds;
+	}
 
 	public void setGroups(ArrayList<Group> groups) {
 		this.groups = groups;
@@ -92,6 +95,9 @@ public class Project {
 	}
 	public List<Integer> getUIds() {
 		return this.uIds;
+	}
+	public void setUids( ArrayList<Integer> uIds){
+		this.uIds = uIds;
 	}
 	
 

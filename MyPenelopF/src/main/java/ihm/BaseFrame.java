@@ -61,6 +61,7 @@ public class BaseFrame extends JFrame {
 	ProjectForm updateProject;
 	GroupPanel groupPanel;
 	FormGroup createGroup;
+	FormGroup updateGroup;
 	JPanel buttonPane;
 
 	public BaseFrame(HashMap<String, PenelopeController> ctrls) {
@@ -140,6 +141,23 @@ public class BaseFrame extends JFrame {
 		this.setLayout(gl);
 		this.getContentPane().add(this.updateProject.getPan());
 		this.setVisible(true);
+	}
+
+	public BaseFrame(GroupController gCtrl, Group group) {
+		this.gCtrl = gCtrl;
+        JFrame frame = new JFrame("Groups");
+		GridLayout gl = new GridLayout(3, 2, 5, 5);
+        frame.setTitle("Update Group: ");
+        frame.setResizable(true);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocation(250, 250);
+        this.updateGroup = new FormGroup(new JPanel(), group);
+        this.updateGroup.addGroupListener(this.gCtrl);
+        this.setSize(800, 800);
+        this.setLayout(gl);
+        this.getContentPane().add(this.updateGroup.getPan());
+        this.setVisible(true);
 	}
 
 	/**

@@ -16,6 +16,8 @@ public class GroupController implements PenelopeController, GroupListener {
 	public dashboardPanel dashboard;
 
 	private GroupDAO gDAO = null;
+	
+	public BaseFrame uForm;
 
 	public GroupController(GroupDAO gDAO) {
 		this.gDAO = gDAO;
@@ -38,7 +40,8 @@ public class GroupController implements PenelopeController, GroupListener {
 	}
 
 	public void CreateGroupTriggered(Group nGroup) {
-
+		System.out.println("in gCtrl CreateGroup");
+		this.gDAO.add(nGroup);
 	}
 
 	public void GroupChangeTriggered() {
@@ -59,12 +62,20 @@ public class GroupController implements PenelopeController, GroupListener {
 	}
 
 	public void UpdateGroupTriggered(Group uGroup) {
-		// TODO Auto-generated method stub
+		log._("CREATE CONTACT");
+		log._(uGroup);
+		this.gDAO.update(uGroup);
 
 	}
 
 	public void testCtrl() {
 		log._("TEST Group Controller");
+	}
+
+	public void ShowUpdateTriggered(Group group) {
+		log._("SHOW UPDATE Group WITH:");
+		log._(group);
+		this.uForm = new BaseFrame(this, group);
 	}
 	
 }

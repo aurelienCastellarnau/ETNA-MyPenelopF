@@ -8,14 +8,20 @@ import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import Observer.ContactListener;
 import Observer.ProjectListener;
 import Observer.ProjectObserver;
 import classes.Contact;
+import classes.Group;
 import classes.Project;
+import controllers.ContactController;
+import controllers.GroupController;
 import ihm.FormBuilder;
 import ihm.contact.ContactForm;
 import ihm.group.FormGroup;
@@ -35,6 +41,8 @@ public class ProjectForm extends JPanel implements ProjectObserver  {
 	private JButton updateButton = new JButton("Update");
 	private JPanel name = this._fb.getTextField("Name");
 	private JPanel description = this._fb.getTextField("Content Description");
+	private JList cList = null;
+	private JList gList = null;
 	// chiche: 
 	private ArrayList<FormGroup> groupsForm = new ArrayList<FormGroup>();
 	private final Collection<ProjectListener> projectListeners = new ArrayList<ProjectListener>();
@@ -54,6 +62,44 @@ public class ProjectForm extends JPanel implements ProjectObserver  {
 	     					self.getNameInput().getText(),
 	     					self.getDescriptionInput().getText()
 	     				);
+	     		self.triggerCreateProject(p);
+	     	}
+		});
+		this.pan.add(this.createButton);
+	}
+	
+	public ProjectForm(JPanel pan, GroupController gCtrl, ContactController cCtrl) {
+		ArrayList<Contact> c = cCtrl.getContactDAO().get();
+		ArrayList<Group> g = gCtrl.getGroupDAO().get();
+		this.cList = new JList(c.toArray());
+		this.gList = new JList(g.toArray());
+		this.cList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		this.gList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		this.cList.setVisibleRowCount(3);
+		this.gList.setVisibleRowCount(3);
+		GridLayout gl = new GridLayout(7, 2, 5, 5);
+		this.pan = pan;
+		this.pan.setLayout(gl);
+		this.pan.add(this.title);
+		this.pan.add(this.name);
+		this.pan.add(this.description);
+		this.pan.add(new JScrollPane(this.cList));
+		this.pan.add(new JScrollPane(this.gList));
+		final ProjectForm self = this;
+		this.createButton.addActionListener(new ActionListener() {
+	     	public void actionPerformed(ActionEvent event) {
+	     		Project p = new Project(
+	     					self.getNameInput().getText(),
+	     					self.getDescriptionInput().getText()
+	     				);
+	     		ArrayList<Integer> cIds = formatUids();
+	     		ArrayList<Integer> gIds = formatGids();
+	     		if (!cIds.isEmpty()) {
+	     			p.setUids(cIds);
+	     		}
+	     		if (!gIds.isEmpty()) {
+	     			p.setGids(gIds);
+	     		}
 	     		self.triggerCreateProject(p);
 	     	}
 		});
@@ -144,6 +190,28 @@ public class ProjectForm extends JPanel implements ProjectObserver  {
 	public void triggerDeleteProject(Project project) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	ArrayList<Integer> formatUids() {
+		Object[] users =  this.cList.getSelectedValues();
+		ArrayList<Integer> uIds = new ArrayList<Integer>();
+		for (Object user: users) {
+			Contact newUser = (Contact)user;
+			System.out.println(newUser.getName());
+			uIds.add(newUser.getId());
+		}
+		return uIds;
+	}
+	
+	ArrayList<Integer> formatGids() {
+		Object[] groups =  this.gList.getSelectedValues();
+		ArrayList<Integer> uIds = new ArrayList<Integer>();
+		for (Object group: groups) {
+			Group newGroup = (Group)group;
+			System.out.println(newGroup.getName());
+			uIds.add(newGroup.getId());
+		}
+		return uIds;
 	}
 
 }

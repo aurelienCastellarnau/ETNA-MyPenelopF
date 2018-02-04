@@ -42,6 +42,16 @@ public class Group {
 		this.name = name;
 		this.users = users;
 	}
+	
+	public Group(int id, String text) {
+		this.id = id;
+		this.name = text;
+	}
+
+	@Override
+	public String toString() {
+	    return name;
+	}
 
 	// Accessors
 	public Integer getId() {
@@ -84,6 +94,10 @@ public class Group {
 	
 	public void setPids(ArrayList<Integer> pIds) {
 		this.pIds = pIds;
+	}
+	
+	public void setUids(ArrayList<Integer> uIds) {
+		this.uIds = uIds;
 	}
 	
 	public void setUsers(ArrayList<Contact> users) {

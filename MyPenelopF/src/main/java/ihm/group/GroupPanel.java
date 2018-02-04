@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import Observer.ContactListener;
 import Observer.GroupListener;
 import Observer.GroupObserver;
+import classes.Contact;
 import classes.Group;
 import ihm.FormBuilder;
 import ihm.contact.ContactPanel;
@@ -44,8 +45,15 @@ public class GroupPanel extends JPanel implements GroupObserver {
 			     		self.triggerDeleteGroup(group);
 			     	}
 		        });
+	    		JButton up = new JButton("Update");
+	    		up.addActionListener(new ActionListener() {
+			     	public void actionPerformed(ActionEvent event) {
+			     		self.triggerShowUpdate(group);
+			     	}
+		        });
 	        card.add(tmp);
 	        card.add(del);
+	        card.add(up);
 	        card.add(groupNavPan);
 	        this.pan.add(card, group.getId().toString());
 	    }
@@ -86,6 +94,12 @@ public class GroupPanel extends JPanel implements GroupObserver {
 			System.out.println("triggerDelete");
 			for (GroupListener listener: this.GroupListeners) {
 				listener.DeleteGroupTriggered(group);
+			}
+		}
+
+		public void triggerShowUpdate(Group group) {
+			for (GroupListener listener: this.GroupListeners) {
+				listener.ShowUpdateTriggered(group);
 			}
 		}
 }
