@@ -14,9 +14,6 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 
 	private final Collection<GroupListener> groupListeners = new ArrayList<GroupListener>();
 
-
-	private final Collection<GroupListener> groupListeners = new ArrayList<GroupListener>();
-
 	public GroupDAO(DataInterface di) {
 		super(di);
 	}
