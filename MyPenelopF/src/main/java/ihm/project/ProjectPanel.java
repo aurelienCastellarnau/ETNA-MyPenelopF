@@ -12,8 +12,10 @@ import javax.swing.JPanel;
 
 import Observer.ProjectListener;
 import Observer.ProjectObserver;
+import classes.Group;
 import classes.Project;
 import ihm.FormBuilder;
+import ihm.group.GroupPanel;
 import utils.PenelopDevLogger;
 
 public class ProjectPanel extends JPanel implements ProjectObserver {
@@ -25,6 +27,7 @@ public class ProjectPanel extends JPanel implements ProjectObserver {
 	private static final PenelopDevLogger log = PenelopDevLogger.get();
     private FormBuilder _fb = new FormBuilder();
 	private JPanel pan;
+	private GroupPanel groupPan ;
     private CardLayout cl;
 	private final Collection<ProjectListener> projectListeners = new ArrayList<ProjectListener>();
 
@@ -39,6 +42,13 @@ public class ProjectPanel extends JPanel implements ProjectObserver {
 				JLabel tmp = new JLabel("Project N°" + project.getId() + " | Name: " + project.getName() + " | Description: " + project.getDescription());
 				JPanel card = new JPanel();
 				card.add(tmp);
+				ArrayList<Group> groups = project.getGroups();
+				log._("Groups from project");
+				log._(project);
+				log._("in ProjectPanel constructor:  ");
+				log.groups(groups);
+		        this.groupPan = new GroupPanel(new JPanel(), new CardLayout(), groups);
+		        card.add(this.groupPan.getPan());
 				if (projectListeners.size() > 0) {
 					JButton del = new JButton("Delete");
 					del.addActionListener(new ActionListener() {

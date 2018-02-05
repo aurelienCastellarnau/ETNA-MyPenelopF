@@ -197,6 +197,31 @@ public class BaseFrame extends JFrame {
 
 	/**
 	 *
+	 * @param Task t
+	 * BaseFrame for Task Update
+	 * Display TaskForm with t
+	 * Allow to update a Task
+	 */
+	public BaseFrame(TaskController tCtrl, Task t) {
+
+		this.tCtrl = tCtrl;
+		JFrame frame = new JFrame("Tasks");
+		GridLayout gl = new GridLayout(3, 2, 5, 5);
+		frame.setTitle("Update Task: ");
+		frame.setResizable(true);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocation(250, 250);
+		this.updateTask = new TaskForm(new JPanel(), t);
+		this.updateTask.addTaskListener(this.tCtrl);
+		this.setSize(800, 800);
+		this.setLayout(gl);
+		this.getContentPane().add(this.updateTask.getPan());
+		this.setVisible(true);
+	}
+
+	/**
+	 *
 	 * @param contacts
 	 * recreate the content of the ContactPanel view
 	 * remove and add createContact to preserve order.

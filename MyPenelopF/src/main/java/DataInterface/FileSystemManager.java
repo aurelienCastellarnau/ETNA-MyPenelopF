@@ -30,7 +30,6 @@ public class FileSystemManager implements DataInterface {
 	private String projectFile = "/project.json";
 	private String taskFile = "/task.json";
 	private String msgFile = "/msg.json";
-
 	private FileSystemManager() {}
 
 	private static class SingletonHolder
@@ -88,7 +87,6 @@ public class FileSystemManager implements DataInterface {
 			return null;
 		}
 	}
-
 	public ArrayList<Msg>readMsgs() {
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + this.msgFile));
@@ -115,7 +113,6 @@ public class FileSystemManager implements DataInterface {
 			log._("Exception trhowed in writeContacts(): " + e.getMessage());
 		}
 	}
-
 	public ArrayList<Contact> getContacts() {
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/users.json"));
@@ -127,7 +124,6 @@ public class FileSystemManager implements DataInterface {
 			return null;
 		}
 	}
-
 	/**
 	 * Write the new groups List in the file groups.
 	 * @param groups
@@ -175,7 +171,6 @@ public class FileSystemManager implements DataInterface {
 			log._("Exception trhowed in writeContacts(): " + e.getMessage());
 		}
 	}
-
 	/**
 	 * Write the new projects List in the file projects.json.
 	 * @param projects

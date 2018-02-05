@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import classes.Contact;
 import classes.Group;
+import classes.Msg;
+import classes.Project;
 
 /**
  * 
@@ -13,9 +15,31 @@ import classes.Group;
  * décrivent comment doit se comporter ContactDAO. 
  */
 public interface ContactDAOReceipe {
-	// retrieve groups where c.id appear
-	// don't use Contact.gIds but Group.uIds
+	/**
+	 *  retrieve groups where c.id appear
+	 *  don't use Contact.gIds but Group.uIds
+	 * @param c
+	 * @return ArrayList<Group> 
+	 */
 	public ArrayList<Group> getGroups(Contact c);
-	// Same as getGroups but for an ArrayList
+	/**
+	 *  retrieve projects where c.id appear
+	 *  don't use Contact.pIds but Project.uIds
+	 * @param c
+	 * @return ArrayList<Project>
+	 */
+	public ArrayList<Project> getProjects(Contact c);
+	/**
+	 * retrieve messages where c.[Item].mIds contain Msg.id
+	 * use Contact.mIds from contact.json to retrieve abstrated messages
+	 * @param c
+	 * @return ArrayList<Msg>
+	 */
+	public ArrayList<Msg> getMsgs(Contact c);
+	/**
+	 *  Same as getGroups but for an ArrayList
+	 *  Build the content for each contact
+	 * @param contacts
+	 */
 	public void buildContactsGroups(ArrayList<Contact> contacts);
 }

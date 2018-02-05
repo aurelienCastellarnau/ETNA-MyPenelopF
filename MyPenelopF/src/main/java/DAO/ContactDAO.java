@@ -167,7 +167,7 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 			}
 			return cProjects;
 		}
-		
+
 		/**
 		 * Retrieve Contact.messages from Contact.mIds
 		 */
