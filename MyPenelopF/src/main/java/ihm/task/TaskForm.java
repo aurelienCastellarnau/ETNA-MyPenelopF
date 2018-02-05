@@ -24,7 +24,7 @@ public class TaskForm extends JPanel implements TaskObserver {
 	private static final long serialVersionUID = -7385022145032316437L;
 	private FormBuilder _fb = new FormBuilder();
 	private JPanel pan;
-	private JLabel title = new JLabel("Create New Contact");
+	private JLabel title = new JLabel("Create New Task");
 	private JButton createButton = new JButton("Create");
 	private JButton updateButton = new JButton("Update");
 	private JPanel description = this._fb.getTextField("Content Description");
@@ -45,7 +45,7 @@ public class TaskForm extends JPanel implements TaskObserver {
 	     		self.triggerCreateTask(t);
 	     	}
 		});
-		this.pan.add(this.updateButton);
+		this.pan.add(this.createButton);
 	}
 	
 	public TaskForm(JPanel pan, Task task) {

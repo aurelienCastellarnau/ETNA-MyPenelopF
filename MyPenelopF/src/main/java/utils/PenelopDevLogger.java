@@ -79,8 +79,8 @@ public class PenelopDevLogger {
 			this._(projects.get(iterator));
 	}
 
-//	public void tasks(ArrayList<Task> tasks) {
-//		for (Integer iterator = 0; iterator < tasks.size(); iterator++)
-//			this._(tasks.get(iterator));
-//	}
+	public void tasks(ArrayList<Task> tasks) {
+		for (Integer iterator = 0; iterator < tasks.size(); iterator++)
+			this._(tasks.get(iterator));
+	}
 }
