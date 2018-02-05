@@ -1,6 +1,5 @@
 package Observer;
 
-import classes.Contact;
 import classes.Group;
 
 public interface GroupObserver {

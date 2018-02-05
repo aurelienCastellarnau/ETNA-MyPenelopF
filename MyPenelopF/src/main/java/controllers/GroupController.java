@@ -7,16 +7,19 @@ import Observer.GroupListener;
 import classes.Group;
 import ihm.BaseFrame;
 import ihm.dashboardPanel;
+import Observer.GroupListener;
 import utils.PenelopDevLogger;
 
 public class GroupController implements PenelopeController, GroupListener {
 
 	public BaseFrame base;
+
+	private dashboardPanel dashboard;
+
 	final static PenelopDevLogger log = PenelopDevLogger.get();
-	public dashboardPanel dashboard;
 
 	private GroupDAO gDAO = null;
-	
+
 	public BaseFrame uForm;
 
 	public GroupController(GroupDAO gDAO) {
@@ -26,11 +29,11 @@ public class GroupController implements PenelopeController, GroupListener {
 	public dashboardPanel getDashboard() {
 		return this.dashboard;
 	}
-	
+
 	public void setDashboard(dashboardPanel dashboard) {
 		this.dashboard = dashboard;
 	}
-	
+
 	public void init() {
 		gDAO.addGroupListener(this);
 	}
@@ -69,7 +72,7 @@ public class GroupController implements PenelopeController, GroupListener {
 	}
 
 	public void testCtrl() {
-		log._("TEST Group Controller");
+		log._("INIT GroupController");
 	}
 
 	public void ShowUpdateTriggered(Group group) {
@@ -77,5 +80,5 @@ public class GroupController implements PenelopeController, GroupListener {
 		log._(group);
 		this.uForm = new BaseFrame(this, group);
 	}
-	
+
 }

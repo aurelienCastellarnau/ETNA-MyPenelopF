@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import DAO.ProjectDAO;
 import Observer.ProjectListener;
-import classes.Contact;
 import classes.Project;
 import ihm.BaseFrame;
 import ihm.dashboardPanel;
@@ -21,7 +20,7 @@ public class ProjectController implements PenelopeController, ProjectListener {
 		this.pDAO = pDAO;
 	}
 	public void init() {
-		log._("INIT PROJECT CONTROLLER");
+		log._("INIT ProjectController");
 		this.pDAO.addProjectListener(this);
 	}
 	public ProjectDAO getPDAO() {
@@ -64,6 +63,6 @@ public class ProjectController implements PenelopeController, ProjectListener {
         this.dashboard.displayProjectPanel();
 	}
 	public void testCtrl() {
-		log._("TEST ProjectController");
+		log._("INIT ProjectController");
 	}
 }

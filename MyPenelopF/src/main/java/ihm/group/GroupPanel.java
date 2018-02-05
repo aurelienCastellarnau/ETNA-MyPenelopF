@@ -26,7 +26,7 @@ public class GroupPanel extends JPanel implements GroupObserver {
     private CardLayout cl;
     private FormBuilder _fb = new FormBuilder();
     private final Collection<GroupListener> GroupListeners = new ArrayList<GroupListener>();
-	
+
 	public GroupPanel(JPanel pan, CardLayout cl, ArrayList<Group> groups) {
 		final GroupPanel self = this;
 		this.pan = pan;
@@ -58,19 +58,19 @@ public class GroupPanel extends JPanel implements GroupObserver {
 	        this.pan.add(card, group.getId().toString());
 	    }
 	}
-	
+
 	// Individual components accessors
 		public JPanel getPan() {
 			return this.pan;
 		}
-		
+
 		public CardLayout getCard() {
 			return this.cl;
 		}
 
 		public void addGroupListener(GroupListener listener) {
 			this.GroupListeners.add(listener);
-			
+
 		}
 
 		public void removeGroupListener(GroupListener listener) {
@@ -79,7 +79,7 @@ public class GroupPanel extends JPanel implements GroupObserver {
 
 		public void triggerGroupChange() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void triggerCreateGroup(Group group) {
@@ -87,7 +87,7 @@ public class GroupPanel extends JPanel implements GroupObserver {
 
 		public void triggerUpdateGroup(Group group) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		public void triggerDeleteGroup(Group group) {

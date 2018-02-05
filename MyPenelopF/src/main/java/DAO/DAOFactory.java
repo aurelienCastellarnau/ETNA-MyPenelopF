@@ -4,6 +4,7 @@ import DataInterface.DataInterface;
 import classes.Contact;
 import classes.Group;
 import classes.Project;
+import classes.Task;
 
 /**
  * La factory permet de creer une instance de DAO en lui obligeant d'implementer
@@ -18,7 +19,7 @@ public class DAOFactory {
 		  ContactDAOReceipe cDAO = new ContactDAO(di);
 		  return (ContactDAO)cDAO;
 	  }
-	  
+
 	  public static DAO<Group> getGroupDAO(DataInterface di) {
 		  // GroupDAO must implement GroupDAOReceipe
 		  GroupDAOReceipe gDAO = new GroupDAO(di);
@@ -30,5 +31,10 @@ public class DAOFactory {
 		  ProjectDAOReceipe pDAO = new ProjectDAO(di);
 		  return (ProjectDAO)pDAO;
 	  }
-
+	  
+	  public static DAO<Task> getTaskDAO(DataInterface di) {
+		  // ProjectDAO must implement ProjectDAOReceipe
+		  TaskDAOReceipe tDAO = new TaskDAO(di);
+		  return (TaskDAO)tDAO;
+	  }
 }

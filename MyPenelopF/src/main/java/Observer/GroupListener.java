@@ -8,4 +8,5 @@ public interface GroupListener {
 	void CreateGroupTriggered(Group nGroup);
 	void UpdateGroupTriggered(Group uGroup);
 	void ShowUpdateTriggered(Group group);
+
 }
