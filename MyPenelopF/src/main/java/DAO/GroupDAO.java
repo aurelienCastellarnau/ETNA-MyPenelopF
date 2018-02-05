@@ -128,7 +128,6 @@ public class GroupDAO extends DAO<Group> implements GroupDAOReceipe, GroupObserv
 		public void triggerDeleteGroup(Group group) {}
 
 		public void triggerShowUpdate(Group group) {
-			// TODO Auto-generated method stub
-
 		}
+
 }

@@ -46,6 +46,7 @@ public class TaskForm extends JPanel implements TaskObserver {
 	     	}
 		});
 		this.pan.add(this.createButton);
+
 	}
 	
 	public TaskForm(JPanel pan, Task task) {

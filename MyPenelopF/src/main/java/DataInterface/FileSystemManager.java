@@ -29,6 +29,7 @@ public class FileSystemManager implements DataInterface {
 	private String projectFile = "/project.json";
 	private String taskFile = "/task.json";
 	private FileSystemManager() {}
+
 	private static class SingletonHolder
 	{
 		private final static FileSystemManager instance = new FileSystemManager();
@@ -99,6 +100,7 @@ public class FileSystemManager implements DataInterface {
 			log._("Exception trhowed in writeContacts(): " + e.getMessage());
 		}
 	}
+
 	public ArrayList<Contact> getContacts() {
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/users.json"));
