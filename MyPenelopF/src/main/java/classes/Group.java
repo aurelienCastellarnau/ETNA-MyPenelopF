@@ -52,7 +52,7 @@ public class Group extends Item {
 		this.name = name;
 		this.users = users;
 		this.projects = projects;
-<<<<<<< HEAD
+
 	}
 	
 	public Group(int id, String text) {
@@ -63,8 +63,6 @@ public class Group extends Item {
 	@Override
 	public String toString() {
 	    return name;
-=======
->>>>>>> update contact.json to add msg to JeannoLapin ^^
 	}
 
 	// Accessors

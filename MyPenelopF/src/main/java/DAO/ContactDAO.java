@@ -167,11 +167,7 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 			}
 			return cProjects;
 		}
-<<<<<<< HEAD
 
-=======
-
->>>>>>> update contact.json to add msg to JeannoLapin ^^
 		/**
 		 * Retrieve Contact.messages from Contact.mIds
 		 */
