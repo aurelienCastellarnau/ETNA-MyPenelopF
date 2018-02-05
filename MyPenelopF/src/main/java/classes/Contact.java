@@ -15,7 +15,7 @@ import classes.Msg;
  * @author aurelien
  *
  */
-public class Contact {
+public class Contact extends Item {
 	
 	// contact id
 	private Integer id;
@@ -34,9 +34,6 @@ public class Contact {
 	private transient ArrayList<Group> groups = new ArrayList<Group>();
 	private ArrayList<Integer> gIds = new ArrayList<Integer>();
 	
-	// contact messages
-	private transient ArrayList<Msg> messages = new ArrayList<Msg>();
-	private ArrayList<Integer> mIds = new ArrayList<Integer>();
 	
 	// contact projects
 	private transient ArrayList<Project> projects = new ArrayList<Project>();
@@ -60,9 +57,10 @@ public class Contact {
 		return id;
 	}
 	// default constructor
-	public Contact() {}
+	public Contact() { super(); }
 	// surcharged minimal constructor
 	public Contact(String email, String surname, String name) {
+		super();
 		Contact.autoincrement = this.lastId();
 		this.id = Contact.increment();
 		this.email = email;
@@ -71,6 +69,7 @@ public class Contact {
 	}
 	// surcharged 'existing user' constructor
 	public Contact(int id, String email, String surname, String name) {
+		super();
 		this.id = id;
 		this.email = email;
 		this.name = name;
@@ -79,6 +78,7 @@ public class Contact {
 	}
 	// surcharged 'no-project' constructor
 	public Contact(String email, String surname, String name, ArrayList<Group> groups, ArrayList<Msg> messages) {
+		super(messages);
 		this.id = Contact.increment();
 		this.email = email;
 		this.surname = surname;
@@ -88,6 +88,7 @@ public class Contact {
 	}
 	// surcharged 'full' constructor
 	public Contact(String email, String surname, String name, ArrayList<Project>projects, ArrayList<Group> groups, ArrayList<Msg> messages) {
+		super(messages);
 		this.id = Contact.increment();
 		this.email = email;
 		this.surname = surname;
@@ -123,12 +124,6 @@ public class Contact {
 		return this.gIds;
 	}
 	
-	public ArrayList<Msg> getMessages() {
-		return this.messages;
-	}
-	public ArrayList<Integer> getMIds() {
-		return this.mIds;
-	}
 	
 	public ArrayList<Project> getProjects() {
 		return this.projects;
@@ -163,25 +158,6 @@ public class Contact {
 		if (this.groups.contains(g)) {
 			this.groups.remove(g);
 			this.gIds.remove(g.getId());
-		}
-	}
-	public void setMessages(ArrayList<Msg> messages) {
-		this.messages = messages;
-		for (int iterator = 0; iterator < this.messages.size(); iterator++) {
-			Msg msg = this.messages.get(iterator);
-			this.mIds.add(msg.getId());
-		}
-	}
-	public void addMessage(Msg m) {
-		if (!this.messages.contains(m)) {
-			this.messages.add(m);
-			this.mIds.add(m.getId());
-		}
-	}
-	public void deleteMessage(Msg m) {
-		if (this.messages.contains(m)) {
-			this.messages.remove(m);
-			this.mIds.remove(m.getId());
 		}
 	}
 	public void setProjects(ArrayList<Project> projects) {

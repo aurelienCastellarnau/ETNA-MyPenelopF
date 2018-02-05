@@ -135,7 +135,6 @@ public class dashboardPanel implements ViewListener {
 	public void showTasksTriggered() {
 		this.displayTaskPanel();
 	}
-
 	public void displayTaskPanel() {
 		ArrayList<Task> tasks = this.tCtrl.getDAO().get();
 		if (tasks == null)

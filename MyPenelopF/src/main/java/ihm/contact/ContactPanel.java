@@ -15,6 +15,7 @@ import Observer.ContactListener;
 import Observer.ContactObserver;
 import classes.Contact;
 import classes.Group;
+import classes.Msg;
 import classes.Project;
 import ihm.FormBuilder;
 import ihm.group.GroupPanel;
@@ -54,7 +55,7 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	    for (final Contact user: users)
 	    {
 	    	JPanel userPan = new JPanel();
-			GridLayout gl = new GridLayout(6, 2, 5, 5);
+			GridLayout gl = new GridLayout(8, 2, 5, 5);
 			userPan.setLayout(gl);
 	    	CardLayout groupCl = new CardLayout();
 	    	ArrayList<Group> userGroups = user.getGroups();
@@ -64,6 +65,14 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	    	this.projectPan = new ProjectPanel(new JPanel(), projectCl, userProjects);
 	        this.projectNav = this._fb.getNavPanel(this.projectPan.getCard(), this.projectPan.getPan());
 	    	JLabel tmp = new JLabel("User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName());
+	    	ArrayList<Msg> messages = user.getMessages();
+	    	JPanel compiledMsgs = new JPanel();
+	    	if (messages.size() > 0) {
+	    		compiledMsgs.add(new JLabel("Message: "));
+	    	}
+	    	for (int iterator = 0; iterator < messages.size(); iterator++) {
+	    		compiledMsgs.add(new JLabel(messages.get(iterator).getContent()));
+	    	}
 	     	JPanel card = new JPanel();
 	        JButton del = new JButton("Delete");
 	        del.addActionListener(new ActionListener() {
@@ -77,6 +86,7 @@ public class ContactPanel extends JPanel implements ContactObserver{
 		     		self.triggerShowUpdate(user);
 		     	}
 	        });
+	        userPan.add(compiledMsgs);
 	        userPan.add(tmp);
 	        userPan.add(this.groupPan.getPan());
 	        userPan.add(this.projectNav);

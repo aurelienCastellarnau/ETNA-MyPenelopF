@@ -3,7 +3,7 @@ package classes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Project {
+public class Project extends Item {
 
 	private Integer id;
 	
@@ -23,15 +23,13 @@ public class Project {
 	private transient ArrayList<Document> documents = new ArrayList<Document>();
 	private List<Integer> dIds = new ArrayList<Integer>();
 	
-	private transient ArrayList<Msg> messages = new ArrayList<Msg>();
-	private List<Integer> mIds = new ArrayList<Integer>();
-	
 	static private int autoincrement = 0;
 	static private int increment() {
 		return ++Project.autoincrement;
 	}
 	
 	public Project() {
+		super();
 		this.id = Project.increment(); 
 	}
 	
@@ -116,13 +114,6 @@ public class Project {
 		return this.dIds;
 	}
 
-	public ArrayList<Msg> getMessages() {
-		return this.messages;
-	}
-	public List<Integer> getMIds() {
-		return this.mIds;
-	}
-
 	// Contacts mutators
 	public void setContacts(ArrayList<Contact> users) {
 		this.users = users;
@@ -142,6 +133,7 @@ public class Project {
 			this.uIds.remove(c.getId());
 		}
 	}
+	
 	// Documents mutators
 	public void setDocuments(ArrayList<Document> documents) {
 		this.documents = documents;
@@ -159,26 +151,6 @@ public class Project {
 		if (this.documents.contains(d)) {
 			this.documents.remove(d);
 			this.dIds.remove(d.getId());
-		}
-	}
-
-	// Message mutators
-	public void setMessages(ArrayList<Msg> messages) {
-		this.messages = messages;
-		for (int iterator = 0; iterator < this.messages.size(); iterator++) {
-			this.mIds.add(this.messages.get(iterator).getId());
-		}
-	}
-	public void addMessage(Msg m) {
-		if (!this.messages.contains(m)) {
-			this.messages.add(m);
-			this.mIds.add(m.getId());		
-		}
-	}
-	public void deleteMessage(Msg m) {
-		if (this.messages.contains(m)) {
-			this.messages.remove(m);
-			this.mIds.remove(m.getId());
 		}
 	}
 

@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 
 import classes.Contact;
 import classes.Group;
+import classes.Msg;
 import classes.Project;
 import classes.Task;
 import utils.PenelopDevLogger;
@@ -28,6 +29,8 @@ public class FileSystemManager implements DataInterface {
 	private String groupFile = "/group.json";
 	private String projectFile = "/project.json";
 	private String taskFile = "/task.json";
+	private String msgFile = "/msg.json";
+
 	private FileSystemManager() {}
 
 	private static class SingletonHolder
@@ -80,6 +83,18 @@ public class FileSystemManager implements DataInterface {
 			Task[] json = new Gson().fromJson(bufferedReader, Task[].class);
 			ArrayList<Task> tasks = json != null ? new ArrayList<Task>(Arrays.asList(json)) : new ArrayList<Task>();
 			return tasks;
+		} catch (IOException e) {
+			log._("Throwed in readGroups: " + e.getMessage());
+			return null;
+		}
+	}
+
+	public ArrayList<Msg>readMsgs() {
+		try {
+			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + this.msgFile));
+			Msg[] json = new Gson().fromJson(bufferedReader, Msg[].class);
+			ArrayList<Msg> msgs = json != null ? new ArrayList<Msg>(Arrays.asList(json)) : new ArrayList<Msg>();
+			return msgs;
 		} catch (IOException e) {
 			log._("Throwed in readGroups: " + e.getMessage());
 			return null;
@@ -154,6 +169,22 @@ public class FileSystemManager implements DataInterface {
     	String json = gson.toJson(tasks);
 		try {
 			FileWriter fileWriter = new FileWriter(this.project_path + this.taskFile);
+    		fileWriter.write(json);
+            fileWriter.close();
+		} catch (IOException e) {
+			log._("Exception trhowed in writeContacts(): " + e.getMessage());
+		}
+	}
+
+	/**
+	 * Write the new projects List in the file projects.json.
+	 * @param projects
+	 */
+	public void writeMsgs(ArrayList<Msg> msgs) {
+		Gson gson = new Gson();
+    	String json = gson.toJson(msgs);
+		try {
+			FileWriter fileWriter = new FileWriter(this.project_path + this.msgFile);
     		fileWriter.write(json);
             fileWriter.close();
 		} catch (IOException e) {
