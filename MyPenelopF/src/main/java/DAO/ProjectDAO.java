@@ -21,6 +21,19 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 		super(di);
 	}
 
+	/** Holder */
+    private static class SingletonHolder
+    {
+        private static ProjectDAO instance = null;
+        private final static ProjectDAO get(DataInterface di) {
+        	instance = (instance == null) ? new ProjectDAO(di) : instance;
+        	return instance;
+        }
+    }
+    public static ProjectDAO getInstance(DataInterface di) {
+    	return SingletonHolder.get(di);
+    }
+
 	@Override
 	public boolean add(Project p) {
 		ArrayList<Project> projects = this.di.readProjects();
@@ -80,6 +93,7 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 		for (int iterator = 0; iterator < projects.size(); iterator++) {
 			Project p = projects.get(iterator);
 			p.setGroups(this.getGroups(p));
+			p.setContacts(this.getContacts(p));
 		}
 		return projects;
 	}
@@ -100,6 +114,24 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 			}
 		}
 		return cGroups;
+	}
+
+	/**
+	 * Retrieve Project.contacts from Group.pIds (not from Project.uIds)
+	 */
+	public ArrayList<Contact> getContacts(Project p) {
+		ArrayList<Contact> contacts = this.di.readContacts();
+		ArrayList<Contact> pContacts = new ArrayList<Contact>();
+		for (int iterator = 0; iterator < contacts.size(); iterator++) {
+			Contact c = contacts.get(iterator);
+			List<Integer>ids = p.getUIds();
+			for (int it = 0; it < ids.size(); it++) {
+				if (ids.get(it) == c.getId()) {
+					pContacts.add(c);
+				}
+			}
+		}
+		return pContacts;
 	}
 	
 	// Observer pattern on DAO part

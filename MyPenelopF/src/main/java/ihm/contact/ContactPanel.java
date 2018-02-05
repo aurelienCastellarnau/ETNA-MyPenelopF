@@ -54,18 +54,25 @@ public class ContactPanel extends JPanel implements ContactObserver{
 		this.pan.setLayout(this.cl);
 	    for (final Contact user: users)
 	    {
-	    	JPanel userPan = new JPanel();
+	    	// Card and Panel init + layout
+	    	JPanel card = new JPanel();
+	        JPanel userPan = new JPanel();
 			GridLayout gl = new GridLayout(8, 2, 5, 5);
 			userPan.setLayout(gl);
+			// groupPanel definition
 	    	CardLayout groupCl = new CardLayout();
 	    	ArrayList<Group> userGroups = user.getGroups();
 	    	this.groupPan = new GroupPanel(new JPanel(), groupCl, userGroups);
 	    	CardLayout projectCl = new CardLayout();
+	    	// projectPanel definition
+	    	// with external navPanel
 	    	ArrayList<Project> userProjects = user.getProjects();
 	    	this.projectPan = new ProjectPanel(new JPanel(), projectCl, userProjects);
 	        this.projectNav = this._fb.getNavPanel(this.projectPan.getCard(), this.projectPan.getPan());
-	    	JLabel tmp = new JLabel("User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName());
-	    	ArrayList<Msg> messages = user.getMessages();
+	    	// contact content
+	        JLabel tmp = new JLabel("User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName());
+	    	// related messages
+	        ArrayList<Msg> messages = user.getMessages();
 	    	JPanel compiledMsgs = new JPanel();
 	    	if (messages.size() > 0) {
 	    		compiledMsgs.add(new JLabel("Message: "));
@@ -73,26 +80,28 @@ public class ContactPanel extends JPanel implements ContactObserver{
 	    	for (int iterator = 0; iterator < messages.size(); iterator++) {
 	    		compiledMsgs.add(new JLabel(messages.get(iterator).getContent()));
 	    	}
-	     	JPanel card = new JPanel();
-	        JButton del = new JButton("Delete");
-	        del.addActionListener(new ActionListener() {
-		     	public void actionPerformed(ActionEvent event) {
-		     		self.triggerDeleteContact(user);
-		     	}
-	        });
-	        JButton up = new JButton("Update");
-	        up.addActionListener(new ActionListener() {
-		     	public void actionPerformed(ActionEvent event) {
-		     		self.triggerShowUpdate(user);
-		     	}
-	        });
-	        userPan.add(compiledMsgs);
+	    	userPan.add(compiledMsgs);
 	        userPan.add(tmp);
 	        userPan.add(this.groupPan.getPan());
 	        userPan.add(this.projectNav);
 	        userPan.add(this.projectPan.getPan());
-	        userPan.add(up);
-	        userPan.add(del);
+	        // Delete and Update rely on listeners
+	        if (ContactListeners.size() > 0) {
+	        	JButton del = new JButton("Delete");
+	        	del.addActionListener(new ActionListener() {
+	        		public void actionPerformed(ActionEvent event) {
+	        			self.triggerDeleteContact(user);
+	        		}
+	        	});
+	        	JButton up = new JButton("Update");
+	        	up.addActionListener(new ActionListener() {
+	        		public void actionPerformed(ActionEvent event) {
+	        			self.triggerShowUpdate(user);
+	        		}
+	        	});
+	        	userPan.add(up);
+	        	userPan.add(del);
+	        }
 	     	card.add(userPan);
 	        this.pan.add(card, user.getId().toString());
 	    }

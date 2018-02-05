@@ -79,6 +79,7 @@ public class Contact extends Item {
 	// surcharged 'no-project' constructor
 	public Contact(String email, String surname, String name, ArrayList<Group> groups, ArrayList<Msg> messages) {
 		super(messages);
+		Contact.autoincrement = this.lastId();
 		this.id = Contact.increment();
 		this.email = email;
 		this.surname = surname;
@@ -89,6 +90,7 @@ public class Contact extends Item {
 	// surcharged 'full' constructor
 	public Contact(String email, String surname, String name, ArrayList<Project>projects, ArrayList<Group> groups, ArrayList<Msg> messages) {
 		super(messages);
+		Contact.autoincrement = this.lastId();
 		this.id = Contact.increment();
 		this.email = email;
 		this.surname = surname;

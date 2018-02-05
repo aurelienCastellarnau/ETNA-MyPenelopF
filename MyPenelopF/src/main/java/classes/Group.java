@@ -52,7 +52,6 @@ public class Group extends Item {
 		this.name = name;
 		this.users = users;
 		this.projects = projects;
-
 	}
 	
 	public Group(int id, String text) {
