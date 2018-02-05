@@ -2,7 +2,7 @@ package ihm;
 
 import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
-import ihm.group.CreateGroup;
+import ihm.group.FormGroup;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 
@@ -60,7 +60,8 @@ public class BaseFrame extends JFrame {
 	ProjectForm createProject;
 	ProjectForm updateProject;
 	GroupPanel groupPanel;
-	CreateGroup createGroup;
+	FormGroup createGroup;
+	FormGroup updateGroup;
 	JPanel buttonPane;
 
 	public BaseFrame(HashMap<String, PenelopeController> ctrls) {
@@ -76,7 +77,7 @@ public class BaseFrame extends JFrame {
         this.setLocation(250, 250);
         
         this.mPan = new menuPanel();
-        this.dPan = new dashboardPanel(this.cCtrl, this.pCtrl);
+        this.dPan = new dashboardPanel(this.cCtrl, this.pCtrl, this.gCtrl);
         
         mPan.addViewListener(dPan);
         split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, mPan.getPan(), dPan.getPan());
@@ -140,6 +141,23 @@ public class BaseFrame extends JFrame {
 		this.setLayout(gl);
 		this.getContentPane().add(this.updateProject.getPan());
 		this.setVisible(true);
+	}
+
+	public BaseFrame(GroupController gCtrl, Group group) {
+		this.gCtrl = gCtrl;
+        JFrame frame = new JFrame("Groups");
+		GridLayout gl = new GridLayout(3, 2, 5, 5);
+        frame.setTitle("Update Group: ");
+        frame.setResizable(true);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocation(250, 250);
+        this.updateGroup = new FormGroup(new JPanel(), group);
+        this.updateGroup.addGroupListener(this.gCtrl);
+        this.setSize(800, 800);
+        this.setLayout(gl);
+        this.getContentPane().add(this.updateGroup.getPan());
+        this.setVisible(true);
 	}
 
 	/**

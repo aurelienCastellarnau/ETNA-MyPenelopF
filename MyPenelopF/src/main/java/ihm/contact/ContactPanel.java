@@ -48,14 +48,14 @@ public class ContactPanel extends JPanel implements ContactObserver{
 		this.pan.setLayout(this.cl);
 	    for (final Contact user: users)
 	    {
-	    	JPanel userPan = new JPanel();
+	    		JPanel userPan = new JPanel();
 			GridLayout gl = new GridLayout(6, 2, 5, 5);
 			userPan.setLayout(gl);
-	    	CardLayout groupCl = new CardLayout();
-	    	ArrayList<Group>userGroups = user.getGroups();
-	    	this.groupPan = new GroupPanel(new JPanel(), groupCl, userGroups);
+	    		CardLayout groupCl = new CardLayout();
+	    		ArrayList<Group>userGroups = user.getGroups();
+	    		this.groupPan = new GroupPanel(new JPanel(), groupCl, userGroups);
 	        JPanel groupNavPan = this._fb.getNavPanel(this.groupPan.getCard(), this.groupPan.getPan());
-	    	JLabel tmp = new JLabel("User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName());
+	    		JLabel tmp = new JLabel("User N°" + user.getId() + " | Email: " + user.getEmail() + " | Surname: " + user.getSurname() + " | Name: " + user.getName());
 	     	JPanel card = new JPanel();
 	        JButton del = new JButton("Delete");
 	        del.addActionListener(new ActionListener() {

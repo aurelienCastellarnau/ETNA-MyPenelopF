@@ -58,11 +58,11 @@ public class PenelopDevLogger {
     	*/
 	}
 	
-	public void _(Task t) {
-    	System.out.println("Task n°" + t.getId());
-    	System.out.println("Description: " + t.getDescription());
-		System.out.println("Linked to project n°" + t.getPId());
-    }
+//	public void _(Task t) {
+//    	System.out.println("Task n°" + t.getId());
+//    	System.out.println("Description: " + t.getDescription());
+//		System.out.println("Linked to project n°" + t.getPId());
+//    }
 
 	public void contacts(ArrayList<Contact> contacts) {
 		for (Integer iterator = 0; iterator < contacts.size(); iterator++) {
@@ -81,8 +81,8 @@ public class PenelopDevLogger {
 			this._(projects.get(iterator));
 	}
 	
-	public void tasks(ArrayList<Task> tasks) {
-		for (Integer iterator = 0; iterator < tasks.size(); iterator++)
-			this._(tasks.get(iterator));
-	}
+//	public void tasks(ArrayList<Task> tasks) {
+//		for (Integer iterator = 0; iterator < tasks.size(); iterator++)
+//			this._(tasks.get(iterator));
+//	}
 }

@@ -1,71 +1,81 @@
 package controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
+import DAO.GroupDAO;
+import Observer.GroupListener;
 import classes.Group;
 import ihm.BaseFrame;
 import ihm.dashboardPanel;
-import ihm.group.CreateGroupListener;
-import utils.GroupListener;
-import utils.GroupUtils;
 import utils.PenelopDevLogger;
 
-public class GroupController implements PenelopeController, GroupListener, CreateGroupListener {
+public class GroupController implements PenelopeController, GroupListener {
 
 	public BaseFrame base;
 	final static PenelopDevLogger log = PenelopDevLogger.get();
-	final static GroupUtils gUtils = GroupUtils.get();
+	public dashboardPanel dashboard;
+
+	private GroupDAO gDAO = null;
 	
-	public void init() {
-        try {
-        	ArrayList<Group> retrievedGroups = gUtils.getGroups();
-        	log._("INIT GROUP");
-            log.groups(retrievedGroups);
-            // this.base = new BaseFrame(this, retrievedGroups);
-            gUtils.addGroupListener(this);
-        } catch (IOException e) {
-        	System.out.println("ContactController.initContact/cUtils.getContacts throwed: " + e.getMessage());
-        }
+	public BaseFrame uForm;
+
+	public GroupController(GroupDAO gDAO) {
+		this.gDAO = gDAO;
+	}
+
+	public dashboardPanel getDashboard() {
+		return this.dashboard;
 	}
 	
+	public void setDashboard(dashboardPanel dashboard) {
+		this.dashboard = dashboard;
+	}
+	
+	public void init() {
+		gDAO.addGroupListener(this);
+	}
+
+	final public GroupDAO getGroupDAO() {
+		return this.gDAO;
+	}
+
 	public void CreateGroupTriggered(Group nGroup) {
-		log._("Triggered Group");
-    	log._("CREATE Group");
-		log._(nGroup);
-		try {
-			gUtils.addGroup(nGroup);
-		} catch (IOException e) {
-			System.out.println("Exceptions throwed adding contact: " + e.getMessage());
-		}
+		System.out.println("in gCtrl CreateGroup");
+		this.gDAO.add(nGroup);
 	}
 
 	public void GroupChangeTriggered() {
 		this.refreshGroup();
 	}
-	
+
 	private void refreshGroup() {
-        try {
-        	ArrayList<Group> retrievedGroups = gUtils.getGroups();
-        	log._("REFRESH Group DISCONNECTED FROM DASHBOARd");
-            log.groups(retrievedGroups);
-            // this.base.refreshGroupPanel(retrievedGroups);
-        } catch (IOException e) {
-        	log._("ContactController.initContact/cUtils.getContacts throwed: " + e.getMessage());
-        }
+		ArrayList<Group> retrievedGroups = this.gDAO.get();
+        log._("REFRESH GROUP DISCONNECTED FROM DASHBOARD");
+        log.groups(retrievedGroups);
+        log._("AFTER GROUP");
+        this.dashboard.displayGroupPanel();
 	}
-	
+
+	public void DeleteGroupTriggered(Group dGroup) {
+		System.out.println("IN DELETEGROUP TRIGERED");
+		this.gDAO.remove(dGroup);
+	}
+
+	public void UpdateGroupTriggered(Group uGroup) {
+		log._("CREATE CONTACT");
+		log._(uGroup);
+		this.gDAO.update(uGroup);
+
+	}
+
 	public void testCtrl() {
 		log._("TEST Group Controller");
 	}
 
-	public dashboardPanel getDashboard() {
-		// TODO Auto-generated method stub
-		return null;
+	public void ShowUpdateTriggered(Group group) {
+		log._("SHOW UPDATE Group WITH:");
+		log._(group);
+		this.uForm = new BaseFrame(this, group);
 	}
-
-	public void setDashboard(dashboardPanel dashboard) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

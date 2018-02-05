@@ -97,6 +97,11 @@ public class Contact {
 		this.setMessages(messages);
 	}
 	
+	@Override
+	public String toString() {
+	    return name;
+	}
+	
 	// accessors
 	public Integer getId() {
 		return id;
@@ -135,6 +140,12 @@ public class Contact {
 	// mutators
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public void setPids(ArrayList<Integer> pIds) {
+		this.pIds = pIds;
+	}
+	public void setGids(ArrayList<Integer> gIds) {
+		this.gIds = gIds;
 	}
 	public void setGroups(ArrayList<Group> groups) {
 		this.groups = groups;
