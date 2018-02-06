@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import classes.Contact;
 import classes.Group;
@@ -38,6 +39,7 @@ public class dashboardPanel implements ViewListener {
 	 * Declaration du Panel Principal
 	 */
 	private JPanel  mPan;
+	private JScrollPane sPan;
 	private JPanel contactNavPan;
 	private JPanel projectNavPan;
 	private JPanel taskNavPan;
@@ -76,10 +78,11 @@ public class dashboardPanel implements ViewListener {
 		this.gCtrl = gCtrl;
 		this.tCtrl = tCtrl;
 		this.mPan = new JPanel();
+		this.sPan = new JScrollPane(this.mPan);
 	}
 
-	public JPanel getPan() {
-		return this.mPan;
+	public JScrollPane getPan() {
+		return this.sPan;
 	}
 
 	public void showContactsTriggered() {
