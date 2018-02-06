@@ -21,11 +21,11 @@ public class Document {
 	}
 	
 	// Object new Document constructor
-	public Document(String name, String path, Project project) {
+	public Document(String name, String path, Integer pId) {
 		this.id = Document.increment();
 		this.name = name;
 		this.path = path;
-		this.project = project;
+		this.pId = pId;
 	}
 	
 	public Integer getId() {
