@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import classes.Contact;
@@ -80,7 +81,6 @@ public class BaseFrame extends JFrame {
 		this.pCtrl.testCtrl();
 		this.tCtrl.testCtrl();
         this.setTitle("MyPenelopF");
-        this.setSize(800, 600);
         this.setResizable(true);
         this.setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
@@ -207,7 +207,7 @@ public class BaseFrame extends JFrame {
 		this.getContentPane().remove(this.contactPanel.getPan());
 		this.getContentPane().remove(this.createContact.getPan());
 		this.cl = new CardLayout();
-		this.contactPanel = new ContactPanel(new JPanel(), this.cl, contacts);
+		this.contactPanel = new ContactPanel(new JPanel(), this.cl, contacts, true);
         this.contactPanel.addContactListener(this.cCtrl);
         this.buttonPane = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
         this.getContentPane().add(this.buttonPane);

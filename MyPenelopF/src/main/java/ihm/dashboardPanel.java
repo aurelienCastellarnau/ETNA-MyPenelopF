@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import classes.Contact;
 import classes.Group;
@@ -38,6 +39,7 @@ public class dashboardPanel implements ViewListener {
 	 * Declaration du Panel Principal
 	 */
 	private JPanel  mPan;
+	private JScrollPane sPan;
 	private JPanel contactNavPan;
 	private JPanel projectNavPan;
 	private JPanel taskNavPan;
@@ -76,12 +78,11 @@ public class dashboardPanel implements ViewListener {
 		this.gCtrl = gCtrl;
 		this.tCtrl = tCtrl;
 		this.mPan = new JPanel();
-		GridLayout l = new GridLayout(2,1,5,5);
-		this.mPan.setLayout(l);
+		this.sPan = new JScrollPane(this.mPan);
 	}
 
-	public JPanel getPan() {
-		return this.mPan;
+	public JScrollPane getPan() {
+		return this.sPan;
 	}
 
 	public void showContactsTriggered() {
@@ -97,7 +98,7 @@ public class dashboardPanel implements ViewListener {
 		this.contactForm = new ContactForm(new JPanel(), this.gCtrl, this.pCtrl);
 		this.contactForm.addContactListener(this.cCtrl);
 		// get, update and delete contact view
-		this.contactPanel = new ContactPanel(new JPanel(), this.contactCl, contacts);
+		this.contactPanel = new ContactPanel(new JPanel(), this.contactCl, contacts, true);
         this.contactPanel.addContactListener(this.cCtrl);
         this.contactNavPan = this._fb.getNavPanel(this.contactPanel.getCard(), this.contactPanel.getPan());
         // Panel construction
@@ -105,6 +106,7 @@ public class dashboardPanel implements ViewListener {
 		this.mPan.add(this.contactNavPan);
 		this.mPan.add(this.contactPanel.getPan());
 		this.mPan.add(this.contactForm.getPan());
+		this.mPan.setBackground(Color.gray);
 		this.mPan.revalidate();
 		this.mPan.repaint();
 	}
@@ -121,7 +123,7 @@ public class dashboardPanel implements ViewListener {
 		this.projectForm = new ProjectForm(new JPanel(), this.gCtrl, this.cCtrl);
 		this.projectForm.addProjectListener(this.pCtrl);
 		// get, update, and delete project views
-		this.projectPanel = new ProjectPanel(new JPanel(), this.projectCl, projects);
+		this.projectPanel = new ProjectPanel(new JPanel(), this.projectCl, projects, true);
 		this.projectPanel.addProjectListener(this.pCtrl);
 		this.projectNavPan = this._fb.getNavPanel(this.projectPanel.getCard(), this.projectPanel.getPan());
 		// Panel construction
@@ -174,6 +176,7 @@ public class dashboardPanel implements ViewListener {
 		this.mPan.removeAll();
 		this.mPan.add(groupPanel.getPan());
 		this.mPan.add(this.groupCreate.getPan());
+		this.mPan.setBackground(Color.red);
 		this.mPan.revalidate();
 		this.mPan.repaint();
 	}

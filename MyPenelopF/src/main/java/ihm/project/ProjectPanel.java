@@ -15,10 +15,13 @@ import Observer.ProjectListener;
 import Observer.ProjectObserver;
 import classes.Contact;
 import classes.Group;
+import classes.Msg;
 import classes.Project;
+import classes.Task;
 import ihm.FormBuilder;
 import ihm.contact.ContactPanel;
 import ihm.group.GroupPanel;
+import ihm.task.TaskPanel;
 import utils.PenelopDevLogger;
 
 public class ProjectPanel extends JPanel implements ProjectObserver {
@@ -32,10 +35,13 @@ public class ProjectPanel extends JPanel implements ProjectObserver {
 	private JPanel pan;
 	private GroupPanel groupPan;
 	private ContactPanel contactPan;
+	private JPanel contactNav;
+	private TaskPanel taskPan;
+	private JPanel taskNav;
     private CardLayout cl;
 	private final Collection<ProjectListener> projectListeners = new ArrayList<ProjectListener>();
 
-	public ProjectPanel(JPanel pan, CardLayout cl, ArrayList<Project> projects) {
+	public ProjectPanel(JPanel pan, CardLayout cl, ArrayList<Project> projects, boolean edit) {
         final ProjectPanel self = this;
 		this.pan = pan;
 		this.cl = cl;
@@ -43,27 +49,40 @@ public class ProjectPanel extends JPanel implements ProjectObserver {
 		if (projects != null) {
 			for (final Project project: projects)
 			{
-		        JPanel projectPan = new JPanel();
-				GridLayout gl = new GridLayout(8, 2, 5, 5);
+				// Card and Panel init + layout
+				JPanel card = new JPanel();
+				JPanel projectPan = new JPanel();
+				GridLayout gl = new GridLayout(4, 3, 5, 5);
 				projectPan.setLayout(gl);
 				// project content
 				JLabel tmp = new JLabel("Project N°" + project.getId() + " | Name: " + project.getName() + " | Description: " + project.getDescription());
-				JPanel card = new JPanel();
 				projectPan.add(tmp);
-				// Associations
-				ArrayList<Group> groups = project.getGroups();
-				ArrayList<Contact> contacts = project.getContacts();
-				log._("From project");
-				log._(project);
-				log._("Groups in ProjectPanel constructor:  ");
-				log.groups(groups);
-				log._("Contacts in ProjectPanel constructor:  ");
-				log.contacts(contacts);
-		        this.groupPan = new GroupPanel(new JPanel(), new CardLayout(), groups);
-		        projectPan.add(this.groupPan.getPan());
-		        this.contactPan = new ContactPanel(new JPanel(), new CardLayout(), contacts);
-		        projectPan.add(this.contactPan.getPan());
-				if (projectListeners.size() > 0) {
+				if (edit) {
+					log._("EDIT MODE FOR PROJECT");
+					// Associations
+					ArrayList<Group> groups = project.getGroups();
+					ArrayList<Contact> contacts = project.getContacts();
+					ArrayList<Task> tasks = project.getTasks();
+			        this.taskPan = new TaskPanel(new JPanel(), new CardLayout(), tasks);
+			        this.taskNav = this._fb.getNavPanel(this.taskPan.getCard(), this.taskPan.getPan());
+			        projectPan.add(this.taskNav);
+			        projectPan.add(this.taskPan.getPan());
+			        this.groupPan = new GroupPanel(new JPanel(), new CardLayout(), groups);
+			        projectPan.add(this.groupPan.getPan());
+			        this.contactPan = new ContactPanel(new JPanel(), new CardLayout(), contacts, false);
+			        this.contactNav = this._fb.getNavPanel(this.contactPan.getCard(), this.contactPan.getPan());
+			        projectPan.add(this.contactNav);
+			        projectPan.add(this.contactPan.getPan());
+			    	// related messages
+			        ArrayList<Msg> messages = project.getMessages();
+			    	JPanel compiledMsgs = new JPanel();
+			    	if (messages.size() > 0) {
+			    		compiledMsgs.add(new JLabel("Message: "));
+			    	}
+			    	for (int iterator = 0; iterator < messages.size(); iterator++) {
+			    		compiledMsgs.add(new JLabel(messages.get(iterator).getContent()));
+			    	}
+			    	projectPan.add(compiledMsgs);
 					JButton del = new JButton("Delete");
 					del.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent event) {
@@ -92,7 +111,7 @@ public class ProjectPanel extends JPanel implements ProjectObserver {
 	public CardLayout getCard() {
 		return this.cl;
 	}
-	
+
 	public void addProjectListener(ProjectListener listener) {
 		if (!this.projectListeners.contains(listener)) {
 			this.projectListeners.add(listener);

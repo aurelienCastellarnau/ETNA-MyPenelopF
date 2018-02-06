@@ -38,21 +38,23 @@ public class TaskPanel extends JPanel implements TaskObserver {
 			{
 				JLabel tmp = new JLabel("Task N°" + task.getId() + " | Description: " + task.getDescription() + " | Project n°" + task.getPId());
 				JPanel card = new JPanel();
-				JButton del = new JButton("Delete");
-				del.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent event) {
-						self.triggerDeleteTask(task);
-					}
-				});
-				JButton up = new JButton("Update");
-				up.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent event) {
-						self.triggerShowUpdate(task);
-					}
-				});
 				card.add(tmp);
-				card.add(up);
-				card.add(del);
+				if (tasksListeners.size() > 0) {
+					JButton del = new JButton("Delete");
+					del.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent event) {
+							self.triggerDeleteTask(task);
+						}
+					});
+					JButton up = new JButton("Update");
+					up.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent event) {
+							self.triggerShowUpdate(task);
+						}
+					});
+					card.add(up);
+					card.add(del);
+				}
 				this.pan.add(card, task.getId().toString());
 			}
 		}

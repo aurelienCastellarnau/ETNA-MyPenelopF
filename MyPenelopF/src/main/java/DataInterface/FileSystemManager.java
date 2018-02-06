@@ -113,6 +113,7 @@ public class FileSystemManager implements DataInterface {
 			log._("Exception trhowed in writeContacts(): " + e.getMessage());
 		}
 	}
+
 	public ArrayList<Contact> getContacts() {
 		try {
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/users.json"));
@@ -124,6 +125,7 @@ public class FileSystemManager implements DataInterface {
 			return null;
 		}
 	}
+
 	/**
 	 * Write the new groups List in the file groups.
 	 * @param groups

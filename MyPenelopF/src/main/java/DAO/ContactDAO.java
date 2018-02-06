@@ -167,6 +167,7 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 			}
 			return cProjects;
 		}
+		
 		/**
 		 * Retrieve Contact.messages from Contact.mIds
 		 */
@@ -184,6 +185,7 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 			}
 			return cMsgs;
 		}
+
 		/**
 		 * Retrieve Contact.groups from Group.uIds (not from Contact.gIds...)
 		 * For an ArrayList

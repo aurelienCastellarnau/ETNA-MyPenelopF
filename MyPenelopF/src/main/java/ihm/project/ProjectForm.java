@@ -111,6 +111,7 @@ public class ProjectForm extends JPanel implements ProjectObserver  {
 		GridLayout gl = new GridLayout(5, 1, 5, 5);
 		this.pan = pan;
 		this.pan.setLayout(gl);
+		this.title = new JLabel("Update project n°" + project.getId().toString());
 		this.pan.add(this.title);
 		this.pan.add(this.name);
 		this.getNameInput().setText(project.getName());
