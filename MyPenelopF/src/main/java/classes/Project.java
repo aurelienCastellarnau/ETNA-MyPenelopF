@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import DAO.ContactDAO;
 import DAO.ProjectDAO;
 import DataInterface.FileSystemManager;
 
@@ -29,6 +28,7 @@ public class Project extends Item {
 	private Map<String, String> documents = new HashMap<String, String>();
 
 	static private int autoincrement = 0;
+
 	static private int increment() {
 		return ++Project.autoincrement;
 	}
@@ -41,17 +41,19 @@ public class Project extends Item {
 				Project p = projects.get(iterator);
 				if (p.getId() > id)
 					id = p.getId();
-				}
+			}
 		}
 		return id;
 	}
+
 	public Project() {
 		super();
 		this.id = Project.increment();
 	}
-	
+
 	/**
 	 * Constructeur appelle quand le projet est cree depuis un nouveau dossier.
+	 * 
 	 * @param name
 	 */
 	public Project(String name) {
@@ -65,17 +67,18 @@ public class Project extends Item {
 		this.name = name;
 		this.description = description;
 	}
+
 	public Project(Integer id, String name, String description) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 	}
+
 	public Project(String name, String description, ArrayList<Task> tasks) {
 		this.name = name;
 		this.description = description;
 		this.tasks = tasks;
 	}
-
 
 	public Integer getId() {
 		return this.id;
@@ -104,10 +107,12 @@ public class Project extends Item {
 	public ArrayList<Group> getGroups() {
 		return this.groups;
 	}
+
 	public List<Integer> getGIds() {
 		return this.gIds;
 	}
-	public void setGids( ArrayList<Integer> gIds){
+
+	public void setGids(ArrayList<Integer> gIds) {
 		this.gIds = gIds;
 	}
 
@@ -118,21 +123,22 @@ public class Project extends Item {
 	public ArrayList<Contact> getContacts() {
 		return this.users;
 	}
+
 	public List<Integer> getUIds() {
 		return this.uIds;
 	}
-	public void setUids( ArrayList<Integer> uIds){
+
+	public void setUids(ArrayList<Integer> uIds) {
 		this.uIds = uIds;
 	}
-
 
 	public ArrayList<Task> getTasks() {
 		return this.tasks;
 	}
+
 	public List<Integer> getTIds() {
 		return this.tIds;
 	}
-
 
 	public Map<String, String> getDocuments() {
 		return this.documents;
@@ -141,16 +147,18 @@ public class Project extends Item {
 	// Contacts mutators
 	public void setContacts(ArrayList<Contact> users) {
 		this.users = users;
-		for (int iterator = 0; iterator < this.users.size(); iterator ++) {
+		for (int iterator = 0; iterator < this.users.size(); iterator++) {
 			this.uIds.add(this.users.get(iterator).getId());
 		}
 	}
+
 	public void addContact(Contact c) {
 		if (!this.users.contains(c)) {
 			this.users.add(c);
 			this.uIds.add(c.getId());
 		}
 	}
+
 	public void deleteContact(Contact c) {
 		if (this.users.contains(c)) {
 			this.users.remove(c);
@@ -160,20 +168,20 @@ public class Project extends Item {
 
 	// Documents mutators
 	public void setDocuments(ArrayList<Document> documents) {
-		for (Document doc: documents) {
+		for (Document doc : documents) {
 			this.documents.put(doc.getName(), doc.getPath());
 		}
 	}
-	
+
 	public void addDocument(Document d) {
 		if (!this.documents.containsKey(d.getName())) {
 			this.documents.put(d.getName(), d.getPath());
 		}
 	}
-	
+
 	public void deleteDocument(Document d) {
 		if (this.documents.containsKey(d.getName())) {
-			this.documents.remove(d);
+			this.documents.remove(d.getName());
 		}
 	}
 
@@ -184,12 +192,14 @@ public class Project extends Item {
 			this.tIds.add(this.tasks.get(iterator).getId());
 		}
 	}
+
 	public void addTask(Task t) {
 		if (!this.tasks.contains(t)) {
 			this.tasks.add(t);
 			this.tIds.add(t.getId());
 		}
 	}
+
 	public void deleteTask(Task task) {
 		if (this.tasks.contains(task)) {
 			this.tasks.remove(task);
@@ -198,6 +208,6 @@ public class Project extends Item {
 
 	@Override
 	public String toString() {
-	    return name;
+		return name;
 	}
 }
