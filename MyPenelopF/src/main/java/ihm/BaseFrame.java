@@ -82,7 +82,7 @@ public class BaseFrame extends JFrame {
 		this.tCtrl.testCtrl();
         this.setTitle("MyPenelopF");
         this.setResizable(true);
-        this.setLayout(new BorderLayout());
+        getContentPane().setLayout(new BorderLayout());
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocation(250, 250);
@@ -110,6 +110,7 @@ public class BaseFrame extends JFrame {
 	 * BaseFrame for Contact Update
 	 * Display ContactForm with c
 	 * Allow to update a Contact
+	 * @wbp.parser.constructor
 	 */
 	public BaseFrame(ContactController cCtrl, Contact c) {
 		this.cCtrl = cCtrl;
@@ -123,7 +124,7 @@ public class BaseFrame extends JFrame {
         this.updateContact = new ContactForm(new JPanel(), c);
         this.updateContact.addContactListener(this.cCtrl);
         this.setSize(800, 800);
-        this.setLayout(gl);
+        getContentPane().setLayout(gl);
         this.getContentPane().add(this.updateContact.getPan());
         this.setVisible(true);
 	}
@@ -148,7 +149,7 @@ public class BaseFrame extends JFrame {
 		this.updateProject = new ProjectForm(new JPanel(), p);
 		this.updateProject.addProjectListener(this.pCtrl);
 		this.setSize(800, 800);
-		this.setLayout(gl);
+		getContentPane().setLayout(gl);
 		this.getContentPane().add(this.updateProject.getPan());
 		this.setVisible(true);
 	}
@@ -165,7 +166,7 @@ public class BaseFrame extends JFrame {
         this.updateGroup = new FormGroup(new JPanel(), group);
         this.updateGroup.addGroupListener(this.gCtrl);
         this.setSize(800, 800);
-        this.setLayout(gl);
+        getContentPane().setLayout(gl);
         this.getContentPane().add(this.updateGroup.getPan());
         this.setVisible(true);
 	}
@@ -190,7 +191,7 @@ public class BaseFrame extends JFrame {
 		this.updateTask = new TaskForm(new JPanel(), t);
 		this.updateTask.addTaskListener(this.tCtrl);
 		this.setSize(800, 800);
-		this.setLayout(gl);
+		getContentPane().setLayout(gl);
 		this.getContentPane().add(this.updateTask.getPan());
 		this.setVisible(true);
 	}

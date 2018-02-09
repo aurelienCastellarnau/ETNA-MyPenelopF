@@ -101,6 +101,18 @@ public class ProjectDAO extends DAO<Project> implements ProjectDAOReceipe, Proje
 		}
 		return projects;
 	}
+	
+	public Project getOneProject(String name) {
+		System.out.println("in get One Project" + name);
+		ArrayList<Project> projects = this.get();
+		Project p = null;
+		for (Project project: projects) {
+			if (name.equals(project.getName()))
+				p = project;
+		}
+		System.out.println("p is " + p);
+		return p;
+	}
 
 	/**
 	 * Retrieve Project.groups from Group.pIds (not from Project.gIds...)

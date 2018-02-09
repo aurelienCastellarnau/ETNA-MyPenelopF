@@ -67,6 +67,9 @@ public class ContactForm extends JPanel implements ContactObserver {
 		this.pan.add(this.createButton);
 	}
 	
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public ContactForm(JPanel pan, GroupController gCtrl, ProjectController pCtrl) {
 		ArrayList<Project> p = pCtrl.getPDAO().get();
 		ArrayList<Group> g = gCtrl.getGroupDAO().get();

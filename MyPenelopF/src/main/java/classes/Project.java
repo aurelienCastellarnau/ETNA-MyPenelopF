@@ -1,7 +1,9 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import DAO.ContactDAO;
 import DAO.ProjectDAO;
@@ -24,8 +26,7 @@ public class Project extends Item {
 	private transient ArrayList<Task> tasks = new ArrayList<Task>();
 	private List<Integer> tIds = new ArrayList<Integer>();
 
-	private transient ArrayList<Document> documents = new ArrayList<Document>();
-	private List<Integer> dIds = new ArrayList<Integer>();
+	private Map<String, String> documents = new HashMap<String, String>();
 
 	static private int autoincrement = 0;
 	static private int increment() {
@@ -47,6 +48,15 @@ public class Project extends Item {
 	public Project() {
 		super();
 		this.id = Project.increment();
+	}
+	
+	/**
+	 * Constructeur appelle quand le projet est cree depuis un nouveau dossier.
+	 * @param name
+	 */
+	public Project(String name) {
+		Project.autoincrement = this.lastId();
+		this.name = name;
 	}
 
 	public Project(String name, String description) {
@@ -124,11 +134,8 @@ public class Project extends Item {
 	}
 
 
-	public ArrayList<Document> getDocuments() {
+	public Map<String, String> getDocuments() {
 		return this.documents;
-	}
-	public List<Integer> getDIds() {
-		return this.dIds;
 	}
 
 	// Contacts mutators
@@ -153,21 +160,20 @@ public class Project extends Item {
 
 	// Documents mutators
 	public void setDocuments(ArrayList<Document> documents) {
-		this.documents = documents;
-		for (int iterator = 0; iterator < this.documents.size(); iterator++) {
-			this.dIds.add(this.documents.get(iterator).getId());
+		for (Document doc: documents) {
+			this.documents.put(doc.getName(), doc.getPath());
 		}
 	}
+	
 	public void addDocument(Document d) {
-		if (!this.documents.contains(d)) {
-			this.documents.add(d);
-			this.dIds.add(d.getId());
+		if (!this.documents.containsKey(d.getName())) {
+			this.documents.put(d.getName(), d.getPath());
 		}
 	}
+	
 	public void deleteDocument(Document d) {
-		if (this.documents.contains(d)) {
+		if (this.documents.containsKey(d.getName())) {
 			this.documents.remove(d);
-			this.dIds.remove(d.getId());
 		}
 	}
 
