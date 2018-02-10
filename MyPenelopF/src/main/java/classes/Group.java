@@ -95,12 +95,16 @@ public class Group extends Item {
 		this.name = name;
 	}
 
-	public void setPids(ArrayList<Integer> pIds) {
-		this.pIds = pIds;
+	public void linkProjects(ArrayList<Project> projects) {
+		for (Project project: projects) {
+			this.pIds.add(project.getId());
+		}
 	}
 
-	public void setUids(ArrayList<Integer> uIds) {
-		this.uIds = uIds;
+	public void linkUsers(ArrayList<Contact> contacts) {
+		for (Contact contact: contacts) {
+			this.uIds.add(contact.getId());
+		}
 	}
 
 	public void setUsers(ArrayList<Contact> users) {

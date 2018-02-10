@@ -92,13 +92,13 @@ public class ProjectForm extends JPanel implements ProjectObserver  {
 	     					self.getNameInput().getText(),
 	     					self.getDescriptionInput().getText()
 	     				);
-	     		ArrayList<Integer> cIds = formatUids();
-	     		ArrayList<Integer> gIds = formatGids();
-	     		if (!cIds.isEmpty()) {
-	     			p.setUids(cIds);
+	     		ArrayList<Contact> contacts = getUsersFromList();
+	     		ArrayList<Group> groups = getGroupsFromList();
+	     		if (!contacts.isEmpty()) {
+	     			p.LinkUsers(contacts);
 	     		}
-	     		if (!gIds.isEmpty()) {
-	     			p.setGids(gIds);
+	     		if (!groups.isEmpty()) {
+	     			p.LinkGroups(groups);
 	     		}
 	     		self.triggerCreateProject(p);
 	     	}
@@ -193,26 +193,26 @@ public class ProjectForm extends JPanel implements ProjectObserver  {
 		
 	}
 	
-	ArrayList<Integer> formatUids() {
+	ArrayList<Contact> getUsersFromList() {
 		Object[] users =  this.cList.getSelectedValues();
-		ArrayList<Integer> uIds = new ArrayList<Integer>();
+		ArrayList<Contact> aUsers = new ArrayList<Contact>();
 		for (Object user: users) {
 			Contact newUser = (Contact)user;
 			System.out.println(newUser.getName());
-			uIds.add(newUser.getId());
+			aUsers.add(newUser);
 		}
-		return uIds;
+		return aUsers;
 	}
 	
-	ArrayList<Integer> formatGids() {
+	ArrayList<Group> getGroupsFromList() {
 		Object[] groups =  this.gList.getSelectedValues();
-		ArrayList<Integer> uIds = new ArrayList<Integer>();
+		ArrayList<Group> aGroups = new ArrayList<Group>();
 		for (Object group: groups) {
 			Group newGroup = (Group)group;
 			System.out.println(newGroup.getName());
-			uIds.add(newGroup.getId());
+			aGroups.add(newGroup);
 		}
-		return uIds;
+		return aGroups;
 	}
 
 }

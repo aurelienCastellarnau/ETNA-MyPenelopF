@@ -112,8 +112,10 @@ public class Project extends Item {
 		return this.gIds;
 	}
 
-	public void setGids(ArrayList<Integer> gIds) {
-		this.gIds = gIds;
+	public void LinkGroups(ArrayList<Group> groups) {
+		for (Group group: groups) {
+			this.gIds.add(group.getId());
+		}
 	}
 
 	public void setGroups(ArrayList<Group> groups) {
@@ -128,8 +130,10 @@ public class Project extends Item {
 		return this.uIds;
 	}
 
-	public void setUids(ArrayList<Integer> uIds) {
-		this.uIds = uIds;
+	public void LinkUsers(ArrayList<Contact> contacts) {
+		for (Contact contact: contacts) {
+			this.uIds.add(contact.getId());
+		}
 	}
 
 	public ArrayList<Task> getTasks() {
