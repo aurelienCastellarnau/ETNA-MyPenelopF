@@ -1,6 +1,10 @@
 package controllers;
 
 import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import DAO.ContactDAO;
 import DAO.DAOFactory;
@@ -10,6 +14,7 @@ import DAO.TaskDAO;
 import DataInterface.DataInterface;
 import ihm.BaseFrame;
 import ihm.dashboardPanel;
+import utils.DocumentLooker;
 import utils.PenelopDevLogger;
 
 public class AppController implements PenelopeController {
@@ -20,6 +25,7 @@ public class AppController implements PenelopeController {
 	private GroupDAO gDAO = null;
 	private TaskDAO tDAO = null;
 	private BaseFrame Dashboard = null;
+	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 	public AppController(DataInterface di) {
 		this.cDAO = (ContactDAO)DAOFactory.getContactDAO(di);
@@ -27,16 +33,21 @@ public class AppController implements PenelopeController {
 		this.gDAO = (GroupDAO)DAOFactory.getGroupDAO(di);
 		this.tDAO = (TaskDAO)DAOFactory.getTaskDAO(di);
 	}
+	
 	public void init() {
-    	this.ctrls.put("group", new GroupController(this.gDAO));
-    	this.ctrls.put("contact", new ContactController(this.cDAO));
-    	this.ctrls.put("project", new ProjectController(this.pDAO));
-    	this.ctrls.put("task", new TaskController(this.tDAO));
-    	for (String key: this.ctrls.keySet())
-    		ctrls.get(key).init();
-    	this.initViews(ctrls);
-    	log._("APP PENELOPE INITIALISED");
+		this.ctrls.put("group", new GroupController(this.gDAO));
+    		this.ctrls.put("contact", new ContactController(this.cDAO));
+    		this.ctrls.put("project", new ProjectController(this.pDAO));
+    		this.ctrls.put("task", new TaskController(this.tDAO));
+    		for (String key: this.ctrls.keySet())
+    			ctrls.get(key).init();
+    		this.initViews(ctrls);
+    		final DocumentLooker bigBrother = new DocumentLooker((ProjectController)ctrls.get("project"));
+    		final ScheduledFuture<?> beeperHandle =
+    			scheduler.scheduleAtFixedRate((Runnable)bigBrother, 5, 30, TimeUnit.SECONDS);
+    		log._("APP PENELOPE INITIALISED");
 	}
+	
 	private void initViews(HashMap<String, PenelopeController> ctrls) {
 		ContactController cCtrl = (ContactController)ctrls.get("contact");
 		ProjectController pCtrl = (ProjectController)ctrls.get("project");
@@ -51,6 +62,7 @@ public class AppController implements PenelopeController {
 			tCtrl.setDashboard(this.getDashboard());
 		}
 	}
+	
 	public ContactDAO getContactDAO() {
 		return this.cDAO;
 	}

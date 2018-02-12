@@ -138,11 +138,15 @@ public class Contact extends Item {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public void setPids(ArrayList<Integer> pIds) {
-		this.pIds = pIds;
+	public void linkProjects(ArrayList<Project> projects) {
+		for (Project project: projects) {
+			this.pIds.add(project.getId());
+		}
 	}
-	public void setGids(ArrayList<Integer> gIds) {
-		this.gIds = gIds;
+	public void LinkGroups(ArrayList<Group> groups) {
+		for (Group group: groups) {
+			this.gIds.add(group.getId());
+		}
 	}
 	public void setGroups(ArrayList<Group> groups) {
 		this.groups = groups;

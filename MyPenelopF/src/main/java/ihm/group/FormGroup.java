@@ -63,14 +63,14 @@ public class FormGroup extends JPanel implements GroupObserver{
 		this.submit.addActionListener(new ActionListener() {
 	     	public void actionPerformed(ActionEvent event) {
 	     		Group g = new Group(self.getNameInput().getText());
-	     		ArrayList<Integer> pIds = formatPids();
-	     		ArrayList<Integer> uIds = formatUids();
+	     		ArrayList<Project> projects = getProjectsFromList();
+	     		ArrayList<Contact> users = getUsersFromList();
 	    		
-	     		if (!pIds.isEmpty()) {
-	     			g.setPids(pIds);
+	     		if (!projects.isEmpty()) {
+	     			g.linkProjects(projects);
 	     		}
-	     		if (!uIds.isEmpty()) {
-	     			g.setUids(uIds);
+	     		if (!users.isEmpty()) {
+	     			g.linkUsers(users);
 	     		}
 	     		self.triggerCreateGroup(g);
 	     	}
@@ -113,7 +113,7 @@ public class FormGroup extends JPanel implements GroupObserver{
 	public void addGroupListener(GroupListener listener) {
 		this.formGroupListeners.add(listener);
 	}
-	public void removeFormGroupListener(CreateGroupListener listener) {
+	public void removeFormGroupListener(GroupListener listener) {
 		this.formGroupListeners.remove(listener);
 	}
 	
@@ -121,26 +121,26 @@ public class FormGroup extends JPanel implements GroupObserver{
 		return (JTextField)this.name.getComponent(1);
 	}
 	
-	ArrayList<Integer> formatPids() {
+	ArrayList<Project> getProjectsFromList() {
 		Object[] projects =  this.pList.getSelectedValues();
-		ArrayList<Integer> pIds = new ArrayList<Integer>();
+		ArrayList<Project> aProjects = new ArrayList<Project>();
 		for (Object project: projects) {
 			Project newProject = (Project)project;
 			System.out.println(newProject.getName());
-			pIds.add(newProject.getId());
+			aProjects.add(newProject);
 		}
-		return pIds;
+		return aProjects;
 	}
 	
-	ArrayList<Integer> formatUids() {
+	ArrayList<Contact> getUsersFromList() {
 		Object[] users =  this.uList.getSelectedValues();
-		ArrayList<Integer> uIds = new ArrayList<Integer>();
+		ArrayList<Contact> aUsers = new ArrayList<Contact>();
 		for (Object user: users) {
 			Contact newUser = (Contact)user;
 			System.out.println(newUser.getName());
-			uIds.add(newUser.getId());
+			aUsers.add(newUser);
 		}
-		return uIds;
+		return aUsers;
 	}
 	
 	public void triggerCreateGroup(Group group) {

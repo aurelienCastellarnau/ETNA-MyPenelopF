@@ -148,10 +148,10 @@ public class FileSystemManager implements DataInterface {
 	 */
 	public void writeProjects(ArrayList<Project> projects) {
 		Gson gson = new Gson();
-    	String json = gson.toJson(projects);
+    		String json = gson.toJson(projects);
 		try {
 			FileWriter fileWriter = new FileWriter(this.project_path + this.projectFile);
-    		fileWriter.write(json);
+    			fileWriter.write(json);
             fileWriter.close();
 		} catch (IOException e) {
 			log._("Exception trhowed in writeContacts(): " + e.getMessage());
