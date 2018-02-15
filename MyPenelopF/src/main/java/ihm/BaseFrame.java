@@ -2,7 +2,7 @@ package ihm;
 
 import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
-import ihm.group.FormGroup;
+import ihm.group.GroupForm;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 import ihm.task.TaskForm;
@@ -15,7 +15,6 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import classes.Contact;
@@ -32,14 +31,15 @@ import controllers.TaskController;
  *
  * @author aurelien
  * This classe allow us to declare base views for each entities
- * in few time we will split those constructors in several classes
+ * The main window is define here as a suits of update forms for
+ * each entity.
  */
 public class BaseFrame extends JFrame {
+	
 	/**
 	 * JFrame implementation requirement
 	 */
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 4648369832000775054L;
 	/**
 	 * Controllers
 	 */

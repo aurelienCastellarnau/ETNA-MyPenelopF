@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import classes.Contact;
 import classes.Group;
@@ -18,13 +17,13 @@ import controllers.ProjectController;
 import controllers.TaskController;
 import ihm.contact.ContactForm;
 import ihm.contact.ContactPanel;
-import ihm.group.FormGroup;
+import ihm.group.GroupForm;
 import ihm.group.GroupPanel;
 import ihm.project.ProjectForm;
 import ihm.project.ProjectPanel;
 import ihm.task.TaskForm;
 import ihm.task.TaskPanel;
-import utils.PenelopDevLogger;
+// import utils.PenelopDevLogger;
 
 /**
  *
@@ -33,17 +32,12 @@ import utils.PenelopDevLogger;
  */
 public class dashboardPanel implements ViewListener {
 
-	private static final PenelopDevLogger log = PenelopDevLogger.get();
+	// private static final PenelopDevLogger log = PenelopDevLogger.get();
 
 	/**
 	 * Declaration du Panel Principal
 	 */
 	private JPanel  mPan;
-	private JScrollPane sPan;
-	private JPanel contactNavPan;
-	private JPanel projectNavPan;
-	private JPanel taskNavPan;
-	private FormBuilder _fb = new FormBuilder();
 
 	/**
 	 * Panels pouvant etre appelles dans le panel parent mPan
@@ -53,7 +47,7 @@ public class dashboardPanel implements ViewListener {
 	private ContactPanel contactPanel;
 	// group
 	private GroupPanel groupPanel;
-	private FormGroup groupCreate;
+	private GroupForm groupCreate;
 	// project
 	private ProjectForm projectForm;
 	private ProjectPanel projectPanel;

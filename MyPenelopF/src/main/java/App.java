@@ -2,7 +2,6 @@ import java.io.IOException;
 
 import DataInterface.FileSystemManager;
 import controllers.AppController;
-import utils.DocumentLooker;
 
 /*
  * MyPenelopeF entry point
