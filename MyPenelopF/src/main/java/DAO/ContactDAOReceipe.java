@@ -36,10 +36,4 @@ public interface ContactDAOReceipe {
 	 * @return ArrayList<Msg>
 	 */
 	public ArrayList<Msg> getMsgs(Contact c);
-	/**
-	 *  Same as getGroups but for an ArrayList
-	 *  Build the content for each contact
-	 * @param contacts
-	 */
-	public void buildContactsGroups(ArrayList<Contact> contacts);
 }
