@@ -11,8 +11,5 @@ public class App
 {
 	static final AppController ctrl = new AppController(FileSystemManager.get());
 	
-    public static void main( String[] args ) throws IOException{
-    		App.ctrl.init();
- 
-    }
+    public static void main( String[] args ) throws IOException{}
 }
