@@ -9,7 +9,9 @@ public abstract class Item {
 
 	public Item() {}
 	public Item(ArrayList<Msg> msgs) {
-		this.setMessages(msgs);
+		if (msgs != null && !msgs.isEmpty()) {
+			this.setMessages(msgs);	
+		}
 	}
 	public ArrayList<Msg> getMessages() {
 		return this.messages;
@@ -27,12 +29,14 @@ public abstract class Item {
 	public void addMessage(Msg m) {
 		if (!this.messages.contains(m)) {
 			this.messages.add(m);
+		if (!this.mIds.contains(m.getId()))
 			this.mIds.add(m.getId());
 		}
 	}
 	public void deleteMessage(Msg m) {
 		if (this.messages.contains(m)) {
 			this.messages.remove(m);
+		if (this.mIds.contains(m.getId()))
 			this.mIds.remove(m.getId());
 		}
 	}
