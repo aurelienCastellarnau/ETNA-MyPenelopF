@@ -10,7 +10,7 @@ import Observer.ContactListener;
 import Observer.ContactObserver;
 import classes.Contact;
 import classes.Group;
-import classes.Msg;
+import classes.Msgs;
 import classes.Project;
 import utils.PenelopDevLogger;
 
@@ -170,11 +170,11 @@ public class ContactDAO extends DAO<Contact> implements ContactDAOReceipe, Conta
 	/**
 	 * Retrieve Contact.messages from Contact.mIds
 	 */
-	public ArrayList<Msg> getMsgs(Contact c) {
-		ArrayList<Msg> msgs = this.di.readMsgs();
-		ArrayList<Msg> cMsgs = new ArrayList<Msg>();
+	public ArrayList<Msgs> getMsgs(Contact c) {
+		ArrayList<Msgs> msgs = this.di.readMsgs();
+		ArrayList<Msgs> cMsgs = new ArrayList<Msgs>();
 		for (int iterator = 0; iterator < msgs.size(); iterator++) {
-			Msg m = msgs.get(iterator);
+			Msgs m = msgs.get(iterator);
 			List<Integer> ids = c.getMIds();
 			for (int it = 0; it < ids.size(); it++) {
 				if (ids.get(it) == m.getId()) {

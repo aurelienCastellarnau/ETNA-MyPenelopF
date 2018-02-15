@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import classes.Contact;
 import classes.Group;
-import classes.Msg;
+import classes.Msgs;
 import classes.Project;
 import controllers.ContactController;
 import controllers.GroupController;
@@ -97,7 +97,7 @@ public class ContactForm extends JPanel  {
 	     					self.getNameInput().getText(),
 	     					getGroupsFromList(),
 	     					getProjectsFromList(),
-	     					new ArrayList<Msg>()
+	     					new ArrayList<Msgs>()
 	     				);
 	     		cCtrl.getDAO().add(c);
 	     	}
@@ -119,7 +119,7 @@ public class ContactForm extends JPanel  {
 		this.pan.add(this.name);
 		final ContactForm self = this;
 		final int id = contact.getId();
-		final ArrayList<Msg> msgs = contact.getMessages();
+		final ArrayList<Msgs> msgs = contact.getMessages();
 		final ArrayList<Project> projects = contact.getProjects();
 		final ArrayList<Group> groups = contact.getGroups();
 		this.updateButton.setPreferredSize(this._vb.getButtonSize());

@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 import classes.Contact;
 import classes.Group;
-import classes.Msg;
+import classes.Msgs;
 import classes.Project;
 import classes.Task;
 import controllers.ContactController;
@@ -120,7 +120,7 @@ public class ProjectPanel extends JPanel {
 			       								  );
 			   	
 			    // related messages ===================
-			    ArrayList<Msg> messages = project.getMessages();
+			    ArrayList<Msgs> messages = project.getMessages();
 			   	JPanel compiledMsgs = new JPanel();
 			   	if (messages.size() > 0) {
 			   		compiledMsgs.add(new JLabel("Message: "));

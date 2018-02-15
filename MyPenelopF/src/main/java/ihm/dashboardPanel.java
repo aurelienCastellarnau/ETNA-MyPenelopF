@@ -1,7 +1,6 @@
 package ihm;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -23,6 +22,7 @@ import ihm.project.ProjectForm;
 import ihm.project.ProjectPanel;
 import ihm.task.TaskForm;
 import ihm.task.TaskPanel;
+import ihm.PeneViewListener;
 // import utils.PenelopDevLogger;
 
 /**
@@ -30,7 +30,7 @@ import ihm.task.TaskPanel;
  * @author kumatetsu
  * Front Controller for the dashboard view
  */
-public class dashboardPanel implements ViewListener {
+public class dashboardPanel implements PeneViewListener {
 
 	// private static final PenelopDevLogger log = PenelopDevLogger.get();
 

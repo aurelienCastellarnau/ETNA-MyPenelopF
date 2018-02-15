@@ -9,7 +9,6 @@ import DAO.ContactDAO;
 import DataInterface.FileSystemManager;
 import classes.Contact;
 import classes.Group;
-import classes.Msg;
 
 /**
  * @author aurelien
@@ -77,7 +76,7 @@ public class Contact extends Item {
 		// Logic to retrieve groups is in ContactDAO
 	}
 	// surcharged 'no-project' constructor
-	public Contact(String email, String surname, String name, ArrayList<Group> groups, ArrayList<Project> projects, ArrayList<Msg> messages) {
+	public Contact(String email, String surname, String name, ArrayList<Group> groups, ArrayList<Project> projects, ArrayList<Msgs> messages) {
 		super(messages);
 		Contact.autoincrement = this.lastId();
 		this.id = Contact.increment();
@@ -89,7 +88,7 @@ public class Contact extends Item {
 		this.setMessages(messages);
 	}
 	// surcharged 'full' constructor
-	public Contact(Integer id, String email, String surname, String name, ArrayList<Group> groups, ArrayList<Project>projects, ArrayList<Msg> messages) {
+	public Contact(Integer id, String email, String surname, String name, ArrayList<Group> groups, ArrayList<Project>projects, ArrayList<Msgs> messages) {
 		super(messages);
 		this.id = id;
 		this.email = email;

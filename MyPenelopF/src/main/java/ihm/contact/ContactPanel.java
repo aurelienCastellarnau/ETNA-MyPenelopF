@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import classes.Contact;
 import classes.Group;
-import classes.Msg;
+import classes.Msgs;
 import classes.Project;
 import controllers.ContactController;
 import controllers.GroupController;
@@ -104,7 +104,7 @@ public class ContactPanel extends JPanel {
 	        JPanel contactCard = this.buildContactDisplay(user);
 	        
 	        // related messages
-	        ArrayList<Msg> messages = user.getMessages();
+	        ArrayList<Msgs> messages = user.getMessages();
 	    	JPanel compiledMsgs = new JPanel();
 	    	if (messages.size() > 0) {
 	    		compiledMsgs.add(new JLabel("Message: "));
